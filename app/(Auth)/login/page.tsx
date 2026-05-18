@@ -86,7 +86,7 @@ export default function Login() {
           </form>
 
           <p className="text-center text-zinc-400 mt-8">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/signup" className="text-[#F9671A] font-semibold hover:underline cursor-pointer transition-colors duration-300">
               Sign Up
             </Link>{" "}
