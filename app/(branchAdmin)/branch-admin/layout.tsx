@@ -14,7 +14,8 @@ import {
   Sliders,
   MapPin
 } from "lucide-react";
-import BranchSidebar from "../../components/BranchSidebar";
+import BranchSidebar from "@/components/BranchSidebar";
+
 
 export default function BranchAdminLayout({
   children
