@@ -40,7 +40,6 @@ const MENU_ITEMS: MenuItem[] = [
   { name: "Deliveries", icon: Truck, href: "/branch-admin/deliveries" },
   { name: "Staff", icon: Users, href: "/branch-admin/staff" },
   { name: "Income Reports", icon: BarChart3, href: "/branch-admin/income-reports" },
-  { name: "Income", icon: Coins, href: "/branch-admin/income" },
   { name: "Settings", icon: Settings, href: "/branch-admin/settings" }
 ];
 
