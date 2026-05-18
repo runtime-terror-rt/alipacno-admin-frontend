@@ -11,10 +11,11 @@ export interface CartItem {
   product: Product;
   quantity: number;
   option: string;
+  customPrice?: number;
 }
 
 export const PRODUCTS: Product[] = [
-  { id: "1", name: "Grilled chicken pieces", price: 39.99, originalPrice: 52.99, rating: 4.5, image: "/branch-admin/foods/food1.png" },
+  { id: "1", name: "Grilled chicken pieces", price: 28.90, originalPrice: 52.99, rating: 4.5, image: "/branch-admin/foods/food1.png" },
   { id: "2", name: "Ribeye Steak", price: 39.99, originalPrice: 52.99, rating: 4.5, image: "/branch-admin/foods/food2.png" },
   { id: "3", name: "Vegetable Stir Fry", price: 39.99, originalPrice: 52.99, rating: 4.5, image: "/branch-admin/foods/food3.png" },
   { id: "4", name: "Pork Belly Bao", price: 39.99, originalPrice: 52.99, rating: 4.5, image: "/branch-admin/foods/food4.png" },
