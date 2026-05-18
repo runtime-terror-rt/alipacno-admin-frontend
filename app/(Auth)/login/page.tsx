@@ -27,7 +27,7 @@ export default function Login() {
         {/* Main Product Image */}
         <div className="relative w-full max-w-[260px] md:max-w-[380px] lg:max-w-[500px] h-full top-10 md:top-0 lg:top-0 z-10 transform scale-100 md:scale-110 lg:scale-150 md:left-25">
           <Image
-            src="/logo.png"
+            src="/banner.png"
             alt="Delicious Wrap"
             fill
             className="object-contain drop-shadow-2xl "
