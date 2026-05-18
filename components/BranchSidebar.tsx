@@ -15,7 +15,8 @@ import {
   Coins,
   Settings,
   X,
-  LogOut
+  LogOut,
+  Phone
 } from "lucide-react";
 
 interface BranchSidebarProps {
@@ -33,6 +34,7 @@ const MENU_ITEMS: MenuItem[] = [
   { name: "Dashboard", icon: LayoutDashboard, href: "/branch-admin" },
   { name: "POS", icon: MonitorPlay, href: "/branch-admin/pos" },
   { name: "Orders", icon: ShoppingBag, href: "/branch-admin/orders" },
+  { name: "Call Logs", icon: Phone, href: "/branch-admin/call-logs" },
   { name: "KDS", icon: Tv, href: "/branch-admin/kds" },
   { name: "Inventory", icon: Package, href: "/branch-admin/inventory" },
   { name: "Deliveries", icon: Truck, href: "/branch-admin/deliveries" },
