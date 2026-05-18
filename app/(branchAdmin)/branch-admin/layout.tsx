@@ -74,10 +74,10 @@ export default function BranchAdminLayout({
               <div className="flex items-center text-xs text-zinc-400 space-x-1.5 font-medium">
                 <MapPin className="h-3.5 w-3.5 text-orange-500" />
                 <span>Nearest Branch:</span>
-                <span className="text-orange-500 font-bold">Cloud Gate (The Heart, Chicago)</span>
+                <span className="text-orange-500 font-bold">Cloud Gate (The Bean), Chicago</span>
               </div>
-              <span className="text-[11px] text-zinc-500 mt-0.5 font-bold tracking-wide">
-                {currentTime || "Tue, May 17, 09:53:17 AM"}
+              <span className="text-[11px] text-zinc-505 mt-0.5 font-bold tracking-wide">
+                {currentTime || "Tue, May 12, 09:53:17 AM"}
               </span>
             </div>
           </div>
@@ -87,20 +87,20 @@ export default function BranchAdminLayout({
             
             {/* Status indicators */}
             <div className="hidden lg:flex items-center space-x-4 border-r border-zinc-800/60 pr-6">
-              <div className="flex items-center space-x-1.5 text-xs font-semibold text-zinc-400">
-                <Cloud className="h-3.5 w-3.5 text-zinc-500" />
+              <div className="flex items-center space-x-1.5 text-[10px] font-black tracking-wider uppercase text-emerald-400/90 bg-emerald-500/5 px-2 py-1 rounded-lg border border-emerald-500/10">
+                <Cloud className="h-3.5 w-3.5 text-emerald-450 animate-pulse" />
                 <span>Cloud</span>
               </div>
-              <div className="flex items-center space-x-1.5 text-xs font-semibold text-zinc-400">
-                <Printer className="h-3.5 w-3.5 text-zinc-500" />
+              <div className="flex items-center space-x-1.5 text-[10px] font-black tracking-wider uppercase text-emerald-400/90 bg-emerald-500/5 px-2 py-1 rounded-lg border border-emerald-500/10">
+                <Printer className="h-3.5 w-3.5 text-emerald-450" />
                 <span>Printer</span>
               </div>
-              <div className="flex items-center space-x-1.5 text-xs font-semibold text-zinc-400">
-                <Laptop className="h-3.5 w-3.5 text-zinc-500" />
+              <div className="flex items-center space-x-1.5 text-[10px] font-black tracking-wider uppercase text-emerald-400/90 bg-emerald-500/5 px-2 py-1 rounded-lg border border-emerald-500/10">
+                <Laptop className="h-3.5 w-3.5 text-emerald-450" />
                 <span>Terminal</span>
               </div>
-              <div className="flex items-center space-x-1.5 px-2.5 py-0.5 bg-green-500/10 border border-green-500/20 rounded-full text-[10px] font-bold text-green-500">
-                <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse mr-1" />
+              <div className="flex items-center space-x-1.5 px-3 py-1 bg-emerald-500/10 border border-emerald-500/25 rounded-full text-[10px] font-black text-emerald-400 shadow-md shadow-emerald-500/5">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5" />
                 Connected
               </div>
             </div>

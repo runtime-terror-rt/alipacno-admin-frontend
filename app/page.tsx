@@ -70,23 +70,25 @@ export default function AuthPage() {
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center bg-[#09090b] grid-lines p-4 sm:p-6 md:p-8">
-      {/* Decorative orange background glows */}
-      <div className="mesh-glow absolute top-10 left-10 opacity-30"></div>
-      <div className="mesh-glow absolute bottom-10 right-10 opacity-20"></div>
+      {/* Decorative terracotta background glows matching #CCA693 */}
+      <div className="mesh-glow absolute top-10 left-10 opacity-20"></div>
+      <div className="mesh-glow absolute bottom-10 right-10 opacity-15"></div>
 
       {/* Main Container */}
-      <div className="relative w-full max-w-5xl bg-[#121214] border border-zinc-800/80 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-12 min-h-[580px] z-10">
+      <div className="relative w-full max-w-5xl bg-[#121214] border border-zinc-800/80 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-12 min-h-[580px] z-10 animate-fadeIn">
         
-        {/* LEFT COLUMN: Brand Banner with orange glows */}
+        {/* LEFT COLUMN: Brand Banner with terracotta glows (#CCA693) */}
         <div className="md:col-span-6 relative bg-gradient-to-br from-[#121214] via-[#0d0d0e] to-black flex flex-col justify-center items-center p-8 overflow-hidden border-b md:border-b-0 md:border-r border-zinc-800/50">
-          <div className="absolute inset-0 bg-radial-gradient(circle at 30% 70%, rgba(249, 115, 22, 0.15) 0%, transparent 60%) pointer-events-none" />
+          
+          {/* Terracotta bottom-left radial gradient (Vector 63 replica) */}
+          <div className="absolute inset-0 bg-radial-gradient(circle at 15% 85%, rgba(204, 166, 147, 0.35) 0%, rgba(204, 166, 147, 0.15) 45%, transparent 75%) pointer-events-none" />
           
           {/* Subtle line mesh details */}
           <div className="absolute inset-0 opacity-10 mix-blend-overlay grid-lines pointer-events-none" />
 
-          {/* Logo container with orange glowing ring */}
+          {/* Logo container with terracotta glowing backing */}
           <div className="relative group flex flex-col items-center">
-            <div className="absolute inset-0 bg-orange-500/20 rounded-full blur-3xl group-hover:bg-orange-500/30 transition-all duration-700 w-64 h-64 -translate-y-8" />
+            <div className="absolute inset-0 bg-[#CCA693]/15 rounded-full blur-3xl group-hover:bg-[#CCA693]/25 transition-all duration-700 w-64 h-64 -translate-y-8" />
             
             {/* Banner/Logo display */}
             <div className="relative w-72 h-72 sm:w-80 sm:h-80 transition-transform duration-500 hover:scale-105">
@@ -94,7 +96,7 @@ export default function AuthPage() {
                 src="/banner.png" 
                 alt="Pacino's Banner" 
                 fill 
-                className="object-contain drop-shadow-[0_15px_30px_rgba(249,115,22,0.3)]"
+                className="object-contain drop-shadow-[0_15px_35px_rgba(204,166,147,0.22)]"
                 priority
               />
             </div>
@@ -137,7 +139,7 @@ export default function AuthPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="enter your email"
-                        className="w-full bg-zinc-900/60 border border-zinc-700/80 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
+                        className="w-full bg-zinc-900/60 border border-zinc-700/80 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-zinc-550 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
                       />
                     </div>
                   </div>
@@ -154,12 +156,12 @@ export default function AuthPage() {
                         type={showPassword ? "text" : "password"}
                         required
                         placeholder="enter password"
-                        className="w-full bg-zinc-900/60 border border-zinc-700/80 rounded-xl py-2.5 pl-10 pr-10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
+                        className="w-full bg-zinc-900/60 border border-zinc-700/80 rounded-xl py-2.5 pl-10 pr-10 text-sm text-white placeholder-zinc-550 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-3.5 text-zinc-400 hover:text-white"
+                        className="absolute right-3 top-3.5 text-zinc-400 hover:text-white cursor-pointer"
                       >
                         {showPassword ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
                       </button>
@@ -183,13 +185,13 @@ export default function AuthPage() {
                     }`}>
                       {rememberMe && <Check className="h-3.5 w-3.5 text-white stroke-[3px]" />}
                     </div>
-                    <span className="text-zinc-300 hover:text-white transition-colors">Remember Password</span>
+                    <span className="text-zinc-350 hover:text-white transition-colors">Remember Password</span>
                   </label>
 
                   <button
                     type="button"
                     onClick={() => setAuthState("forgot_password")}
-                    className="text-orange-500 hover:text-orange-400 font-medium transition-colors hover:underline"
+                    className="text-orange-500 hover:text-orange-400 font-semibold transition-colors hover:underline cursor-pointer"
                   >
                     Forgot Password?
                   </button>
@@ -197,15 +199,15 @@ export default function AuthPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-orange-500/20 flex items-center justify-center space-x-2 transition-all hover:translate-y-[-1px] active:translate-y-[1px]"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-sm py-3 px-4 rounded-xl shadow-lg shadow-orange-500/10 flex items-center justify-center space-x-2 transition-all hover:translate-y-[-1px] active:translate-y-[1px] cursor-pointer"
                 >
                   <span>Sign In</span>
                   <ArrowRight className="h-4.5 w-4.5" />
                 </button>
 
-                <div className="text-center text-sm text-zinc-500">
+                <div className="text-center text-xs text-zinc-500 font-semibold">
                   Already have an account?{" "}
-                  <a href="#" className="text-orange-500 font-semibold hover:text-orange-400 transition-colors">
+                  <a href="#" className="text-orange-500 font-bold hover:text-orange-400 transition-colors">
                     Sign Up Here
                   </a>
                 </div>
@@ -218,7 +220,7 @@ export default function AuthPage() {
                 <button
                   type="button"
                   onClick={() => setAuthState("login")}
-                  className="inline-flex items-center text-sm text-zinc-400 hover:text-white transition-colors"
+                  className="inline-flex items-center text-xs font-bold text-zinc-400 hover:text-white transition-colors cursor-pointer"
                 >
                   <ChevronLeft className="h-4 w-4 mr-1" />
                   Back to Login
@@ -244,7 +246,7 @@ export default function AuthPage() {
                         type="email"
                         required
                         placeholder="apramit_schin1@gmail.com"
-                        className="w-full bg-zinc-900/60 border border-zinc-700/80 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
+                        className="w-full bg-zinc-900/60 border border-zinc-700/80 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-zinc-550 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
                       />
                     </div>
                   </div>
@@ -252,7 +254,7 @@ export default function AuthPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-orange-500/20 flex items-center justify-center space-x-2 transition-all hover:translate-y-[-1px] active:translate-y-[1px]"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-sm py-3 px-4 rounded-xl shadow-lg shadow-orange-500/10 flex items-center justify-center space-x-2 transition-all hover:translate-y-[-1px] active:translate-y-[1px] cursor-pointer"
                 >
                   <span>Continue</span>
                   <ArrowRight className="h-4.5 w-4.5" />
@@ -266,7 +268,7 @@ export default function AuthPage() {
                 <button
                   type="button"
                   onClick={() => setAuthState("forgot_password")}
-                  className="inline-flex items-center text-sm text-zinc-400 hover:text-white transition-colors"
+                  className="inline-flex items-center text-xs font-bold text-zinc-400 hover:text-white transition-colors cursor-pointer"
                 >
                   <ChevronLeft className="h-4 w-4 mr-1" />
                   Back
@@ -299,15 +301,15 @@ export default function AuthPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-orange-500/20 flex items-center justify-center space-x-2 transition-all hover:translate-y-[-1px] active:translate-y-[1px]"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-sm py-3 px-4 rounded-xl shadow-lg shadow-orange-500/10 flex items-center justify-center space-x-2 transition-all hover:translate-y-[-1px] active:translate-y-[1px] cursor-pointer"
                 >
                   <span>Verify</span>
                   <ArrowRight className="h-4.5 w-4.5" />
                 </button>
 
-                <div className="text-center text-sm text-zinc-500">
+                <div className="text-center text-sm text-zinc-500 font-semibold">
                   Didn&apos;t receive the code?{" "}
-                  <button type="button" className="text-orange-500 font-semibold hover:text-orange-400 transition-colors">
+                  <button type="button" className="text-orange-500 font-bold hover:text-orange-400 transition-colors cursor-pointer">
                     Resend Code
                   </button>
                 </div>
@@ -337,7 +339,7 @@ export default function AuthPage() {
                         type="password"
                         required
                         placeholder="Enter new password"
-                        className="w-full bg-zinc-900/60 border border-zinc-700/80 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
+                        className="w-full bg-zinc-900/60 border border-zinc-700/80 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-zinc-550 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
                       />
                     </div>
                   </div>
@@ -352,7 +354,7 @@ export default function AuthPage() {
                         type="password"
                         required
                         placeholder="Confirm password"
-                        className="w-full bg-zinc-900/60 border border-zinc-700/80 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
+                        className="w-full bg-zinc-900/60 border border-zinc-700/80 rounded-xl py-2.5 pl-10 pr-4 text-sm text-white placeholder-zinc-550 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all"
                       />
                     </div>
                   </div>
@@ -360,7 +362,7 @@ export default function AuthPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-orange-500/20 flex items-center justify-center space-x-2 transition-all hover:translate-y-[-1px] active:translate-y-[1px]"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-sm py-3 px-4 rounded-xl shadow-lg shadow-orange-500/10 flex items-center justify-center space-x-2 transition-all hover:translate-y-[-1px] active:translate-y-[1px] cursor-pointer"
                 >
                   <span>Update password</span>
                   <ArrowRight className="h-4.5 w-4.5" />
@@ -370,7 +372,7 @@ export default function AuthPage() {
           </div>
 
           {/* QUICK TESTING ACCESS FOOTER */}
-          <div className="mt-8 pt-6 border-t border-zinc-800/80 space-y-3.5">
+          <div className="mt-8 pt-6 border-t border-zinc-800/80 space-y-3">
             <span className="block text-[11px] font-bold text-orange-500 uppercase tracking-widest text-center">
               🔑 Quick Navigation Shortcuts
             </span>
