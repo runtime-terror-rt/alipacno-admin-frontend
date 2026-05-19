@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+<<<<<<< HEAD
 import { Phone,  PhoneMissed, ChevronDown,
   CloudUpload,
 } from "lucide-react";
@@ -10,6 +11,13 @@ import Button from "@/components/admin/ui/Button";
 import DateFiltersBar from "@/components/admin/ui/DateFilterBar";
 import FilterDropdown from "@/components/admin/ui/FilterDropdown";
 import { useRouter } from "next/navigation";
+=======
+import {
+  TrendingUp, TrendingDown, Phone, PhoneIncoming, PhoneMissed,
+  BarChart2, Clock, ChevronLeft, ChevronRight, ChevronDown,
+  Download, MoreVertical,
+} from "lucide-react";
+>>>>>>> e976efd91ef45e56f81f49acf9b670652b8fbdb2
 
 // ── Types ──────────────────────────────────────────────────────────────────
 type CallStatus = "Answered" | "Missed";
@@ -63,6 +71,7 @@ const CONVERTED_ORDERS: ConvertedOrder[] = [
   { time: "08:4PM", number: "+44 3050 244896", customer: "Sarah Mitchell", duration: "04:12", order: "#4569 (£300)", orderType: "Delivery", status: "Completed", postcode: "NW1 6XE" },
 ];
 
+<<<<<<< HEAD
 // const HISTORY_LOGS: CallLogEntry[] = [
 //   { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "orange" },
 //   { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "orange" },
@@ -71,6 +80,59 @@ const CONVERTED_ORDERS: ConvertedOrder[] = [
 //   { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Order Converted", tagVariant: "purple" },
 // ];
 
+=======
+const HISTORY_LOGS: CallLogEntry[] = [
+  { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "orange" },
+  { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "orange" },
+  { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "red" },
+  { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "orange" },
+  { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Order Converted", tagVariant: "purple" },
+];
+
+// ── Stat Card ──────────────────────────────────────────────────────────────
+function StatCard({ title, value, change, positive, note }: { title: string; value: string; change: string; positive: boolean; note?: string }) {
+  return (
+    <div className="relative bg-[#1a1a1c] border border-[#2e2e30] rounded-2xl p-4 overflow-hidden flex-1 min-w-0">
+      <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-[#f9671a]/25 blur-2xl pointer-events-none" />
+      <div className="relative">
+        <div className="w-6 h-6 rounded-lg bg-[#f9671a]/15 flex items-center justify-center mb-2">
+          <div className="w-3 h-3 rounded-sm bg-[#f9671a]/70" />
+        </div>
+        <p className="text-xs text-zinc-400">{title}</p>
+        <p className="text-lg font-bold text-[#f9671a]">{value}</p>
+        <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-[#2e2e30]">
+          <span className={`flex items-center gap-0.5 text-xs font-semibold ${positive ? "text-green-400" : "text-red-400"}`}>
+            {positive ? <TrendingUp size={10} /> : <TrendingDown size={10} />} {change}
+          </span>
+          <span className="text-xs text-zinc-500">{note ?? "vs last period"}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Filter Pill ────────────────────────────────────────────────────────────
+function Pill({ label, active, onClick }: { label: string; active?: boolean; onClick?: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap ${
+        active ? "bg-[#f9671a]/10 text-[#f9671a] border border-[#f9671a]/50" : "bg-[#252527] text-zinc-400 hover:text-white border border-transparent"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function DropPill({ label }: { label: string }) {
+  return (
+    <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#252527] text-zinc-400 hover:text-white text-xs font-medium transition-colors whitespace-nowrap border border-transparent">
+      {label} <ChevronDown size={12} />
+    </button>
+  );
+}
+>>>>>>> e976efd91ef45e56f81f49acf9b670652b8fbdb2
 
 // ── Call Status Badge ──────────────────────────────────────────────────────
 function CallStatusBadge({ status }: { status: CallStatus }) {
@@ -226,7 +288,11 @@ export default function CallLogsPage() {
                   </td>
                   <td className="py-3 pr-4 text-zinc-300">{row.postcode}</td>
                   <td className="py-3">
+<<<<<<< HEAD
                     <Button onClick={() => router.push('/admin/call-logs/2')} variant="table">View Order</Button>
+=======
+                    <button className="px-3 py-1 rounded-lg border border-[#f9671a] text-[#f9671a] text-xs hover:bg-[#f9671a]/10 transition-colors whitespace-nowrap">View Order</button>
+>>>>>>> e976efd91ef45e56f81f49acf9b670652b8fbdb2
                   </td>
                 </tr>
               ))}
@@ -237,7 +303,11 @@ export default function CallLogsPage() {
       </div>
 
       {/* Order History & Call Logs */}
+<<<<<<< HEAD
       {/* <div>
+=======
+      <div>
+>>>>>>> e976efd91ef45e56f81f49acf9b670652b8fbdb2
         <h2 className="text-sm font-semibold text-white mb-1">Order History & Call Logs</h2>
         <p className="text-xs text-zinc-500 mb-4">Combined Customer order and support interaction logs</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -268,7 +338,11 @@ export default function CallLogsPage() {
             </div>
           ))}
         </div>
+<<<<<<< HEAD
       </div> */}
+=======
+      </div>
+>>>>>>> e976efd91ef45e56f81f49acf9b670652b8fbdb2
     </div>
   );
 }

@@ -30,7 +30,6 @@ export interface Customer {
 }
 
 
-
 // ── Mock Data ──────────────────────────────────────────────────────────────
 const CUSTOMERS: Customer[] = [
   { name: "Ahmed Khan", caller: "07881 234 567", lastVisit: "Yesterday", totalOrders: 4, totalVisits: 3, totalSpend: "£22.80", tags: ["Regular","VIP"], action: "View Order" },

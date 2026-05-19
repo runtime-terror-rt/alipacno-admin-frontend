@@ -85,10 +85,10 @@ export default function OrdersKanbanPage() {
           return (
             <div 
               key={col.key} 
-              className="bg-[#121214]/65 border border-zinc-850 rounded-2xl p-3.5 space-y-4 min-h-[500px]"
+              className="bg-[#121214]/65 rounded-2xl p-3.5 space-y-4 min-h-[500px]"
             >
               {/* Column Header */}
-              <div className="flex justify-between items-center pb-2.5 border-b border-zinc-850">
+              <div className="flex justify-between items-center pb-2.5 ">
                 <span className="text-xs sm:text-sm font-black text-white uppercase tracking-wider">{col.label}</span>
                 <span className="h-6 w-6 rounded-md bg-zinc-900 border border-zinc-800 text-[10px] font-black text-zinc-400 flex items-center justify-center">
                   {colOrders.length}
@@ -105,7 +105,7 @@ export default function OrdersKanbanPage() {
                   return (
                     <div 
                       key={order.id} 
-                      className="bg-zinc-900/90 border border-zinc-850 hover:border-zinc-700/80 transition-all rounded-xl p-3.5 space-y-3.5"
+                      className="bg-zinc-900/90  hover:border-zinc-700/80 transition-all rounded-xl p-3.5 space-y-3.5"
                     >
                       {/* Card Header */}
                       <div className="flex justify-between items-center">
