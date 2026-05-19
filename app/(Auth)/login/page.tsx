@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Login() {
   return (
     <div
-      className="min-h-screen w-full bg-[#1E1E20] bg-cover bg-no-repeat bg-center md:[background-position:75%_105px] flex flex-col md:flex-row relative overflow-hidden"
+      className="min-h-screen w-full bg-[##26262680] bg-cover bg-no-repeat bg-center md:[background-position:75%_105px] flex flex-col md:flex-row relative overflow-hidden"
       style={{
         backgroundImage: "url('/customer/bg-image.png')",
         
@@ -38,7 +38,7 @@ export default function Login() {
 
       {/* Right Section: Login Form (50%) */}
       <div className="flex-1 flex items-center justify-center p-4 md:p-8 z-10">
-        <div className="w-full max-w-[400px] md:max-w-[440px] lg:max-w-[550px] bg-[#1E1E20] border border-white/10 rounded-2xl p-6 md:p-8 lg:p-12 shadow-2xl my-4 md:my-0">
+        <div className="w-full max-w-[400px] md:max-w-[440px] lg:max-w-[550px] bg-[##26262680] border border-white/10 rounded-2xl p-6 md:p-8 lg:p-12 shadow-2xl my-4 md:my-0">
           {/* Logo */}
           <h2 className="text-3xl font-bold text-white text-center mb-12">Login to Account</h2>
 
