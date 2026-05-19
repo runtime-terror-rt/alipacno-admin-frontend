@@ -77,29 +77,30 @@ export default function SuperAdminLayout({
                {/* System Notification bell */}
             {systemAlert && (
               <div className="relative">
-                <button
-                  onClick={() => {
-                    alert(
-                      "System Alert: Chicago Cloud Gate branch reports high volume (+40% traffic today). All devices operating normally.",
-                    );
-                    setSystemAlert(false);
-                  }}
-                  className="p-2 text-zinc-400 hover:text-white rounded-xl hover:bg-zinc-800 relative cursor-pointer"
+                <Link
+                  href="/admin/notifications"
+                  className="p-2 text-zinc-400 hover:text-white rounded-xl hover:bg-zinc-800 relative cursor-pointer block"
                 >
                   <Bell className="h-5 w-5" />
                   <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-orange-500 animate-ping" />
                   <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-orange-500" />
-                </button>
+                  <span className="absolute -top-1 -right-1 h-3.5 w-3.5 flex items-center justify-center rounded-full bg-orange-500 text-[8px] font-bold text-white border-2 border-[#121214]">
+                    1
+                  </span>
+                </Link>
               </div>
             )}
 
               {/* Messages Button */}
             <button
               onClick={() => console.log("Messages clicked")}
-              className="p-2 text-zinc-500 hover:text-white rounded-xl hover:bg-zinc-800 cursor-pointer transition-colors"
+              className="p-2 text-zinc-500 hover:text-white rounded-xl hover:bg-zinc-800 relative cursor-pointer transition-colors"
               aria-label="Messages"
             >
               <MessageCircleMore  className="h-5 w-5" />
+              <span className="absolute -top-1 -right-1 h-3.5 w-3.5 flex items-center justify-center rounded-full bg-orange-500 text-[8px] font-bold text-white border-2 border-[#121214]">
+                1
+              </span>
             </button>
 
             {/* Profile Dropdown */}
@@ -141,7 +142,7 @@ export default function SuperAdminLayout({
                       </p>
                     </div>
                     <Link
-                      href="/admin/settings"
+                      href="/admin/profile"
                       onClick={() => setProfileOpen(false)}
                       className="flex items-center space-x-2 px-4 py-2 text-xs font-semibold text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors"
                     >
