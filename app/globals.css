@@ -19,6 +19,16 @@
   --color-panel: #18181b; /* zinc-900 */
   --color-panel-card: #27272a; /* zinc-800 */
   --color-border-dark: #3f3f46; /* zinc-700 */
+  --color-grant: #00A706; /* Success Green */
+  --color-grant-hover: #059669; /* darker green */
+
+/* ─── CHANGE THESE TWO LINES ─── */
+  --color-primary: var(--color-brand);
+  --color-primary-hover: var(--color-brand-hover);
+
+/* ─── CHANGE THESE TWO LINES ─── */
+  --color-success: var(--color-grant);
+  --color-success-hover: var(--color-grant-hover);
 }
 
 body {
