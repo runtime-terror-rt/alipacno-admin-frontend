@@ -71,7 +71,7 @@ export default function AdminDashboard() {
   return (
     <main className="p-4 flex flex-col gap-8 min-w-0 overflow-x-hidden">
         {/* Page title */}
-        <PageHeader title="HQ Overview" subtitle="All branches · Real-time performance" />
+        <PageHeader title="Overview" subtitle="All branches · Real-time performance" />
         {/* Metric cards row */}
         <MetricCardsRow metricCards={metricCards} />
         {/* Best branch banner */}
