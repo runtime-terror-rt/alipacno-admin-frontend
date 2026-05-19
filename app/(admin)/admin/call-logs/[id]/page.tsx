@@ -4,6 +4,7 @@ import {
   ArrowLeft, Phone, CheckCircle, XCircle,
   ShoppingBag, PhoneCall, Truck, ChevronRight,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 interface OrderItem {
@@ -71,14 +72,15 @@ function InfoRow({ label, value, accent }: { label: string; value: string; accen
 }
 
 // ── Main Page ──────────────────────────────────────────────────────────────
-export default function OrderDetailsPage({ onBack }: { onBack?: () => void }) {
+export default function OrderDetailsPage() {
+  const router = useRouter();
   return (
     <div className="flex-1  min-h-screen text-white p-5 space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
         <button
-          onClick={onBack}
-          className="w-8 h-8 rounded-lg bg-[#252527] flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
+          onClick={() => router.back()}
+          className="w-8 h-8 cursor-pointer rounded-lg bg-[#252527] flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
         >
           <ArrowLeft size={15} />
         </button>

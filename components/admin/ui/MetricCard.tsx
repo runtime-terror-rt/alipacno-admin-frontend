@@ -6,9 +6,10 @@ export interface IMetricCard {
   value: string;
   change: string;
   positive: boolean;
+  note?: string; // Optional note for additional context
 }
 
-function TrendBadge({ change, positive }: { change: string; positive: boolean }) {
+function TrendBadge({ change, positive, note }: { change: string; positive: boolean; note?: string }) {
   return (
     <div className="flex items-center gap-2 ">
       <div
@@ -30,7 +31,7 @@ function TrendBadge({ change, positive }: { change: string; positive: boolean })
         </span>
       </div>
       <div className="w-px h-5 bg-[#3d3d3d]" />
-      <span className="text-[#626262] text-[12px]">vs last period</span>
+      <span className="text-[#626262] text-[12px]">{note ? note : "vs last period"}</span>
     </div>
   );
 }
@@ -39,7 +40,7 @@ function TrendBadge({ change, positive }: { change: string; positive: boolean })
 export default function MetricCard({ card }: { card: IMetricCard
  }) {
   return (
-    <div className="bg-[#26262680] rounded-3xl border-2 border-[#343436] p-4 flex flex-col gap-4 relative overflow-hidden">
+    <div className="bg-[#26262680] rounded-2xl border border-[#2e2e30] p-4 flex flex-col gap-4 relative overflow-hidden">
       {/* Background decorative arc */}
       {/* <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full border-[20px] border-[#f9671a]/5" /> */}
       <div className="absolute  right-0 top-0 w-40 h-40 " >
@@ -56,7 +57,7 @@ export default function MetricCard({ card }: { card: IMetricCard
 
       {/* Value */}
       <div className="flex flex-col gap-1">
-        <p className="text-[#626262] text-[11px] tracking-widest uppercase">
+        <p className="text-gray-100 text-sm font-bold tracking-widest uppercase">
           {card.label}
         </p>
         <p className="text-sm font-bold text-primary leading-none">
@@ -65,7 +66,7 @@ export default function MetricCard({ card }: { card: IMetricCard
       </div>
 
       {/* Trend badge */}
-      <TrendBadge change={card.change} positive={card.positive} />
+      <TrendBadge change={card.change} positive={card.positive} note={card.note} />
     </div>
   );
 }
