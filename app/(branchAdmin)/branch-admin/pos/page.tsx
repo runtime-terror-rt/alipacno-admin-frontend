@@ -18,8 +18,10 @@ import {
   CheckCircle2,
   Truck,
   Heart,
+  X,
 } from "lucide-react";
 import { CartItem, Product, PRODUCTS } from "./data";
+import ItemConfigModal from "@/components/Branch-manager/POS/ItemConfigModal";
 
 export default function POSPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -44,6 +46,10 @@ export default function POSPage() {
   // Cash payment variables
   const [amountReceived, setAmountReceived] = useState<string>("120");
   const [quickActive, setQuickActive] = useState<number | null>(20); // default matching user screenshot
+
+  // Item detail configuration modal states
+  const [selectedDetailProduct, setSelectedDetailProduct] =
+    useState<Product | null>(null);
 
   useEffect(() => {
     // Basic countdown simulation
@@ -71,11 +77,16 @@ export default function POSPage() {
 
   // Cart helper functions
   const addToCart = (product: Product) => {
-    const existing = cart.find((item) => item.product.id === product.id);
+    const existing = cart.find(
+      (item) =>
+        item.product.id === product.id &&
+        item.option === "Medium Rare, Bone Marrow Butter",
+    );
     if (existing) {
       setCart(
         cart.map((item) =>
-          item.product.id === product.id
+          item.product.id === product.id &&
+          item.option === "Medium Rare, Bone Marrow Butter"
             ? { ...item, quantity: item.quantity + 1 }
             : item,
         ),
@@ -88,12 +99,16 @@ export default function POSPage() {
     }
   };
 
-  const updateQuantity = (productId: string, delta: number) => {
+  const updateQuantity = (
+    productId: string,
+    optionStr: string,
+    delta: number,
+  ) => {
     setCart(
       (prev) =>
         prev
           .map((item) => {
-            if (item.product.id === productId) {
+            if (item.product.id === productId && item.option === optionStr) {
               const newQty = item.quantity + delta;
 
               // remove item if quantity becomes 0
@@ -111,8 +126,12 @@ export default function POSPage() {
     );
   };
 
-  // Calculations
-  const subtotal = cart.reduce((acc, curr) => acc + 48 * curr.quantity, 0);
+  // Calculations: Fully dynamic based on customPrice or base product price!
+  const subtotal = cart.reduce(
+    (acc, curr) =>
+      acc + (curr.customPrice || curr.product.price) * curr.quantity,
+    0,
+  );
   const vat = 2.0;
   const total = subtotal;
 
@@ -152,7 +171,7 @@ export default function POSPage() {
   };
 
   return (
-    <div className="space-y-6 sm:space-y-8 relative animate-fadeIn">
+    <div className="space-y-6  relative animate-fadeIn">
       {/* Happy Hour Promo Timer and Selection Pills */}
       <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4 border-b border-zinc-800/40 pb-5">
         {/* Categories Pills */}
@@ -192,23 +211,17 @@ export default function POSPage() {
           }`}
         >
           {/* Happy Hour Timer Promo Banner */}
-          <div className="bg-orange-500/5 border border-orange-500/15 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="bg-orange-500/5 border border-orange-500/15 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center gap-4">
             <div className="flex items-center space-x-3.5">
               <div className="h-10 w-10 bg-orange-500/10 rounded-xl flex items-center justify-center border border-orange-500/20 text-orange-500 font-bold">
                 %
               </div>
-              <div>
-                <span className="block text-xs font-bold text-orange-500 uppercase tracking-widest">
-                  Limited Promo Offer
-                </span>
-                <p className="text-sm font-extrabold text-white">
-                  Happy hour pricing active for afternoon steaks!
-                </p>
-              </div>
             </div>
             <div className="flex items-center space-x-3">
-              <span className="text-xs font-bold text-zinc-400">Ends in:</span>
-              <span className="text-sm font-black text-orange-500 bg-orange-500/10 px-3 py-1.5 rounded-lg border border-orange-500/20">
+              <span className="text-base font-bold text-zinc-400">
+                Happy Hour pricing:
+              </span>
+              <span className="text-sm font-black text-orange-500 py-1.5 rounded-lg">
                 {timeLeft}
               </span>
               <span className="text-[10px] font-black uppercase bg-orange-500 text-white px-2 py-1 rounded-md shadow-sm">
@@ -229,16 +242,12 @@ export default function POSPage() {
           {/* Steaks Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
             {PRODUCTS.map((prod) => {
-              const isActive = prod.id === "1"; // Grilled chicken pieces is active in screenshot
               return (
                 <div
                   key={prod.id}
-                  className={`bg-[#121214] border rounded-2xl p-4 flex flex-col justify-between group transition-all duration-300 relative overflow-hidden
-                    ${
-                      isActive
-                        ? "border-orange-500 ring-1 ring-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.12)]"
-                        : "border-zinc-800/80 hover:border-orange-500/30"
-                    }
+                  onClick={() => setSelectedDetailProduct(prod)}
+                  className={` rounded-2xl p-4 flex flex-col justify-between group transition-all duration-300 relative overflow-hidden
+                    hover:bg-zinc-900/70 cursor-pointer
                   `}
                 >
                   {/* Product Card Image Container */}
@@ -252,7 +261,12 @@ export default function POSPage() {
 
                     {/* Floating Heart Favorite Badge (Row 2 and Row 3) */}
                     {parseInt(prod.id) > 4 && (
-                      <button className="absolute top-2.5 right-2.5 z-20 h-6.5 w-6.5 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-zinc-300 hover:text-red-500 transition-colors">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        className="absolute top-2.5 right-2.5 z-20 h-6.5 w-6.5 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-zinc-300 hover:text-red-500 transition-colors"
+                      >
                         <Heart className="h-3.5 w-3.5" />
                       </button>
                     )}
@@ -285,7 +299,10 @@ export default function POSPage() {
                   </div>
 
                   <button
-                    onClick={() => addToCart(prod)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart(prod);
+                    }}
                     className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs py-2 rounded-xl transition-all flex items-center justify-center space-x-1 shadow-md shadow-orange-500/5 cursor-pointer"
                   >
                     <Plus className="h-3 w-3" />
@@ -341,7 +358,11 @@ export default function POSPage() {
                           </h4>
 
                           <span className="text-orange-500 text-sm font-bold">
-                            £{(item.product.price * item.quantity).toFixed(0)}
+                            £
+                            {(
+                              (item.customPrice || item.product.price) *
+                              item.quantity
+                            ).toFixed(2)}
                           </span>
                         </div>
 
@@ -352,7 +373,9 @@ export default function POSPage() {
                         {/* Quantity */}
                         <div className="flex items-center gap-2 mt-3">
                           <button
-                            onClick={() => updateQuantity(item.product.id, -1)}
+                            onClick={() =>
+                              updateQuantity(item.product.id, item.option, -1)
+                            }
                             className="h-6 w-6 rounded-md border border-zinc-700 flex items-center justify-center text-white hover:bg-zinc-800 transition"
                           >
                             <Minus className="h-3 w-3" />
@@ -363,7 +386,9 @@ export default function POSPage() {
                           </span>
 
                           <button
-                            onClick={() => updateQuantity(item.product.id, 1)}
+                            onClick={() =>
+                              updateQuantity(item.product.id, item.option, 1)
+                            }
                             className="h-6 w-6 rounded-md border border-zinc-700 flex items-center justify-center text-white hover:bg-zinc-800 transition"
                           >
                             <Plus className="h-3 w-3" />
@@ -742,13 +767,53 @@ export default function POSPage() {
                     onClick={handleCompleteOrder}
                     className="flex-1 py-3 bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs rounded-xl shadow-lg shadow-orange-500/10 transition-all cursor-pointer"
                   >
-                    Complete Order
+                    Complete Order{" "}
                   </button>
                 </div>
               </div>
             )}
           </div>
         </div>
+      )}
+
+      {/* ITEM DETAIL CONFIGURATION MODAL */}
+      {selectedDetailProduct && (
+        <ItemConfigModal
+          product={selectedDetailProduct}
+          onClose={() => setSelectedDetailProduct(null)}
+          onAddToCart={(qty, optionsStr, customPrice) => {
+            if (!selectedDetailProduct) return;
+
+            const existing = cart.find(
+              (item) =>
+                item.product.id === selectedDetailProduct.id &&
+                item.option === optionsStr,
+            );
+
+            if (existing) {
+              setCart(
+                cart.map((item) =>
+                  item.product.id === selectedDetailProduct.id &&
+                  item.option === optionsStr
+                    ? { ...item, quantity: item.quantity + qty }
+                    : item,
+                ),
+              );
+            } else {
+              setCart([
+                ...cart,
+                {
+                  product: selectedDetailProduct,
+                  quantity: qty,
+                  option: optionsStr,
+                  customPrice: customPrice,
+                },
+              ]);
+            }
+
+            setSelectedDetailProduct(null);
+          }}
+        />
       )}
     </div>
   );
