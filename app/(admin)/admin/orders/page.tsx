@@ -3,10 +3,6 @@
 import { useState } from "react";
 import {
   Search,
-  Download,
-  FileSpreadsheet,
-  ChevronLeft,
-  ChevronRight,
   MoreVertical,
   TrendingUp,
   Clock,
@@ -14,16 +10,18 @@ import {
   Star,
   Bike,
   Store,
-  CheckCircle2,
-  ChevronDown,
-  Phone,
+  CloudUpload,
+  Award,
 } from "lucide-react";
 import PageHeader from "@/components/admin/ui/PageHeader";
 import MetricCardsRow from "@/components/admin/common/MetricCardsRow";
+import DateFiltersBar from "@/components/admin/ui/DateFilterBar";
+import FilterDropdown from "@/components/admin/ui/FilterDropdown";
+import Button from "@/components/admin/ui/Button";
+import Pagination from "@/components/admin/ui/Pagination";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 type OrderStatus = "Completed" | "Preparing" | "On Delivery" | "Cancelled";
-
 interface Order {
   id: string;
   customer: string;
@@ -38,17 +36,6 @@ interface Order {
   driverAvatar: string;
   time: string;
   date: string;
-}
-
-interface CallLog {
-  time: string;
-  duration: string;
-  date: string;
-  customer: string;
-  phone: string;
-  branch: string;
-  tag: "Older Placed" | "Order Converted" | "Missed";
-  tagColor: string;
 }
 
 // ── Mock Data ──────────────────────────────────────────────────────────────
@@ -130,58 +117,6 @@ const ORDERS: Order[] = [
   },
 ];
 
-const CALL_LOGS: CallLog[] = [
-  {
-    time: "09:42 AM",
-    duration: "02:18",
-    date: "May 04, 2026",
-    customer: "Brooklyn Simmons",
-    phone: "(312) 555-0192",
-    branch: "Eltham (ELO1)",
-    tag: "Older Placed",
-    tagColor: "border border-[#E8833A] text-[#E8833A]",
-  },
-  {
-    time: "09:42 AM",
-    duration: "02:18",
-    date: "May 04, 2026",
-    customer: "Brooklyn Simmons",
-    phone: "(312) 555-0192",
-    branch: "Eltham (ELO1)",
-    tag: "Older Placed",
-    tagColor: "border border-[#E8833A] text-[#E8833A]",
-  },
-  {
-    time: "09:42 AM",
-    duration: "02:18",
-    date: "May 04, 2026",
-    customer: "Brooklyn Simmons",
-    phone: "(312) 555-0192",
-    branch: "Eltham (ELO1)",
-    tag: "Older Placed",
-    tagColor: "border border-red-500 text-red-500",
-  },
-  {
-    time: "09:42 AM",
-    duration: "02:18",
-    date: "May 04, 2026",
-    customer: "Brooklyn Simmons",
-    phone: "(312) 555-0192",
-    branch: "Eltham (ELO1)",
-    tag: "Older Placed",
-    tagColor: "border border-[#E8833A] text-[#E8833A]",
-  },
-  {
-    time: "09:42 AM",
-    duration: "02:18",
-    date: "May 04, 2026",
-    customer: "Brooklyn Simmons",
-    phone: "(312) 555-0192",
-    branch: "Eltham (ELO1)",
-    tag: "Order Converted",
-    tagColor: "bg-purple-600 text-white border-transparent",
-  },
-];
 
 // ── Status Badge ───────────────────────────────────────────────────────────
 const statusConfig: Record<OrderStatus, { label: string; className: string }> = {
@@ -218,52 +153,6 @@ function Avatar({ name, size = 8 }: { name: string; size?: number }) {
   );
 }
 
-// ── Stat Card ──────────────────────────────────────────────────────────────
-function StatCard({ title, value, change }: { title: string; value: string; change: string }) {
-  return (
-    <div className="relative bg-[#1C1C1E] rounded-xl p-5 overflow-hidden flex-1 min-w-0">
-      {/* glow blob */}
-      <div className="absolute right-0 top-0 w-24 h-24 rounded-full bg-[#E8833A]/30 blur-2xl pointer-events-none" />
-      <div className="relative">
-        <div className="w-8 h-8 rounded-lg bg-[#E8833A]/20 flex items-center justify-center mb-3">
-          <TrendingUp className="w-4 h-4 text-[#E8833A]" />
-        </div>
-        <p className="text-xs text-zinc-400 mb-1">{title}</p>
-        <p className="text-lg font-bold text-[#E8833A]">{value}</p>
-        <div className="flex items-center gap-2 mt-2">
-          <span className="flex items-center gap-0.5 text-xs text-green-400 font-medium">
-            <TrendingUp className="w-3 h-3" /> {change}
-          </span>
-          <span className="text-xs text-zinc-500">vs last period</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Filter Pill ────────────────────────────────────────────────────────────
-function FilterPill({ label, active, onClick }: { label: string; active?: boolean; onClick?: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-        active
-          ? "bg-[#E8833A] text-white"
-          : "bg-[#2A2A2C] text-zinc-400 hover:text-white hover:bg-[#333]"
-      }`}
-    >
-      {label}
-    </button>
-  );
-}
-
-function FilterDropdown({ label }: { label: string }) {
-  return (
-    <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#2A2A2C] text-zinc-400 hover:text-white text-xs font-medium transition-colors">
-      {label} <ChevronDown className="w-3 h-3" />
-    </button>
-  );
-}
 
 // ── Mini Sparkline SVG ─────────────────────────────────────────────────────
 function Sparkline({ color = "#E8833A" }: { color?: string }) {
@@ -342,7 +231,6 @@ function DonutChart() {
 
 // ── Main Page ──────────────────────────────────────────────────────────────
 export default function OrdersPage() {
-  const [activeFilter, setActiveFilter] = useState("Today");
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
   const toggleRow = (i: number) =>
@@ -363,10 +251,8 @@ export default function OrdersPage() {
         
         {/* ── Main Content Grid ── */}
         <div className="grid grid-cols-[1fr_280px] gap-6">
-
           {/* LEFT COLUMN */}
           <div className="space-y-6">
-
             {/* Order Report */}
             <div className="bg-[#1C1C1E] rounded-xl p-5">
               <div className="mb-4">
@@ -376,9 +262,13 @@ export default function OrdersPage() {
 
               {/* Filters Row 1 */}
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                {["Today", "Weekly", "Monthly", "Custom Range"].map((f) => (
-                  <FilterPill key={f} label={f} active={activeFilter === f} onClick={() => setActiveFilter(f)} />
-                ))}
+                <DateFiltersBar
+                    tabs={["Today", "Weekly", "Monthly", "Custom Range"]}
+                    defaultTab="Weekly"
+                    onChange={(tab) => {
+                      console.log("Selected:", tab);
+                    }}
+                />
                 <div className="flex flex-wrap gap-2 ml-auto">
                   <FilterDropdown label="Order Status" />
                   <FilterDropdown label="Order Type" />
@@ -388,36 +278,40 @@ export default function OrdersPage() {
               </div>
 
               {/* Search + Export Row */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className="relative flex-1">
+              <div className="flex items-center gap-3 mb-4 bg-[#1a1a1c]">
+                <div className="relative flex-1 bg-[#1a1a1c]">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
                   <input
                     type="text"
                     placeholder="Search order id, customer, phone..."
-                    className="w-full bg-[#2A2A2C] rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-[#E8833A]/50"
+                    className="w-full bg-[#1a1a1c] rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-[#E8833A]/50"
                   />
                 </div>
-                <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#E8833A]/10 border border-[#E8833A]/40 text-[#E8833A] text-sm font-medium hover:bg-[#E8833A]/20 transition-colors">
-                  <Download className="w-4 h-4" /> Export CSV
+               {/* Export buttons */}
+                <div className="flex items-center gap-3">
+                  <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#2e2e30] hover:border-[#f9671a] text-[#626262] hover:text-[#f9671a] text-sm font-medium hover:bg-[#f9671a]/10 transition-colors cursor-pointer">
+                    <CloudUpload size={15} /> Export CSV
                 </button>
-                <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#2A2A2C] text-zinc-400 text-sm font-medium hover:text-white transition-colors">
-                  <FileSpreadsheet className="w-4 h-4" /> Export Excel
+                 <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#2e2e30] hover:border-[#f9671a] text-[#626262] hover:text-  [#f9671a] text-sm font-medium hover:bg-[#f9671a]/10 transition-colors cursor-pointer">
+                   <CloudUpload  size={15} /> Export Excel
                 </button>
+              </div>
               </div>
 
               {/* Table */}
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-zinc-800">
+                  <thead className="py-3 rounded-lg!" >
+                    <tr className="border-b border-zinc-800 bg-[#3D3D3D]">
                       {["ORDER ID", "CUSTOMER", "BRANCH", "ORDER TYPE", "AMOUNT", "PAYMENT", "STATUS", "DRIVER", "TIME", "ACTION"].map((h) => (
-                        <th key={h} className="text-left text-xs text-zinc-500 font-medium pb-3 pr-4 first:pl-2 whitespace-nowrap">
+                        <th key={h} className="text-left text-xs text-gray-100   font-medium pb-3 pr-4 first:pl-2 whitespace-nowrap">
                           {h === "ORDER ID" ? (
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 pt-3 ">
                               <input type="checkbox" className="rounded bg-zinc-700 border-zinc-600 text-[#E8833A]" readOnly />
                               {h}
                             </div>
-                          ) : h}
+                          ) : <div className="pt-3">{h}</div>
+                          }
                         </th>
                       ))}
                     </tr>
@@ -431,7 +325,7 @@ export default function OrdersPage() {
                               type="checkbox"
                               checked={selectedRows.includes(i)}
                               onChange={() => toggleRow(i)}
-                              className="rounded bg-zinc-700 border-zinc-600 text-[#E8833A]"
+                              className="rounded bg-gray-900 border-zinc-600 text-[#E8833A]"
                             />
                             <span className="text-[#E8833A] text-xs font-medium">{order.id}</span>
                           </div>
@@ -481,34 +375,11 @@ export default function OrdersPage() {
               </div>
 
               {/* Pagination */}
-              <div className="flex items-center justify-between mt-4 pt-4 border-t border-zinc-800">
-                <p className="text-xs text-zinc-500">Showing 1 to 10 of 50 results</p>
-                <div className="flex items-center gap-1.5">
-                  <button className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#2A2A2C] text-zinc-400 hover:text-white transition-colors">
-                    <ChevronLeft className="w-3.5 h-3.5" />
-                  </button>
-                  {[1, 2, 3, 4, 5].map((p) => (
-                    <button
-                      key={p}
-                      className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-medium transition-colors ${p === 1 ? "bg-[#E8833A] text-white" : "bg-[#2A2A2C] text-zinc-400 hover:text-white"}`}
-                    >
-                      {p}
-                    </button>
-                  ))}
-                  <button className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#2A2A2C] text-zinc-400 hover:text-white transition-colors">
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-                  <div className="ml-2 flex items-center gap-1">
-                    <button className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#2A2A2C] text-zinc-400 text-xs hover:text-white transition-colors">
-                      5/page <ChevronDown className="w-3 h-3" />
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <Pagination />
             </div>
 
             {/* Order History & Call Logs */}
-            <div>
+            {/* <div>
               <h2 className="text-base font-semibold text-white mb-1">Order History & Call Logs</h2>
               <p className="text-xs text-zinc-500 mb-4">Combined Customer order and support interaction logs</p>
               <div className="grid grid-cols-5 gap-3">
@@ -535,7 +406,7 @@ export default function OrdersPage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             {/* Bottom Charts Row */}
             <div className="grid grid-cols-2 gap-4">
@@ -584,11 +455,11 @@ export default function OrdersPage() {
           </div>
 
           {/* RIGHT COLUMN — Operational Insights */}
-          <div className="space-y-4">
+          <div className="space-y-4 bg-[#1C1C1E] rounded-xl p-5">
             <h2 className="text-base font-semibold text-white">Operational Insights</h2>
 
             {/* Peak Order Hour */}
-            <div className="bg-[#1C1C1E] rounded-xl p-4">
+            <div className="bg-[#1C1C1E] border border-zinc-700 rounded-xl p-4">
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-2">
                   <Bike className="w-4 h-4 text-[#E8833A]" />
@@ -601,7 +472,7 @@ export default function OrdersPage() {
             </div>
 
             {/* Most Active Branch */}
-            <div className="bg-[#1C1C1E] rounded-xl p-4">
+            <div className="bg-[#1C1C1E] border border-zinc-700 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Store className="w-4 h-4 text-[#E8833A]" />
                 <span className="text-xs font-semibold text-white">Most Active Branch</span>
@@ -615,7 +486,7 @@ export default function OrdersPage() {
             </div>
 
             {/* Average Delivery Time */}
-            <div className="bg-[#1C1C1E] rounded-xl p-4">
+            <div className="bg-[#1C1C1E] border border-zinc-700 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Clock className="w-4 h-4 text-[#E8833A]" />
                 <span className="text-xs font-semibold text-white">Average Delivery Time</span>
@@ -634,7 +505,7 @@ export default function OrdersPage() {
             </div>
 
             {/* Failed Orders */}
-            <div className="bg-[#1C1C1E] rounded-xl p-4">
+            <div className="bg-[#1C1C1E] border border-zinc-700 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
                 <AlertCircle className="w-4 h-4 text-red-400" />
                 <span className="text-xs font-semibold text-white">Failed Orders Today</span>
@@ -653,9 +524,9 @@ export default function OrdersPage() {
             </div>
 
             {/* Top Driver */}
-            <div className="bg-[#1C1C1E] rounded-xl p-4">
+            <div className="bg-[#1C1C1E] border border-zinc-700 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-3">
-                <CheckCircle2 className="w-4 h-4 text-[#E8833A]" />
+                <Award className="w-4 h-4 text-success" />
                 <span className="text-xs font-semibold text-white">Top Driver Performance</span>
               </div>
               <div className="flex items-center gap-3">
@@ -665,8 +536,8 @@ export default function OrdersPage() {
                   <p className="text-xs text-zinc-500">24 Deliveries</p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <span className="text-sm font-bold text-white">4.9</span>
-                  <Star className="w-4 h-4 text-[#E8833A] fill-[#E8833A]" />
+                  <span className="text-sm font-bold text-success">4.9</span>
+                  <Star className="w-4 h-4 text-success fill-success" />
                 </div>
               </div>
               <div className="mt-2 w-full h-1 rounded-full bg-zinc-700">
@@ -675,12 +546,12 @@ export default function OrdersPage() {
             </div>
 
             {/* View All Insights CTA */}
-            <button className="w-full py-2.5 rounded-xl bg-[#E8833A] text-white text-sm font-semibold hover:bg-[#d4742f] transition-colors">
-              View All Insights
-            </button>
+            <Button>
+  V           View All Insights
+            </Button>
 
             {/* Stats list */}
-            <div className="bg-[#1C1C1E] rounded-xl divide-y divide-zinc-800">
+            <div className="bg-[#1C1C1E] border border-zinc-700 rounded-xl divide-y divide-zinc-800">
               {[
                 { label: "Total calls", value: 128 },
                 { label: "Converted Orders", value: 96 },

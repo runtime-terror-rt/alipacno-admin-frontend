@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Menu,
   ChevronDown,
@@ -26,6 +26,7 @@ export default function SuperAdminLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [systemAlert, setSystemAlert] = useState(true);
+  const router = useRouter();
 
   return (
     <div className="min-h-screen  bg-[#09090b] flex text-zinc-100 antialiased font-sans">
@@ -179,7 +180,7 @@ export default function SuperAdminLayout({
           <div className="mesh-glow absolute top-20 right-10 opacity-15 pointer-events-none" />
           <div className="mesh-glow absolute bottom-10 left-10 opacity-10 pointer-events-none" />
 
-          <div className="p-4 sm:p-6 md:p-8">{children}</div>
+          <div className="p-4 sm:p-6 md:p-8 bg-[#0f0f11]">{children}</div>
         </main>
       </div>
     </div>

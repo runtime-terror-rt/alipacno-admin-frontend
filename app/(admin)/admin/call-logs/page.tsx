@@ -1,11 +1,23 @@
 "use client";
 
 import { useState } from "react";
+<<<<<<< HEAD
+import { Phone,  PhoneMissed, ChevronDown,
+  CloudUpload,
+} from "lucide-react";
+import MetricCardsRow from "@/components/admin/common/MetricCardsRow";
+import Pagination from "@/components/admin/ui/Pagination";
+import Button from "@/components/admin/ui/Button";
+import DateFiltersBar from "@/components/admin/ui/DateFilterBar";
+import FilterDropdown from "@/components/admin/ui/FilterDropdown";
+import { useRouter } from "next/navigation";
+=======
 import {
   TrendingUp, TrendingDown, Phone, PhoneIncoming, PhoneMissed,
   BarChart2, Clock, ChevronLeft, ChevronRight, ChevronDown,
   Download, MoreVertical,
 } from "lucide-react";
+>>>>>>> e976efd91ef45e56f81f49acf9b670652b8fbdb2
 
 // ── Types ──────────────────────────────────────────────────────────────────
 type CallStatus = "Answered" | "Missed";
@@ -59,6 +71,16 @@ const CONVERTED_ORDERS: ConvertedOrder[] = [
   { time: "08:4PM", number: "+44 3050 244896", customer: "Sarah Mitchell", duration: "04:12", order: "#4569 (£300)", orderType: "Delivery", status: "Completed", postcode: "NW1 6XE" },
 ];
 
+<<<<<<< HEAD
+// const HISTORY_LOGS: CallLogEntry[] = [
+//   { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "orange" },
+//   { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "orange" },
+//   { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "red" },
+//   { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "orange" },
+//   { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Order Converted", tagVariant: "purple" },
+// ];
+
+=======
 const HISTORY_LOGS: CallLogEntry[] = [
   { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "orange" },
   { time: "09:42 AM", duration: "02:18", date: "May 04, 2026", customer: "Brooklyn Simmons", phone: "(312) 555-0192", branch: "Eltham (ELO1)", tag: "Older Placed", tagVariant: "orange" },
@@ -110,6 +132,7 @@ function DropPill({ label }: { label: string }) {
     </button>
   );
 }
+>>>>>>> e976efd91ef45e56f81f49acf9b670652b8fbdb2
 
 // ── Call Status Badge ──────────────────────────────────────────────────────
 function CallStatusBadge({ status }: { status: CallStatus }) {
@@ -128,26 +151,10 @@ function OutcomeBadge({ outcome }: { outcome: string }) {
   return <span className="text-xs text-green-400 font-medium">{outcome}</span>;
 }
 
-// ── Pagination ─────────────────────────────────────────────────────────────
-function Pagination() {
-  return (
-    <div className="flex items-center justify-between pt-3 border-t border-[#2e2e30]">
-      <p className="text-xs text-zinc-500">Showing 1 to 10 of 50 results</p>
-      <div className="flex items-center gap-1.5">
-        <button className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#252527] text-zinc-400 hover:text-white"><ChevronLeft size={13} /></button>
-        {[1,2,3,4,5].map((p) => (
-          <button key={p} className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-medium ${p === 1 ? "bg-[#f9671a] text-white" : "bg-[#252527] text-zinc-400 hover:text-white"}`}>{p}</button>
-        ))}
-        <button className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#252527] text-zinc-400 hover:text-white"><ChevronRight size={13} /></button>
-        <button className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#252527] text-zinc-400 text-xs hover:text-white ml-1">5/page <ChevronDown size={11} /></button>
-      </div>
-    </div>
-  );
-}
-
 // ── Main Page ──────────────────────────────────────────────────────────────
 export default function CallLogsPage() {
   const [activeTab, setActiveTab] = useState("All");
+  const router = useRouter();
 
   return (
     <div className="flex-1 min-h-screen text-white p-5 space-y-6">
@@ -157,14 +164,14 @@ export default function CallLogsPage() {
         <p className="text-xs text-zinc-500 mt-0.5">Track customer calls and communication history.</p>
       </div>
 
-      {/* Stat Cards */}
-      <div className="flex gap-3 flex-wrap">
-        <StatCard title="TOTAL CALLS" value="50" change="+12.1%" positive />
-        <StatCard title="Call Converted" value="30" change="+1.7%" positive />
-        <StatCard title="Missed Calls" value="20" change="+2.5%" positive />
-        <StatCard title="CONVERSION RATE" value="24.8%" change="-0.8%" positive={false} />
-        <StatCard title="AVG. CALL DURATION" value="04:22" change="+5.4%" positive note="Labor + COGS" />
-      </div>
+      <MetricCardsRow metricCards={[
+          { label: "Total Calls", value: "50", change: "+12.1%", positive: true },
+          { label: "Call Converted", value: "30", change: "+1.7%", positive: true },
+          { label: "Missed Calls", value: "20", change: "+2.5%", positive: true },
+          { label: "Conversion Rate", value: "24.8%", change: "-0.8%", positive: false },
+          { label: "Avg. Call Duration", value: "04:22", change: "+5.4%", positive: true, note: "Labor + COGS" },
+      ]} grid="5" />
+
 
       {/* Call Logs Panel */}
       <div className="bg-[#1a1a1c] border border-[#2e2e30] rounded-2xl p-5 space-y-4">
@@ -182,20 +189,35 @@ export default function CallLogsPage() {
         </div>
 
         {/* Filter row */}
-        <div className="flex flex-wrap items-center gap-2">
-          {["All", "On Delivery", "Available", "Break", "Offline"].map((t) => (
-            <Pill key={t} label={t} active={activeTab === t} onClick={() => setActiveTab(t)} />
-          ))}
-          <div className="ml-auto flex items-center gap-2 flex-wrap">
-            <DropPill label="Driver Status" />
-            <DropPill label="Branch" />
-            <DropPill label="Vehicle Type" />
-            <DropPill label="Shift" />
-            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#f9671a]/50 text-[#f9671a] text-xs font-medium hover:bg-[#f9671a]/10 transition-colors">
-              <Download size={13} /> Export CSV
-            </button>
+        <div className="ml-auto flex items-center justify-between gap-2 flex-wrap">
+             {/* Filters Row 1 */}
+              <div className="flex flex-wrap items-center    gap-2 mb-3">
+                <DateFiltersBar
+                    tabs={["All", "On Delivery", "Available", "Break", "Offline"]}
+                    defaultTab="Weekly"
+                    onChange={(tab) => {
+                      console.log("Selected:", tab);
+                    }}
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-2 ">
+                  <FilterDropdown label="Driver Status" />
+                  <FilterDropdown label="Branch" />
+                  <FilterDropdown label="Vehicle Type" />
+                  <FilterDropdown label="Shift" />
+              </div>
+
+              {/*  Export Row */}
+              <div className="flex items-center gap-3 mb-4 bg-[#1a1a1c]">
+               {/* Export buttons */}
+                <div className="flex items-center gap-3">
+                  <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#2e2e30] hover:border-[#f9671a] text-[#626262] hover:text-[#f9671a] text-sm font-medium hover:bg-[#f9671a]/10 transition-colors cursor-pointer">
+                    <CloudUpload size={15} /> Export CSV
+                </button>
+              </div>
+              </div>
           </div>
-        </div>
 
         {/* Table */}
         <div className="overflow-x-auto">
@@ -220,8 +242,8 @@ export default function CallLogsPage() {
                   <td className="py-3 pr-4 text-zinc-300">{row.postcode}</td>
                   <td className="py-3">
                     {i === 0
-                      ? <button className="px-3 py-1 rounded-lg border border-[#f9671a] text-[#f9671a] text-xs hover:bg-[#f9671a]/10 transition-colors whitespace-nowrap">View Order</button>
-                      : <button className="px-3 py-1 rounded-lg bg-[#252527] text-zinc-300 text-xs hover:text-white transition-colors whitespace-nowrap">Call Back</button>
+                      ?  <Button onClick={() => router.push('/admin/call-logs/2')} variant="table">View Order</Button>
+                      : <Button variant="table">Call Back</Button>
                     }
                   </td>
                 </tr>
@@ -266,7 +288,11 @@ export default function CallLogsPage() {
                   </td>
                   <td className="py-3 pr-4 text-zinc-300">{row.postcode}</td>
                   <td className="py-3">
+<<<<<<< HEAD
+                    <Button onClick={() => router.push('/admin/call-logs/2')} variant="table">View Order</Button>
+=======
                     <button className="px-3 py-1 rounded-lg border border-[#f9671a] text-[#f9671a] text-xs hover:bg-[#f9671a]/10 transition-colors whitespace-nowrap">View Order</button>
+>>>>>>> e976efd91ef45e56f81f49acf9b670652b8fbdb2
                   </td>
                 </tr>
               ))}
@@ -277,7 +303,11 @@ export default function CallLogsPage() {
       </div>
 
       {/* Order History & Call Logs */}
+<<<<<<< HEAD
+      {/* <div>
+=======
       <div>
+>>>>>>> e976efd91ef45e56f81f49acf9b670652b8fbdb2
         <h2 className="text-sm font-semibold text-white mb-1">Order History & Call Logs</h2>
         <p className="text-xs text-zinc-500 mb-4">Combined Customer order and support interaction logs</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -308,7 +338,11 @@ export default function CallLogsPage() {
             </div>
           ))}
         </div>
+<<<<<<< HEAD
+      </div> */}
+=======
       </div>
+>>>>>>> e976efd91ef45e56f81f49acf9b670652b8fbdb2
     </div>
   );
 }

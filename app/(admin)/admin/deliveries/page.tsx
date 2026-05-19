@@ -6,6 +6,9 @@ import {
   MapPin, Clock, Package, Truck, AlertTriangle, Plus,
   Navigation, Zap, Circle,
 } from "lucide-react";
+import MetricCardsRow from "@/components/admin/common/MetricCardsRow";
+import Image from "next/image";
+import { IMetricCard } from "@/components/admin/ui/MetricCard";
 
 // ── Types & Data ───────────────────────────────────────────────────────────
 type OrderStatus = "Live Order" | "On Delivery" | "Ready" | "Preparing";
@@ -20,6 +23,33 @@ interface LiveOrder {
   status: OrderStatus;
   driver?: string;
 }
+
+const STATISTICS : IMetricCard[] = [
+        {
+          label: "ACTIVE DELIVERIES", value: "12a",  change: "+12.4%", positive: true,
+        },
+        {
+          label: "LATE ORDER", value: "12a", change: "+0.8%",  positive: false,
+        },
+        {
+          label: "AVG DELIVERY TIME",
+          value: "3 mins",
+          change: "+1% of time",
+          positive: true,
+        },
+        {
+          label: "DELIVERY TODAY",
+          value: "3",
+          change: "+1% of time",
+          positive: true,
+        },
+        {
+          label: "AVG DELIVERY DISTANCE",
+          value: "3 miles",
+          change: "+1% vs period",
+          positive: true,
+        }
+      ];
 
 const LIVE_ORDERS: LiveOrder[] = [
   { id: "#P0980", customer: "Ahmed Khan", address: "Eltham High St, 210 OXT", phone: "(312) 555-0192", eta: "12 min", distance: "2.4 km", status: "Live Order" },
@@ -43,30 +73,6 @@ const DRIVERS: DriverSummary[] = [
   { name: "Nile", deliveries: 2, avatar: "N", color: "bg-green-500" },
 ];
 
-// ── Helpers ────────────────────────────────────────────────────────────────
-function StatCard({ title, value, sub, change, positive }: {
-  title: string; value: string; sub?: string; change: string; positive: boolean;
-}) {
-  return (
-    <div className="relative bg-[#1a1a1c] border border-[#2e2e30] rounded-2xl p-4 overflow-hidden flex-1 min-w-0">
-      <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-[#f9671a]/25 blur-2xl pointer-events-none" />
-      <div className="relative">
-        <div className="w-6 h-6 rounded-lg bg-[#f9671a]/15 flex items-center justify-center mb-2">
-          <div className="w-3 h-3 rounded-sm bg-[#f9671a]/70" />
-        </div>
-        <p className="text-[10px] text-zinc-400 uppercase tracking-wide">{title}</p>
-        <p className="text-xl font-bold text-[#f9671a]">{value}</p>
-        {sub && <p className="text-[10px] text-zinc-500 mt-0.5">{sub}</p>}
-        <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-[#2e2e30]">
-          <span className={`flex items-center gap-0.5 text-xs font-semibold ${positive ? "text-green-400" : "text-red-400"}`}>
-            {positive ? <TrendingUp size={10} /> : <TrendingDown size={10} />} {change}
-          </span>
-          <span className="text-xs text-zinc-500">vs last period</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function StatusBadge({ status }: { status: OrderStatus }) {
   const map: Record<OrderStatus, string> = {
@@ -218,7 +224,6 @@ function LiveOrderCard({ order }: { order: LiveOrder }) {
         <StatusBadge status={order.status} />
       </div>
       <div className="flex items-center gap-2">
-        <div className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0">A</div>
         <div className="min-w-0">
           <p className="text-xs font-medium text-white truncate">{order.customer}</p>
           <p className="text-[10px] text-zinc-500 truncate">{order.address}</p>
@@ -264,15 +269,7 @@ export default function DeliveriesManagementPage() {
         </div>
       </div>
 
-      {/* Stat Cards */}
-      <div className="flex gap-3 flex-wrap">
-        <StatCard title="ACTIVE DELIVERIES" value="12a" sub="Eltham High St" change="+12.4%" positive />
-        <StatCard title="LATE ORDER" value="12a" change="+0.8%" positive={false} />
-        <StatCard title="AVG DELIVERY TIME" value="3 mins" change="+1% of time" positive />
-        <StatCard title="DELIVERY TODAY" value="3" change="+1% of time" positive />
-        <StatCard title="AVG DELIVERY DISTANCE" value="3 miles" change="+1% vs period" positive />
-      </div>
-
+      <MetricCardsRow grid="5" metricCards={STATISTICS} />
       {/* Main Content */}
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-5">
         {/* Map + tabs */}
@@ -323,7 +320,7 @@ export default function DeliveriesManagementPage() {
             </div>
           </div>
 
-          <div className="space-y-2 overflow-y-auto" style={{ maxHeight: 480 }}>
+          <div className="space-y-2 overflow-y-auto" style={{ maxHeight: 800 }}>
             {LIVE_ORDERS.map((order, i) => (
               <LiveOrderCard key={i} order={order} />
             ))}
@@ -345,9 +342,10 @@ export default function DeliveriesManagementPage() {
         <div className="flex items-center gap-4 flex-wrap">
           {DRIVERS.map((d, i) => (
             <div key={i} className="flex items-center gap-2.5 bg-[#252527] rounded-xl px-3 py-2.5">
-              <div className={`w-8 h-8 rounded-full ${d.color} flex items-center justify-center text-xs font-bold text-white`}>{d.avatar}</div>
+              <Image src={`/admin/avatar/cody.png`} alt={d.name} width={32} height={32} className="rounded-full" />
               <div>
                 <p className="text-xs font-medium text-white">{d.name}</p>
+                <p className="text-xs text-green-500 font-medium text-success">on Run</p>
                 <p className="text-[10px] text-zinc-500">{d.deliveries} deliveries</p>
               </div>
             </div>
