@@ -8,13 +8,7 @@ import {
   ArrowUpRight, 
   ArrowDownRight, 
   Phone, 
-  PhoneIncoming, 
-  PhoneMissed,
   CheckCircle,
-  FileText,
-  Clock,
-  ArrowRight,
-  User
 } from "lucide-react";
 import { 
   CALL_STATS, 
@@ -79,7 +73,7 @@ export default function CallLogsPage() {
       </div>
 
       {/* Main Call Logs Table Panel */}
-      <div className="bg-[#121214]/65 border border-zinc-850 rounded-2xl p-5 space-y-6">
+      <div className="bg-[#121214]/65 rounded-2xl p-5 space-y-6">
         <div>
           <h3 className="text-sm font-black text-white uppercase tracking-wider">Call Logs Panel</h3>
           <p className="text-[11px] text-zinc-500 font-semibold mt-1">Track and monitor all order-related calls in real time.</p>

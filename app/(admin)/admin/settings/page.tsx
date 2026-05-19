@@ -2,857 +2,566 @@
 
 import { useState } from "react";
 import {
+  Search,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  MoreVertical,
+  Plus,
+  Store,
+  MapPin,
+  Clock,
+  Activity,
+  X,
+  CreditCard,
+  Banknote,
+  Percent,
+  Settings as SettingsIcon,
+  BellRing,
+  AlertTriangle,
+  Power,
+  Image as ImageIcon,
+  Eye,
+  EyeOff,
+  Check,
+  Edit2,
   Mail,
   Phone,
-  MapPin,
-  Check,
-  CheckCircle2,
-  Edit2,
-  MoreVertical,
-  Users,
-  Coins,
-  TrendingUp,
-  Bell,
-  Home,
-  AlertTriangle,
-  Car,
-  BarChart3,
-  FileText,
-  ChevronRight,
   ShieldCheck,
-  X,
+  CheckCircle2,
+  User,
 } from "lucide-react";
-
+import AddUserWizard, { MODULE_LIST } from "@/components/settings/AddUserWizard";
+import UserProfileView from "@/components/settings/UserProfileView";
 import Image from "next/image";
-import {
-  ADMIN_PROFILE_DATA,
-  ROLE_MODULES,
-  CONNECTED_INTEGRATIONS,
-  ACTIVITY_TIMELINE,
-  NOTIFICATION_PREFERENCES,
-  IntegrationItem,
-  TimelineEvent,
-  NotificationPreference,
-  AdminProfileDetails,
-} from "@/app/(branchAdmin)/branch-admin/settings/data";
+
+type SystemTab = "Payment Settings" | "Notification Settings" | "User Roll Management";
+type AccessLevel = "FULL" | "READ" | "NONE";
+
+interface UserPermission {
+  [moduleId: string]: AccessLevel;
+}
+
+interface User {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  role: string;
+  branch: string;
+  initials: string;
+  isSaved: boolean;
+  permissions: UserPermission;
+}
+
+const INITIAL_USERS: User[] = [
+  { id: "1", name: "Afsana hamid mim", username: "afsana.mim", email: "afsana@example.com", phone: "088 4354 5669", role: "Super Admin", branch: "All", initials: "AH", isSaved: false, permissions: {} },
+  { id: "2", name: "Nathana Reboucas", username: "nathana.r", email: "nathana@example.com", phone: "088 4354 5670", role: "Admin", branch: "All", initials: "NR", isSaved: false, permissions: {} },
+  { id: "3", name: "Ethan Hu", username: "ethan.hu", email: "ethan@example.com", phone: "088 4354 5671", role: "Manager", branch: "All", initials: "EH", isSaved: false, permissions: {} },
+  { id: "4", name: "Brock Wegner", username: "brock.w", email: "brock@example.com", phone: "088 4354 5672", role: "Staff", branch: "Eltham", initials: "BW", isSaved: false, permissions: {} },
+];
 
 export default function SettingsPage() {
-  // State variables for interactive page behaviors
-  const [profile, setProfile] =
-    useState<AdminProfileDetails>(ADMIN_PROFILE_DATA);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [editForm, setEditForm] =
-    useState<AdminProfileDetails>(ADMIN_PROFILE_DATA);
+  const [activeTab, setActiveTab] = useState<SystemTab>("Payment Settings");
+  const [users, setUsers] = useState<User[]>(INITIAL_USERS);
 
-  const [modules, setModules] = useState(ROLE_MODULES);
-  const [isCustomizing, setIsCustomizing] = useState<boolean>(false);
+  // Modals & Views State
+  const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
+  const [viewingUser, setViewingUser] = useState<User | null>(null);
 
-  const [integrations, setIntegrations] = useState<IntegrationItem[]>(
-    CONNECTED_INTEGRATIONS,
-  );
-  const [activities, setActivities] =
-    useState<TimelineEvent[]>(ACTIVITY_TIMELINE);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-
-  const [notifications, setNotifications] = useState<NotificationPreference[]>(
-    NOTIFICATION_PREFERENCES,
-  );
-
-  // Profile actions
-  const handleEditProfileClick = () => {
-    setEditForm(profile);
-    setIsEditing(true);
-  };
-
-  const handleSaveProfile = () => {
-    setProfile(editForm);
-    setIsEditing(false);
-
-    // Add activity log dynamically
-    const newActivity: TimelineEvent = {
-      id: `act-${Date.now()}`,
-      activity: "You updated your Admin Profile information",
-      timestamp: new Date().toLocaleString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      }),
+  const handleCreateUser = (newUser: any) => {
+    const createdUser: User = {
+      id: Date.now().toString(),
+      name: newUser.name || "Unknown User",
+      username: newUser.username || "user",
+      email: newUser.email || "",
+      phone: newUser.phone || "",
+      role: newUser.role || "Staff",
+      branch: newUser.branch || "All",
+      initials: (newUser.name || "U U").split(" ").map((n: string) => n[0]).join("").toUpperCase().substring(0, 2),
+      isSaved: false,
+      permissions: newUser.permissions || {},
     };
-    setActivities([newActivity, ...activities]);
+    setUsers([...users, createdUser]);
+    setIsAddUserModalOpen(false);
   };
 
-  // Toggle notification states
-  const handleToggleNotification = (id: string) => {
-    setNotifications((prev) =>
-      prev.map((n) => {
-        if (n.id === id) {
-          const nextState = !n.enabled;
-
-          // Log timeline event for system notifications setting
-          const newActivity: TimelineEvent = {
-            id: `act-${Date.now()}`,
-            activity: `Changed ${n.title} notification setting to ${nextState ? "ON" : "OFF"}`,
-            timestamp: new Date().toLocaleString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
-            }),
-          };
-          setActivities([newActivity, ...activities]);
-
-          return { ...n, enabled: nextState };
-        }
-        return n;
-      }),
-    );
+  const handleSaveUser = (userId: string) => {
+    setUsers(users.map((u) => (u.id === userId ? { ...u, isSaved: true } : u)));
   };
 
-  // Toggle Integration connection state
-  const handleToggleIntegration = (id: string) => {
-    setIntegrations((prev) =>
-      prev.map((integ) => {
-        if (integ.id === id) {
-          const nextState = !integ.connected;
-
-          // Add timeline entry
-          const newActivity: TimelineEvent = {
-            id: `act-${Date.now()}`,
-            activity: `${nextState ? "Connected" : "Disconnected"} ${integ.name} integration`,
-            timestamp: new Date().toLocaleString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
-            }),
-          };
-          setActivities([newActivity, ...activities]);
-
-          return { ...integ, connected: nextState };
-        }
-        return integ;
-      }),
-    );
+  const handleDeleteUser = (userId: string) => {
+    setUsers(users.filter((u) => u.id !== userId));
   };
 
-  // Customize module toggles
-  const handleToggleModule = (name: string) => {
-    setModules((prev) =>
-      prev.map((m) => (m.name === name ? { ...m, enabled: !m.enabled } : m)),
-    );
-  };
-
-  const handleApplyCustomAccess = () => {
-    setIsCustomizing(false);
-
-    // Add timeline activity
-    const newActivity: TimelineEvent = {
-      id: `act-${Date.now()}`,
-      activity: `Customized branch access modules under ${profile.role}`,
-      timestamp: new Date().toLocaleString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      }),
-    };
-    setActivities([newActivity, ...activities]);
-  };
-
-  // Get matching notification icon
-  const getNotificationIcon = (iconType: string) => {
-    switch (iconType) {
-      case "bell":
-        return Bell;
-      case "home":
-        return Home;
-      case "alert":
-        return AlertTriangle;
-      case "car":
-        return Car;
-      case "marketing":
-        return BarChart3;
-      case "summary":
-        return FileText;
-      default:
-        return Bell;
-    }
-  };
-
-  // Filter activities
-  const filteredActivities = activities.filter((act) =>
-    act.activity.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  // If a user is being viewed, render the full-page User Profile view instead of Settings
+  if (viewingUser) {
+    return <UserProfileView user={viewingUser} onBack={() => setViewingUser(null)} />;
+  }
 
   return (
     <div className="space-y-6 sm:space-y-8 animate-fadeIn pb-12">
-      {/* Top Header Section */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-wider flex items-center">
-            Settings
-          </h1>
-          <p className="text-zinc-500 text-xs sm:text-sm mt-1 font-semibold">
-            Manage your branch credentials, connected services, and
-            notifications
-          </p>
-        </div>
+      {/* Top Header */}
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-wider">
+          Settings Management
+        </h1>
+        <p className="text-zinc-500 text-xs sm:text-sm mt-1 font-semibold">
+          Manage System Settings Quickly and Efficiently
+        </p>
       </div>
 
-      {/* Main Settings Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <div className="lg:col-span-7 space-y-6">
-          {/* Card 1: Admin Profile */}
-          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 relative overflow-hidden shadow-2xl">
-            {/* Subtle profile gradient mesh */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-radial from-orange-500/10 to-transparent blur-3xl opacity-50 pointer-events-none" />
-
-            <div className="flex justify-between items-center pb-4 mb-6 border-b border-zinc-900/80 relative z-10">
-              <h3 className="text-sm font-black text-white uppercase tracking-wider flex items-center">
-                Admin Profile
-              </h3>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={handleEditProfileClick}
-                  className="px-3.5 py-1.5 bg-[#1a1a1c] hover:bg-[#252528] border border-orange-500/30 rounded-xl text-[10px] font-black uppercase tracking-wider text-orange-500 flex items-center space-x-1.5 transition cursor-pointer"
-                >
-                  <Edit2 className="h-3 w-3" />
-                  <span>Edit Profile</span>
-                </button>
-                <button
-                  onClick={() =>
-                    alert("Actions list: Download Backup, System Diagnostic")
-                  }
-                  className="p-1.5 text-zinc-400 hover:text-white rounded-xl hover:bg-zinc-800/60 transition-colors"
-                >
-                  <MoreVertical className="h-4 w-4" />
-                </button>
-              </div>
+        {/* Left Column: Branch Management & System Settings */}
+        <div className="lg:col-span-8 xl:col-span-9 space-y-6">
+          
+          {/* 1. Branch Management Table Card */}
+          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl overflow-hidden">
+            <div className="mb-6">
+              <h2 className="text-lg font-black text-white">Branch Management</h2>
+              <p className="text-zinc-500 text-xs font-semibold mt-1">
+                Add, edit and manage all branches from one place.
+              </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6 relative z-10">
-              {/* Elegant custom SVG business avatar matching screenshot */}
-              <div>
-                <Image
-                  src="/branch-admin/admin.png"
-                  alt="Profile Avatar"
-                  width={100}
-                  height={100}
-                  className="rounded-full"
-                />
-              </div>
-
-              <div className="flex-1 text-center sm:text-left space-y-4">
-                <div>
-                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                    <h2 className="text-xl font-black text-white">
-                      {profile.name}
-                    </h2>
-                    <span className="px-2 py-0.5 bg-orange-500/10 border border-orange-500/25 rounded-md text-[9px] font-black uppercase text-orange-500">
-                      {profile.role}
-                    </span>
-                  </div>
-
-                  {/* Icon contacts grid */}
-                  <div className="grid grid-cols-1 gap-2 mt-3.5 text-xs text-zinc-400 font-semibold">
-                    <div className="flex items-center justify-center sm:justify-start space-x-2.5">
-                      <Mail className="h-3.5 w-3.5 text-orange-500 shrink-0" />
-                      <span className="truncate hover:text-white transition-colors">
-                        {profile.email}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-center sm:justify-start space-x-2.5">
-                      <Phone className="h-3.5 w-3.5 text-orange-500 shrink-0" />
-                      <span className="hover:text-white transition-colors">
-                        {profile.phone}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-center sm:justify-start space-x-2.5">
-                      <MapPin className="h-3.5 w-3.5 text-orange-500 shrink-0" />
-                      <span className="hover:text-white transition-colors text-left leading-tight max-w-sm">
-                        {profile.address}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Account Status Flags Footer Panel */}
-            <div className="grid grid-cols-3 gap-2 pt-5 mt-6 border-t border-zinc-900/60 text-center relative z-10">
-              <div className="space-y-1">
-                <span className="block text-[8px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                  Last Login
-                </span>
-                <span className="block text-[9px] sm:text-xs font-black text-white mt-1 uppercase">
-                  {profile.lastLogin}
-                </span>
-              </div>
-              <div className="space-y-1 border-x border-zinc-900/60 px-2">
-                <span className="block text-[8px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                  Account Status
-                </span>
-                <span className="inline-flex items-center justify-center space-x-1.5 mt-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[10px] sm:text-xs font-black text-emerald-500 uppercase tracking-wider">
-                    {profile.accountStatus}
-                  </span>
-                </span>
-              </div>
-              <div className="space-y-1">
-                <span className="block text-[8px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                  2FA Status
-                </span>
-                <span className="inline-flex items-center justify-center space-x-1 mt-1 text-emerald-500">
-                  <CheckCircle2 className="h-3.5 w-3.5 fill-emerald-500/10 stroke-[2.5]" />
-                  <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider">
-                    {profile.twoFactorActive ? "Active" : "Inactive"}
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2: Role & Permissions */}
-          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
-            <div className="pb-4 mb-5 border-b border-zinc-900/80">
-              <h3 className="text-sm font-black text-white uppercase tracking-wider">
-                Role & Permissions
-              </h3>
-            </div>
-
-            <div className="space-y-5 text-xs font-semibold">
-              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                <div className="space-y-1">
-                  <span className="block text-[8px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                    Role
-                  </span>
-                  <h4 className="text-lg font-black text-white mt-1">
-                    {profile.role}
-                  </h4>
-                </div>
-
-                <button
-                  onClick={() => setIsCustomizing(true)}
-                  className="px-4 py-2.5 bg-[#121214] hover:bg-[#1a1a1c] border border-orange-500/30 text-orange-500 hover:text-orange-400 rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center justify-center space-x-1.5 transition cursor-pointer self-start sm:self-auto"
-                >
-                  <ShieldCheck className="h-3.5 w-3.5" />
-                  <span>Customize Access</span>
-                </button>
-              </div>
-
-              <div className="space-y-1 pt-1">
-                <span className="block text-[8px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                  Description
-                </span>
-                <p className="text-zinc-400 mt-1.5 leading-relaxed font-semibold">
-                  Full system access with complete control over all modules and
-                  settings.
-                </p>
-              </div>
-
-              {/* Module Access Pills Grid matching design perfectly */}
-              <div className="space-y-2 pt-2">
-                <span className="block text-[8px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                  Module Access
-                </span>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 pt-1">
-                  {modules.map((mod) => (
-                    <div
-                      key={mod.name}
-                      className={`flex items-center space-x-2 px-3 py-2.5 rounded-xl  select-none ${
-                        mod.enabled
-                          ? "bg-orange-500/5 border-orange-555/15 text-white"
-                          : "bg-zinc-900/30 border-zinc-900 text-zinc-500"
-                      }`}
-                    >
-                      <div
-                        className={`h-4.5 w-4.5 rounded-md flex items-center justify-center border shrink-0 ${
-                          mod.enabled
-                            ? "bg-[#23272D4D] border-emerald-500/20 text-emerald-500"
-                            : "border-zinc-800 text-zinc-650"
-                        }`}
-                      >
-                        <Check className="h-3 w-3 stroke-[3.5]" />
-                      </div>
-                      <span className="text-[10px] font-black uppercase tracking-wider truncate">
-                        {mod.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3: Connected Integrations */}
-          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
-            <div className="flex justify-between items-center pb-4 mb-5 border-b border-zinc-900/80">
-              <div>
-                <h3 className="text-sm font-black text-white uppercase tracking-wider">
-                  Connected Integrations
-                </h3>
-              </div>
-              <button
-                onClick={() => alert("All integrations are fully configured.")}
-                className="px-3.5 py-1.5 bg-[#1a1a1c] hover:bg-[#252528] border border-zinc-800 hover:border-zinc-700 rounded-xl text-[9px] font-black uppercase tracking-widest text-zinc-400 hover:text-white transition cursor-pointer"
-              >
-                Manage Integrations
-              </button>
-            </div>
-
-            {/* Integrations List with premium custom badges */}
-            <div className="divide-y divide-zinc-900/60 text-xs font-semibold">
-              {integrations.map((item) => {
-                // Render custom premium brand shapes
-                let brandMarkup = null;
-                if (item.logoType === "uber") {
-                  brandMarkup = (
-                    <div className="w-8 h-8 rounded-xl bg-black border border-zinc-850 flex flex-col items-center justify-center shrink-0">
-                      <span className="text-[6px] font-black leading-none text-white tracking-widest">
-                        UBER
-                      </span>
-                      <span className="text-[5px] font-bold text-emerald-450 mt-0.5 leading-none">
-                        Eats
-                      </span>
-                    </div>
-                  );
-                } else if (item.logoType === "deliveroo") {
-                  brandMarkup = (
-                    <div className="w-8 h-8 rounded-xl bg-[#00cdbc]/10 border border-[#00cdbc]/25 flex items-center justify-center shrink-0">
-                      <span className="text-xs font-black text-[#00cdbc] tracking-widest">
-                        D
-                      </span>
-                    </div>
-                  );
-                } else if (item.logoType === "stripe") {
-                  brandMarkup = (
-                    <div className="w-8 h-8 rounded-xl bg-[#635bff]/10 border border-[#635bff]/25 flex items-center justify-center shrink-0">
-                      <span className="text-[10px] font-black text-[#635bff] tracking-widest">
-                        S
-                      </span>
-                    </div>
-                  );
-                } else if (item.logoType === "twilio") {
-                  brandMarkup = (
-                    <div className="w-8 h-8 rounded-xl bg-[#f22f46]/10 border border-[#f22f46]/25 flex items-center justify-center shrink-0">
-                      <span className="text-[7px] font-black text-[#f22f46]">
-                        twilio
-                      </span>
-                    </div>
-                  );
-                } else if (item.logoType === "google") {
-                  brandMarkup = (
-                    <div className="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/25 flex items-center justify-center shrink-0">
-                      <span className="text-xs select-none">📍</span>
-                    </div>
-                  );
-                }
-
-                return (
-                  <div
-                    key={item.id}
-                    className="flex justify-between items-center py-3.5 first:pt-0 last:pb-0"
-                  >
-                    <div className="flex items-center space-x-3.5">
-                      {brandMarkup}
-                      <span className="text-white text-xs font-black tracking-wider uppercase">
-                        {item.name}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center space-x-4">
-                      {/* Connection pill switch */}
-                      <span
-                        className={`px-2.5 py-0.5 rounded-full text-[9px] font-black tracking-widest uppercase border ${
-                          item.connected
-                            ? "bg-emerald-500/5 border-emerald-500/25 text-emerald-450"
-                            : "bg-zinc-900 border-zinc-800 text-zinc-500"
-                        }`}
-                      >
-                        {item.connected ? "Connected" : "Disconnected"}
-                      </span>
-
-                      <button
-                        onClick={() => handleToggleIntegration(item.id)}
-                        className={`text-[10px] font-black uppercase tracking-wider underline cursor-pointer transition-colors ${
-                          item.connected
-                            ? "text-zinc-500 hover:text-rose-500"
-                            : "text-orange-500 hover:text-orange-450"
-                        }`}
-                      >
-                        {item.connected ? "Disconnect" : "Connect"}
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        <div className="lg:col-span-5 space-y-6">
-          {/* Mini Cards side-by-side row */}
-          <div className="grid grid-cols-2 gap-4">
-            {/* Staff access card */}
-            <div
-              className="bg-[#121214] border border-zinc-800 rounded-3xl p-4.5 min-h-[105px] relative overflow-hidden flex flex-col justify-between shadow-lg"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle at 100% 0%, rgba(249, 115, 22, 0.28) 0%, rgba(249, 115, 22, 0.04) 45%, transparent 75%)",
-              }}
-            >
-              <div className="flex justify-between items-start">
-                <div className="h-7 w-7 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center shrink-0">
-                  <Users className="h-3.5 w-3.5" />
-                </div>
-                {/* Glowing sphere design matching mockup */}
-                <div className="w-14 h-8 bg-gradient-to-l from-orange-500 to-amber-600 blur-lg rounded-full opacity-35" />
-              </div>
-
-              <div className="mt-3">
-                <span className="block text-[8px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                  Active Staff
-                </span>
-                <span className="block text-xl font-black text-white mt-1 leading-none">
-                  156
-                </span>
-                <span className="flex items-center space-x-1 mt-1 text-[8px] font-bold text-emerald-500">
-                  <TrendingUp className="h-2.5 w-2.5 text-emerald-500 shrink-0" />
-                  <span>25% of active</span>
-                  <span className="text-zinc-600">|</span>
-                  <span className="text-zinc-550 font-semibold">
-                    vs last period
-                  </span>
-                </span>
-              </div>
-            </div>
-
-            {/* Revenue access card */}
-            <div
-              className="bg-[#121214] border border-zinc-800 rounded-3xl p-4.5 min-h-[105px] relative overflow-hidden flex flex-col justify-between shadow-lg"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle at 100% 0%, rgba(249, 115, 22, 0.28) 0%, rgba(249, 115, 22, 0.04) 45%, transparent 75%)",
-              }}
-            >
-              <div className="flex justify-between items-start">
-                <div className="h-7 w-7 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center shrink-0">
-                  <Coins className="h-3.5 w-3.5" />
-                </div>
-                {/* Glowing sphere design matching mockup */}
-                <div className="w-14 h-8 bg-gradient-to-l from-orange-500 to-amber-600 blur-lg rounded-full opacity-35" />
-              </div>
-
-              <div className="mt-3">
-                <span className="block text-[8px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                  Total Revenue Access
-                </span>
-                <span className="block text-xl font-black text-white mt-1 leading-none">
-                  156
-                </span>
-                <span className="flex items-center space-x-1 mt-1 text-[8px] font-bold text-emerald-500">
-                  <TrendingUp className="h-2.5 w-2.5 text-emerald-500 shrink-0" />
-                  <span>25% of active</span>
-                  <span className="text-zinc-600">|</span>
-                  <span className="text-zinc-550 font-semibold">
-                    vs last period
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 4: Activity Timeline */}
-          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-5 border-b border-zinc-900/80 gap-3">
-              <h3 className="text-sm font-black text-white uppercase tracking-wider">
-                Activity Timeline
-              </h3>
-
-              {/* Timeline search bar */}
-              <div className="relative">
+            {/* Controls Bar */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              <div className="relative w-full sm:max-w-xs">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
                 <input
                   type="text"
-                  placeholder="Filter logs..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-[#1a1a1c] border border-zinc-800 rounded-lg px-2.5 py-1.5 pl-7 text-[10px] text-white font-semibold outline-none focus:border-orange-500 transition-colors w-full sm:w-36"
+                  placeholder="Search branch by name or ID..."
+                  className="w-full bg-[#161618] border border-zinc-800 focus:border-zinc-700 rounded-xl py-2 pl-9 pr-4 text-xs font-semibold text-white outline-none transition-colors"
                 />
-                <span className="absolute left-2.5 top-2.5">
-                  <svg
-                    className="w-2.5 h-2.5 text-zinc-550"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="3"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
+              </div>
+
+              <div className="flex items-center space-x-3 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0 scrollbar-hide">
+                <div className="relative shrink-0">
+                  <select className="appearance-none bg-[#161618] border border-zinc-800 rounded-xl py-2 pl-4 pr-10 text-xs font-semibold text-zinc-300 outline-none hover:border-zinc-700 transition-colors cursor-pointer">
+                    <option>All Status</option>
+                    <option>Active</option>
+                    <option>Inactive</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500 pointer-events-none" />
+                </div>
+                <div className="relative shrink-0">
+                  <select className="appearance-none bg-[#161618] border border-zinc-800 rounded-xl py-2 pl-4 pr-10 text-xs font-semibold text-zinc-300 outline-none hover:border-zinc-700 transition-colors cursor-pointer">
+                    <option>All Cities</option>
+                    <option>Woodstock</option>
+                    <option>London</option>
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500 pointer-events-none" />
+                </div>
+                <button className="flex items-center space-x-2 px-4 py-2 border border-orange-500/50 hover:bg-orange-500/10 text-orange-500 rounded-xl text-xs font-black uppercase tracking-wider transition-colors shrink-0">
+                  <Plus className="h-4 w-4" />
+                  <span>Add Branch</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Table wrapper for horizontal scrolling on small screens */}
+            <div className="overflow-x-auto -mx-6 px-6">
+              <table className="w-full text-left border-collapse min-w-[900px]">
+                <thead>
+                  <tr className="border-y border-zinc-800/80 text-[10px] font-black text-zinc-500 uppercase tracking-widest">
+                    <th className="py-4 font-black w-8">
+                      <div className="h-4 w-4 rounded border border-zinc-700 bg-[#161618]" />
+                    </th>
+                    <th className="py-4">Branch ID</th>
+                    <th className="py-4">Branch Name</th>
+                    <th className="py-4 w-48">Address</th>
+                    <th className="py-4">Phone</th>
+                    <th className="py-4">Opening Hours</th>
+                    <th className="py-4">Delivery Radius</th>
+                    <th className="py-4">Min Order</th>
+                    <th className="py-4">Tax Rate</th>
+                    <th className="py-4">Status</th>
+                    <th className="py-4 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-800/60 text-xs font-semibold">
+                  {[
+                    { status: "Active" },
+                    { status: "Active" },
+                    { status: "Inactive" },
+                    { status: "Active" },
+                    { status: "Active" }
+                  ].map((row, i) => (
+                    <tr key={i} className="hover:bg-[#161618] transition-colors group">
+                      <td className="py-4">
+                        <div className="h-4 w-4 rounded border border-zinc-700 bg-[#161618] cursor-pointer" />
+                      </td>
+                      <td className="py-4 text-orange-500 font-bold">EL01</td>
+                      <td className="py-4 text-zinc-300">Eltham-Led Office</td>
+                      <td className="py-4 text-zinc-500 leading-tight">
+                        <span className="line-clamp-2">7 Elm Street, Woodstock,<br />OX7 1ER</span>
+                      </td>
+                      <td className="py-4 text-zinc-500">+61 3 9123 4567</td>
+                      <td className="py-4 text-zinc-300">10:00 AM - 11:00 PM</td>
+                      <td className="py-4 text-zinc-300 text-center">6 KM</td>
+                      <td className="py-4 text-zinc-300">£15.00</td>
+                      <td className="py-4 text-zinc-300">£15.00</td>
+                      <td className="py-4">
+                        <span className={`inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${
+                          row.status === "Active" 
+                            ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" 
+                            : "bg-red-500/10 border-red-500/20 text-red-500"
+                        }`}>
+                          <span className={`h-1.5 w-1.5 rounded-full ${row.status === "Active" ? "bg-emerald-500" : "bg-red-500"}`} />
+                          <span>{row.status}</span>
+                        </span>
+                      </td>
+                      <td className="py-4 text-right text-zinc-600 group-hover:text-white transition-colors cursor-pointer">
+                        <MoreVertical className="h-4 w-4 ml-auto" />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Pagination */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-6 pt-6 border-t border-zinc-800/80 text-xs font-semibold text-zinc-500 gap-4">
+              <span>Showing 1 to 10 of 50 results</span>
+              
+              <div className="flex items-center space-x-1.5">
+                <button className="h-8 w-8 flex items-center justify-center rounded-lg border border-zinc-800 hover:bg-zinc-800 transition-colors">
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button className="h-8 w-8 flex items-center justify-center rounded-lg border border-orange-500 text-orange-500 font-black">
+                  1
+                </button>
+                <button className="h-8 w-8 flex items-center justify-center rounded-lg border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors">
+                  2
+                </button>
+                <button className="h-8 w-8 flex items-center justify-center rounded-lg border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors">
+                  3
+                </button>
+                <button className="h-8 w-8 flex items-center justify-center rounded-lg border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors">
+                  4
+                </button>
+                <button className="h-8 w-8 flex items-center justify-center rounded-lg border border-zinc-800 hover:bg-zinc-800 hover:text-white transition-colors">
+                  5
+                </button>
+                <button className="h-8 w-8 flex items-center justify-center rounded-lg border border-zinc-800 hover:bg-zinc-800 transition-colors">
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <span className="px-3 py-1.5 rounded-lg border border-zinc-800 bg-[#161618] flex items-center justify-between min-w-[80px]">
+                  <span>5/page</span>
+                  <ChevronDown className="h-3.5 w-3.5 ml-2" />
                 </span>
               </div>
             </div>
 
-            {/* Vertical timeline matching screenshot perfectly */}
-            <div className="space-y-4 max-h-[300px] overflow-y-auto pr-1 relative pl-3.5 border-l border-zinc-900">
-              {filteredActivities.length > 0 ? (
-                filteredActivities.map((act) => (
-                  <div
-                    key={act.id}
-                    className="relative group text-xs font-semibold"
-                  >
-                    {/* Timeline bullet */}
-                    <span className="absolute -left-[19.5px] top-1 h-3 w-3 rounded-full bg-orange-500 border border-[#121214] group-hover:scale-115 transition-transform" />
+          </div>
 
-                    <div className="flex justify-between items-start space-x-3">
-                      <span className="text-zinc-300 group-hover:text-white transition-colors text-[11px] leading-tight">
-                        {act.activity}
+          {/* 2. System Settings Tabs */}
+          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl overflow-hidden min-h-[400px]">
+            <div className="mb-6">
+              <h2 className="text-lg font-black text-white">System Settings</h2>
+              <p className="text-zinc-500 text-xs font-semibold mt-1">
+                Configure global system preferences and integration's .
+              </p>
+            </div>
+
+            {/* Tabs Header */}
+            <div className="flex items-center space-x-6 border-b border-zinc-800/80 mb-6 relative">
+              {(["Payment Settings", "Notification Settings", "User Roll Management"] as SystemTab[]).map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`pb-3 text-xs font-bold transition-colors relative ${
+                    activeTab === tab ? "text-orange-500" : "text-zinc-500 hover:text-zinc-300"
+                  }`}
+                >
+                  {tab}
+                  {activeTab === tab && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 rounded-t-full" />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Tab Contents */}
+            <div className="animate-fadeIn">
+              
+              {/* Payment Settings Tab */}
+              {activeTab === "Payment Settings" && (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl hover:border-zinc-700 transition-colors cursor-pointer group">
+                    <div className="flex items-center space-x-4">
+                      <div className="h-10 w-10 rounded-xl bg-zinc-800 flex items-center justify-center shrink-0">
+                        {/* Mock Stripe Icon */}
+                        <div className="h-6 w-6 rounded bg-[#635bff] text-white flex items-center justify-center font-black text-xs">S</div>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-black text-white">Stripe (Card Payments)</h4>
+                        <p className="text-xs text-zinc-500 font-semibold mt-0.5">Accept credit/debit card payments via Stripe</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                      <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-wider">
+                        Enabled
                       </span>
-                      <span className="text-zinc-550 group-hover:text-zinc-400 transition-colors text-[9px] uppercase shrink-0 font-bold">
-                        {act.timestamp}
-                      </span>
+                      <ChevronRight className="h-4 w-4 text-zinc-600 group-hover:text-white transition-colors" />
                     </div>
                   </div>
-                ))
-              ) : (
-                <div className="py-6 text-center text-zinc-650">
-                  No matching timeline activities found.
+
+                  <div className="flex items-center justify-between p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl hover:border-zinc-700 transition-colors cursor-pointer group">
+                    <div className="flex items-center space-x-4">
+                      <div className="h-10 w-10 rounded-xl bg-zinc-800 flex items-center justify-center shrink-0">
+                        <Banknote className="h-5 w-5 text-zinc-400" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-black text-white">Cash on Delivery</h4>
+                        <p className="text-xs text-zinc-500 font-semibold mt-0.5">Accept cash payments on delivery</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                      <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-wider">
+                        Enabled
+                      </span>
+                      <ChevronRight className="h-4 w-4 text-zinc-600 group-hover:text-white transition-colors" />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Notification Settings Tab */}
+              {activeTab === "Notification Settings" && (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl hover:border-zinc-700 transition-colors cursor-pointer group">
+                    <span className="text-xs font-black text-white">Service Tax Rate</span>
+                    <div className="flex items-center space-x-4">
+                      <span className="text-xs font-bold text-zinc-300">10%</span>
+                      <ChevronRight className="h-4 w-4 text-zinc-600 group-hover:text-white transition-colors" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl hover:border-zinc-700 transition-colors cursor-pointer group">
+                    <span className="text-xs font-black text-white">Platform Commission</span>
+                    <div className="flex items-center space-x-4">
+                      <span className="text-xs font-bold text-zinc-300">15%</span>
+                      <ChevronRight className="h-4 w-4 text-zinc-600 group-hover:text-white transition-colors" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl hover:border-zinc-700 transition-colors">
+                    <span className="text-xs font-black text-white">Auto Accept Orders</span>
+                    <div className="flex items-center space-x-4">
+                      {/* Toggle Switch ON */}
+                      <button className="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-orange-500 focus:outline-none">
+                        <span className="translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" />
+                      </button>
+                      <ChevronRight className="h-4 w-4 text-zinc-600" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl hover:border-zinc-700 transition-colors">
+                    <span className="text-xs font-black text-white">Low Stock Alerts</span>
+                    <div className="flex items-center space-x-4">
+                      {/* Toggle Switch ON */}
+                      <button className="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-orange-500 focus:outline-none">
+                        <span className="translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" />
+                      </button>
+                      <ChevronRight className="h-4 w-4 text-zinc-600" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl hover:border-zinc-700 transition-colors">
+                    <span className="text-xs font-black text-white">Maintenance Mode</span>
+                    <div className="flex items-center space-x-4">
+                      {/* Toggle Switch OFF */}
+                      <button className="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-zinc-600 focus:outline-none">
+                        <span className="translate-x-0 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" />
+                      </button>
+                      <ChevronRight className="h-4 w-4 text-zinc-600" />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* User Roll Management Tab */}
+              {activeTab === "User Roll Management" && (
+                <div className="space-y-4 animate-fadeIn">
+                  <div className="flex justify-end">
+                    <button 
+                      onClick={() => setIsAddUserModalOpen(true)}
+                      className="flex items-center space-x-2 px-4 py-2 border border-orange-500/50 hover:bg-orange-500/10 text-orange-500 rounded-xl text-xs font-black uppercase tracking-wider transition-colors shrink-0"
+                    >
+                      <Plus className="h-4 w-4" />
+                      <span>Add User</span>
+                    </button>
+                  </div>
+
+                  <div className="space-y-2">
+                    {users.map((user) => (
+                      <div key={user.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-[#161618] border border-zinc-800/80 rounded-2xl gap-4 group">
+                        <div className="flex items-center space-x-3">
+                          <div className="h-8 w-8 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-[10px] font-black text-white uppercase shrink-0">
+                            {user.initials}
+                          </div>
+                          <span className="text-xs font-black text-white">{user.name}</span>
+                        </div>
+                        
+                        <div className="flex items-center space-x-3 sm:w-auto w-full">
+                          <div className="relative flex-1 sm:w-48">
+                            <select 
+                              defaultValue={user.role}
+                              className="appearance-none w-full bg-[#121214] border border-zinc-800 rounded-xl py-2 pl-4 pr-10 text-xs font-semibold text-zinc-300 outline-none hover:border-zinc-700 transition-colors cursor-pointer"
+                            >
+                              <option value="Super Admin">Super Admin</option>
+                              <option value="Admin">Admin</option>
+                              <option value="Manager">Manager</option>
+                              <option value="Staff">Staff</option>
+                            </select>
+                            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500 pointer-events-none" />
+                          </div>
+                          
+                          {/* Save Button changes to Eye when Saved */}
+                          {user.isSaved ? (
+                            <button 
+                              onClick={() => setViewingUser(user)}
+                              className="p-2 border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 hover:border-blue-500/50 rounded-xl transition-all shadow-[0_0_10px_rgba(59,130,246,0.1)] shrink-0"
+                              title="View Profile"
+                            >
+                              <Eye className="h-4 w-4" />
+                            </button>
+                          ) : (
+                            <button 
+                              onClick={() => handleSaveUser(user.id)}
+                              className="px-4 py-2 bg-[#121214] border border-zinc-800 hover:border-zinc-600 rounded-xl text-xs font-black text-zinc-300 transition-colors shrink-0"
+                            >
+                              Save
+                            </button>
+                          )}
+                          
+                          <button 
+                            onClick={() => handleDeleteUser(user.id)}
+                            className="p-2 border border-red-500/20 text-red-500 hover:bg-red-500/10 rounded-xl transition-colors shrink-0"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
           </div>
 
-          {/* Card 5: Notification Preferences */}
-          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
-            <div className="pb-4 mb-5 border-b border-zinc-900/80">
-              <h3 className="text-sm font-black text-white uppercase tracking-wider">
-                Notification Preferences
-              </h3>
-            </div>
+        </div>
 
-            {/* Toggles list */}
-            <div className="space-y-3.5">
-              {notifications.map((pref) => {
-                const Icon = getNotificationIcon(pref.iconType);
-
-                return (
-                  <div
-                    key={pref.id}
-                    className="bg-[#161618] border border-zinc-900 hover:border-zinc-800 rounded-2xl p-4.5 flex justify-between items-center transition-all"
-                  >
-                    <div className="flex items-center space-x-3.5 min-w-0">
-                      <div className="h-8.5 w-8.5 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center shrink-0">
-                        <Icon className="h-4 w-4" />
-                      </div>
-
-                      <div className="min-w-0">
-                        <h4 className="text-white text-xs font-black uppercase tracking-wider truncate">
-                          {pref.title}
-                        </h4>
-                        <p className="text-zinc-500 text-[10px] mt-0.5 font-bold truncate">
-                          {pref.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-3 shrink-0">
-                      {/* Premium functional switch toggle */}
-                      <button
-                        onClick={() => handleToggleNotification(pref.id)}
-                        className={`relative inline-flex h-5.5 w-10 shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                          pref.enabled ? "bg-orange-500" : "bg-zinc-800"
-                        }`}
-                      >
-                        <span
-                          className={`pointer-events-none inline-block h-4.5 w-4.5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                            pref.enabled ? "translate-x-4.5" : "translate-x-0"
-                          }`}
-                        />
-                      </button>
-
-                      <ChevronRight className="h-4 w-4 text-zinc-550 shrink-0" />
-                    </div>
-                  </div>
-                );
-              })}
+        {/* Right Column: Sidebars */}
+        <div className="lg:col-span-4 xl:col-span-3 space-y-6">
+          
+          {/* Branch Overview */}
+          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl">
+            <h3 className="text-sm font-black text-white mb-4">Branch Overview</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl flex flex-col justify-between">
+                <Store className="h-5 w-5 text-orange-500 mb-2" />
+                <div>
+                  <p className="text-[10px] font-bold text-zinc-500">Total Branches</p>
+                  <p className="text-lg font-black text-white mt-0.5">24</p>
+                  <p className="text-[10px] font-bold text-emerald-500 mt-0.5">5 Active</p>
+                </div>
+              </div>
+              <div className="p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl flex flex-col justify-between">
+                <MapPin className="h-5 w-5 text-orange-500 mb-2" />
+                <div>
+                  <p className="text-[10px] font-bold text-zinc-500">Total Cities</p>
+                  <p className="text-lg font-black text-white mt-0.5">8</p>
+                  <p className="text-[10px] font-bold text-zinc-500 mt-0.5">Across UK</p>
+                </div>
+              </div>
+              <div className="p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl flex flex-col justify-between">
+                <Activity className="h-5 w-5 text-orange-500 mb-2" />
+                <div>
+                  <p className="text-[10px] font-bold text-zinc-500">Avg. Delivery Radius</p>
+                  <p className="text-lg font-black text-white mt-0.5">6.2 km</p>
+                  <p className="text-[10px] font-bold text-zinc-500 mt-0.5">Across all branches</p>
+                </div>
+              </div>
+              <div className="p-4 bg-[#161618] border border-zinc-800/80 rounded-2xl flex flex-col justify-between">
+                <Banknote className="h-5 w-5 text-orange-500 mb-2" />
+                <div>
+                  <p className="text-[10px] font-bold text-zinc-500">Avg. Min Order</p>
+                  <p className="text-lg font-black text-white mt-0.5">$17.80</p>
+                  <p className="text-[10px] font-bold text-zinc-500 mt-0.5">Across all branches</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* ================= EDIT PROFILE DIALOG MODAL ================= */}
-      {isEditing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-          <div className="w-full max-w-md bg-[#121214] border border-zinc-800 rounded-3xl p-6 space-y-6 shadow-2xl relative">
-            <button
-              onClick={() => setIsEditing(false)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            <div>
-              <h3 className="text-sm font-black text-white uppercase tracking-wider">
-                Edit Admin Profile
-              </h3>
-              <p className="text-[11px] text-zinc-450 mt-1 font-semibold">
-                Update Jesse Hayden's administrative details
-              </p>
-            </div>
-
-            <div className="space-y-4 text-xs font-semibold">
-              <div className="space-y-1.5">
-                <label className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  value={editForm.name}
-                  onChange={(e) =>
-                    setEditForm({ ...editForm, name: e.target.value })
-                  }
-                  className="w-full bg-[#161618] border border-zinc-850 focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  value={editForm.email}
-                  onChange={(e) =>
-                    setEditForm({ ...editForm, email: e.target.value })
-                  }
-                  className="w-full bg-[#161618] border border-zinc-850 focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold">
-                  Phone Number
-                </label>
-                <input
-                  type="text"
-                  value={editForm.phone}
-                  onChange={(e) =>
-                    setEditForm({ ...editForm, phone: e.target.value })
-                  }
-                  className="w-full bg-[#161618] border border-zinc-850 focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold">
-                  Office Address
-                </label>
-                <textarea
-                  rows={2}
-                  value={editForm.address}
-                  onChange={(e) =>
-                    setEditForm({ ...editForm, address: e.target.value })
-                  }
-                  className="w-full bg-[#161618] border border-zinc-850 focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors resize-none leading-relaxed"
-                />
-              </div>
-            </div>
-
-            <div className="flex space-x-3 pt-2">
-              <button
-                onClick={() => setIsEditing(false)}
-                className="flex-1 py-3 bg-[#161618] hover:bg-[#252528] border border-zinc-800 rounded-xl text-xs font-black uppercase tracking-wider text-zinc-400 transition cursor-pointer"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSaveProfile}
-                className="flex-1 py-3 bg-orange-500 hover:bg-orange-600 rounded-xl text-xs font-black uppercase tracking-wider text-white transition shadow-lg shadow-orange-500/10 cursor-pointer"
-              >
-                Save Changes
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ================= CUSTOMIZE MODULE ACCESS DIALOG MODAL ================= */}
-      {isCustomizing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-          <div className="w-full max-w-lg bg-[#121214] border border-zinc-800 rounded-3xl p-6 space-y-6 shadow-2xl relative max-h-[85vh] flex flex-col">
-            <button
-              onClick={() => setIsCustomizing(false)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            <div>
-              <h3 className="text-sm font-black text-white uppercase tracking-wider">
-                Customize Module Access
-              </h3>
-              <p className="text-[11px] text-zinc-450 mt-1 font-semibold">
-                Enable or disable specific features for the {profile.role} role
-              </p>
-            </div>
-
-            <div className="overflow-y-auto flex-1 pr-1 grid grid-cols-2 gap-3 text-xs font-semibold py-2">
-              {modules.map((mod) => (
-                <button
-                  key={mod.name}
-                  onClick={() => handleToggleModule(mod.name)}
-                  className={`flex items-center justify-between p-3.5 rounded-xl border transition-all cursor-pointer ${
-                    mod.enabled
-                      ? "bg-orange-500/5 border-orange-555/35 text-white"
-                      : "bg-[#161618] border-zinc-850/80 text-zinc-500"
-                  }`}
-                >
-                  <span className="uppercase tracking-wider text-[10px] font-black">
-                    {mod.name}
-                  </span>
-                  <div
-                    className={`h-5 w-5 rounded-md flex items-center justify-center border transition-all ${
-                      mod.enabled
-                        ? "bg-orange-500 border-orange-600 text-white"
-                        : "border-zinc-800 bg-zinc-950"
-                    }`}
-                  >
-                    {mod.enabled && <Check className="h-3 w-3 stroke-[3]" />}
+          {/* Recent Activity */}
+          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl">
+            <h3 className="text-sm font-black text-white mb-4">Recent Activity</h3>
+            <div className="space-y-3">
+              {[
+                { title: "Eltham branch updated", time: "May 07, 2026 10:30 AM" },
+                { title: "Richmond branch settings changed", time: "May 07, 2026 10:30 AM" },
+                { title: "Southbank branch activated", time: "May 07, 2026 10:30 AM" },
+                { title: "Downtown branch details updated", time: "May 07, 2026 10:30 AM" }
+              ].map((act, i) => (
+                <div key={i} className="flex items-start space-x-3 p-3 bg-[#161618] border border-zinc-800/80 rounded-2xl">
+                  <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 flex items-center justify-center shrink-0 border border-blue-500/20">
+                    <Store className="h-4 w-4 text-blue-400" />
                   </div>
-                </button>
+                  <div>
+                    <p className="text-xs font-black text-white leading-tight">{act.title}</p>
+                    <p className="text-[10px] font-bold text-zinc-500 mt-1">{act.time}</p>
+                  </div>
+                </div>
               ))}
             </div>
-
-            <div className="flex space-x-3 pt-4 border-t border-zinc-900">
-              <button
-                onClick={() => setModules(ROLE_MODULES)}
-                className="py-3 px-4 bg-[#161618] hover:bg-[#252528] border border-zinc-800 rounded-xl text-xs font-black uppercase tracking-wider text-zinc-400 transition cursor-pointer"
-              >
-                Reset Default
-              </button>
-              <button
-                onClick={handleApplyCustomAccess}
-                className="flex-1 py-3 bg-orange-500 hover:bg-orange-600 rounded-xl text-xs font-black uppercase tracking-wider text-white transition shadow-lg shadow-orange-500/10 cursor-pointer"
-              >
-                Apply Custom Access
-              </button>
-            </div>
           </div>
+
+          {/* Integration's */}
+          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl">
+            <h3 className="text-sm font-black text-white mb-4">Integration's</h3>
+            <div className="space-y-2 mb-4">
+              {[
+                { name: "Uber Eats", initial: "U", color: "bg-black text-white" },
+                { name: "Just Eats", initial: "J", color: "bg-orange-600 text-white" },
+                { name: "Deliveroo", initial: "D", color: "bg-[#00ccbc] text-white" },
+              ].map((integ) => (
+                <div key={integ.name} className="flex items-center justify-between p-3 bg-[#161618] border border-zinc-800/80 rounded-2xl">
+                  <div className="flex items-center space-x-3">
+                    <div className={`h-8 w-8 rounded-xl flex items-center justify-center text-xs font-black shrink-0 ${integ.color}`}>
+                      {integ.initial}
+                    </div>
+                    <span className="text-xs font-black text-white">{integ.name}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[9px] font-black uppercase tracking-wider">
+                      Connected
+                    </span>
+                    <ChevronRight className="h-4 w-4 text-zinc-600" />
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <button className="w-full py-3 border border-orange-500/50 hover:bg-orange-500/10 text-orange-500 rounded-xl text-xs font-black uppercase tracking-wider transition-colors shadow-[0_0_15px_rgba(249,115,22,0.1)]">
+              Manage Integrations
+            </button>
+          </div>
+
         </div>
+      </div>
+      {isAddUserModalOpen && (
+        <AddUserWizard 
+          onClose={() => setIsAddUserModalOpen(false)} 
+          onConfirm={handleCreateUser} 
+        />
       )}
+
     </div>
   );
 }
