@@ -4,13 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Activity,
   Menu,
   ChevronDown,
   User,
   LogOut,
   Bell,
   Store,
+  ChevronRight,
+  Search,
+  Heart,
+  MessageCircleMore,
 } from "lucide-react";
 import AdminSidebar from "@/components/AdminSidebar";
 
@@ -25,7 +28,7 @@ export default function SuperAdminLayout({
   const [systemAlert, setSystemAlert] = useState(true);
 
   return (
-    <div className="min-h-screen bg-[#09090b] flex text-zinc-100 antialiased font-sans">
+    <div className="min-h-screen  bg-[#09090b] flex text-zinc-100 antialiased font-sans">
       {/* SEPARATED SUPER ADMIN SIDEBAR COMPONENT */}
       <AdminSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
@@ -43,19 +46,35 @@ export default function SuperAdminLayout({
             </button>
 
             <div className="hidden sm:flex flex-col">
-              <div className="flex items-center text-xs text-zinc-400 space-x-2 font-medium">
-                <Activity className="h-3.5 w-3.5 text-emerald-500" />
-                <span>Global Uptime Status:</span>
-                <span className="text-emerald-500 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-md text-[10px]">
-                  99.9% Uptime
-                </span>
+              <div className="flex items-center text-sm text-zinc-400 space-x-2 font-medium">
+                <span className="text-primary flex ">Pacinos HQ </span>
+                 <ChevronRight className="h-4 w-4 text-white" />
+                  <span className="text-white capitalize ">  {pathname.split("/").pop()}</span>
               </div>
             </div>
           </div>
 
           {/* Right items: Notifications, Profile */}
-          <div className="flex items-center space-x-4 sm:space-x-6">
-            {/* System Notification bell */}
+          <div className="flex items-center space-x-3">
+            {/* Search Button */}
+             <button
+                onClick={() => console.log("Search clicked")}
+                className="p-2 text-zinc-500 hover:text-white rounded-xl hover:bg-zinc-800 cursor-pointer transition-colors"
+                aria-label="Search"
+              >
+                  <Search className="h-5 w-5" />
+              </button>
+
+              {/* Love / Favorites Button */}
+              <button
+                  onClick={() => console.log("Love clicked")}
+                  className="p-2 text-zinc-500 hover:text-red-500 rounded-xl hover:bg-zinc-800 cursor-pointer transition-colors"
+                  aria-label="Favorites"
+                  >
+                      <Heart className="h-5 w-5" />
+              </button>
+
+               {/* System Notification bell */}
             {systemAlert && (
               <div className="relative">
                 <button
@@ -74,18 +93,21 @@ export default function SuperAdminLayout({
               </div>
             )}
 
+              {/* Messages Button */}
+            <button
+              onClick={() => console.log("Messages clicked")}
+              className="p-2 text-zinc-500 hover:text-white rounded-xl hover:bg-zinc-800 cursor-pointer transition-colors"
+              aria-label="Messages"
+            >
+              <MessageCircleMore  className="h-5 w-5" />
+            </button>
+
             {/* Profile Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setProfileOpen(!profileOpen)}
                 className="flex items-center space-x-3 p-1.5 rounded-xl hover:bg-zinc-800/60 transition-all focus:outline-none"
-              >
-                {/* User avatar mockup */}
-                <div className="relative w-8 h-8 rounded-full border border-zinc-700 bg-zinc-800 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-xs font-bold text-white uppercase">
-                    SJ
-                  </div>
-                </div>
+              >    
 
                 <div className="hidden md:flex flex-col text-left">
                   <span className="text-xs font-bold text-white leading-tight">
@@ -94,6 +116,13 @@ export default function SuperAdminLayout({
                   <span className="text-[10px] text-zinc-400 leading-none">
                     Global Administrator
                   </span>
+                </div>
+
+                 {/* User avatar mockup */}
+                <div className="relative w-8 h-8 rounded-full border border-zinc-700 bg-zinc-800 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-xs font-bold text-white uppercase">
+                    SJ
+                  </div>
                 </div>
                 <ChevronDown className="h-3.5 w-3.5 text-zinc-400 hidden md:block" />
               </button>
