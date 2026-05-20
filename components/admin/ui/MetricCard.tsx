@@ -6,7 +6,7 @@ export interface IMetricCard {
   value: string;
   change: string;
   positive: boolean;
-  note?: string; // Optional note for additional context
+  note?: string;
 }
 
 function TrendBadge({ change, positive, note }: { change: string; positive: boolean; note?: string }) {

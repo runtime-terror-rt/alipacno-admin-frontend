@@ -94,7 +94,7 @@ export default function SuperAdminLayout({
 
               {/* Messages Button */}
             <button
-              onClick={() => console.log("Messages clicked")}
+              onClick={() => router.push("/admin/chat")}
               className="p-2 text-zinc-500 hover:text-white rounded-xl hover:bg-zinc-800 relative cursor-pointer transition-colors"
               aria-label="Messages"
             >

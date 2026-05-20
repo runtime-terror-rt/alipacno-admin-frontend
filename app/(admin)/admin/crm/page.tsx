@@ -1,19 +1,14 @@
 "use client";
 
 import {
-  Search, Download, RefreshCw, Phone, MessageSquare, PlusCircle,
-  Star, ChevronRight as ChevRight,
+  Search,  RefreshCw, ChevronRight as ChevRight,
   CloudUpload,
-  CalendarRange,
 } from "lucide-react";
 import MetricCardsRow from "@/components/admin/common/MetricCardsRow";
 import PageHeader from "@/components/admin/ui/PageHeader";
 import FilterDropdown from "@/components/admin/ui/FilterDropdown";
 import DateFiltersBar from "@/components/admin/ui/DateFilterBar";
 import Pagination from "@/components/admin/ui/Pagination";
-import { useRouter } from "next/navigation";
-import Button from "@/components/admin/ui/Button";
-import Image from "next/image";
 import CustomerTable from "@/components/admin/crm/CustomerTable";
 import CustomerPanel from "@/components/admin/crm/CustomerPanel";
 
@@ -28,7 +23,6 @@ export interface Customer {
   tags: Array<"Regular" | "VIP" | "Loyalty">;
   action: "View Order" | "Call Back" | "Ext#4446";
 }
-
 
 // ── Mock Data ──────────────────────────────────────────────────────────────
 const CUSTOMERS: Customer[] = [
@@ -47,7 +41,6 @@ const CONVERTED: Customer[] = [
 
 // ── Main Page ──────────────────────────────────────────────────────────────
 export default function CRMPage() {
-  const router = useRouter();
 
   return (
     <div className="flex-1  min-h-screen text-white p-5 space-y-6">
