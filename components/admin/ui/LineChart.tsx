@@ -79,10 +79,10 @@ export default function LineChart({ data, dates }: { data: BranchData[]; dates: 
       </div>
 
       {/* Legend */}
-      <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm">
+      <div className="flex flex-wrap  gap-x-6 gap-y-2 mt-6 text-sm">
         {data.map((branch) => (
           <div key={branch.name} className="flex items-center gap-2">
-            <div className="w-3 h-0.5" style={{ backgroundColor: branch.color }} />
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: branch.color }} />
             <span className="text-zinc-300 text-sm">{branch.name}</span>
           </div>
         ))}

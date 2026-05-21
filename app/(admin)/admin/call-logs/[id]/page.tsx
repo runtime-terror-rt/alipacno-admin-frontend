@@ -1,5 +1,6 @@
 "use client";
 
+import DetailsOrderedItem from "@/components/admin/call-details/DetailsOrderedItem";
 import {
   ArrowLeft, Phone, CheckCircle, XCircle,
   ShoppingBag, PhoneCall, Truck, ChevronRight,
@@ -7,7 +8,7 @@ import {
 import { useRouter } from "next/navigation";
 
 // ── Types ──────────────────────────────────────────────────────────────────
-interface OrderItem {
+interface OrderDetailsItem {
   name: string;
   qty: string;
   unitPrice: string;
@@ -15,7 +16,7 @@ interface OrderItem {
 }
 
 // ── Mock Data ──────────────────────────────────────────────────────────────
-const ORDER_ITEMS: OrderItem[] = [
+const ORDER_ITEMS: OrderDetailsItem[] = [
   { name: "Premium Conversion Pack", qty: "01", unitPrice: "£32.50", subTotal: "£32.50" },
 ];
 
@@ -64,7 +65,7 @@ function Step({
 // ── Info Block ─────────────────────────────────────────────────────────────
 function InfoRow({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
-    <div className="flex items-start justify-between gap-3 py-2.5 border-b border-[#2e2e30] last:border-0">
+    <div className="flex items-start justify-between gap-3 py-2.5 last:border-t last:border-[#2e2e30]">
       <span className="text-xs text-zinc-500 flex-shrink-0">{label}</span>
       <span className={`text-xs font-medium text-right ${accent ? "text-white font-bold" : "text-zinc-200"}`}>{value}</span>
     </div>
@@ -124,7 +125,7 @@ export default function OrderDetailsPage() {
           <InfoRow label="Order ID" value="#UK1042" />
           <InfoRow label="Order Time" value="08:45 PM" />
           <InfoRow label="Date" value="12 May, 2026" />
-          <div className="mt-3 pt-3 border-t border-[#2e2e30] flex items-center justify-between">
+          <div className="mt-3 pt-3 flex items-center justify-between">
             <span className="text-xs font-semibold text-white">Total Amount</span>
             <span className="text-sm font-bold text-white">£32.50</span>
           </div>
@@ -153,40 +154,7 @@ export default function OrderDetailsPage() {
       </div>
 
       {/* Ordered Items */}
-      <div className="bg-[#1a1a1c] border border-[#2e2e30] rounded-2xl p-5">
-        <h3 className="text-sm font-semibold text-white mb-4">Ordered Items</h3>
-        <table className="w-full text-xs">
-          <thead>
-            <tr className="border-b border-[#2e2e30]">
-              {["ITEM NAME","QUANTITY","UNIT PRICE","SUB-TOTAL"].map((h) => (
-                <th key={h} className="text-left text-zinc-500 font-medium pb-2.5 pr-4">{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {ORDER_ITEMS.map((item, i) => (
-              <tr key={i} className="border-b border-[#2e2e30]/60">
-                <td className="py-3 pr-4 text-zinc-200">{item.name}</td>
-                <td className="py-3 pr-4 text-zinc-300">{item.qty}</td>
-                <td className="py-3 pr-4 text-zinc-300">{item.unitPrice}</td>
-                <td className="py-3 text-white font-medium">{item.subTotal}</td>
-              </tr>
-            ))}
-            {/* VAT row */}
-            <tr className="border-b border-[#2e2e30]/60">
-              <td colSpan={2} />
-              <td className="py-3 pr-4 text-right text-zinc-400 text-xs">Vat (%)</td>
-              <td className="py-3 text-zinc-300">£0.50</td>
-            </tr>
-            {/* Total */}
-            <tr>
-              <td colSpan={2} />
-              <td className="py-3 pr-4 text-right text-white font-semibold text-xs">Total</td>
-              <td className="py-3 text-white font-bold text-sm">£33</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+     <DetailsOrderedItem ORDER_ITEMS={ORDER_ITEMS} />
     </div>
   );
 }

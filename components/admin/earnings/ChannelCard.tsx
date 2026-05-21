@@ -19,7 +19,7 @@ export default function ChannelCard({ title, value, change, positive, meta, meta
       {title === "Shop Revenue" && (
         <p className="text-xs text-gray-100">500 Orders</p>
       )}
-      <div className="flex items-center gap-1.5 mt-auto pt-2 border-t border-[#2e2e30]">
+      <div className="flex items-center gap-1.5 mt-auto pt-2 ">
         {positive ? <TrendingUp size={12} className="text-green-400" /> : <TrendingDown size={12} className="text-red-400" />}
         <span className={`text-xs font-semibold ${positive ? "text-green-400" : "text-red-400"}`}>{change}</span>
         <span className="text-xs text-zinc-500">| vs last period</span>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown,Plus,
+import { ChevronDown,Clock,Handbag,Plus, Van,
 } from "lucide-react";
 import MetricCardsRow from "@/components/admin/common/MetricCardsRow";
 import Image from "next/image";
@@ -10,25 +10,26 @@ import LiveOrdersSidebar from "@/components/admin/deliveries/LiveOrdersSidebar";
 
 const STATISTICS : IMetricCard[] = [
         {
-          label: "ACTIVE DELIVERIES", value: "12a",  change: "+12.4%", positive: true,
+          icon:<Van size={18} /> ,label: "ACTIVE DELIVERIES", value: "12a",  change: "+12.4%", positive: true,
         },
         {
-          label: "LATE ORDER", value: "12a", change: "+0.8%",  positive: false,
+          icon:<Clock size={18} /> ,label: "LATE ORDER", value: "12a", change: "+0.8%",  positive: false,
         },
         {
-          label: "AVG DELIVERY TIME",
+          icon:<Clock size={18} /> ,label: "AVG DELIVERY TIME",
           value: "3 mins",
           change: "+1% of time",
           positive: true,
         },
         {
+          icon:<Handbag size={18} />,
           label: "DELIVERY TODAY",
           value: "3",
           change: "+1% of time",
           positive: true,
         },
         {
-          label: "AVG DELIVERY DISTANCE",
+          icon:<Handbag size={18} /> ,label: "AVG DELIVERY DISTANCE",
           value: "3 miles",
           change: "+1% vs period",
           positive: true,
@@ -78,8 +79,9 @@ export default function DeliveriesManagementPage() {
             <span className="text-xs font-semibold text-white uppercase tracking-wide">Driver Summary</span>
             <button className="text-xs text-[#f9671a] hover:underline">View All Drivers →</button>
           </div>
-          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#f9671a] text-white text-xs font-medium hover:bg-[#e05a15] transition-colors">
-            <Plus size={12} /> Add Customer
+          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#3B2012] text-[#F9671A] hover:text-white hover:text-white cursor-pointer text-xs font-medium hover:bg-[#e05a15] transition-colors">
+              <Plus size={20} className=" fill-[#3B2012] transition-colors" /> 
+          Add Customer
           </button>
         </div>
         <div className="flex items-center gap-4 flex-wrap">
