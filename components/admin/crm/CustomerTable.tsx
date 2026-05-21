@@ -16,15 +16,11 @@ export default function CustomerTable({ rows }: { rows: Customer[] }) {
     <div className="overflow-x-auto">
       <table className="w-full text-xs">
         <thead>
-          <tr className="border-b border-[#2e2e30] bg-[#3D3D3D] rounded py-3 text-center "
-            style={
-             {
-               borderRadius : "10px"
-             }
-            }
+          <tr className="bg-[#3D3D3A] border-b border-zinc-800/80 [&>th:first-child]:rounded-tl-xl [&>th:last-child]:rounded-tr-xl"
+
           >
             {["NAME","CALLER NUMBER","LAST VISIT","TOTAL ORDERS","TOTAL VISITS","TOTAL SPEND","TAGS","ACTION"].map((h) => (
-              <th key={h} className="text-left py-2 pl-1 text-zinc-500 font-medium pb-2.5 pr-4 whitespace-nowrap">{h}</th>
+              <th key={h} className="text-left py-2 pl-1 text-white font-medium pb-2.5 pr-4 whitespace-nowrap">{h}</th>
             ))}
           </tr>
         </thead>

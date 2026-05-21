@@ -7,8 +7,8 @@ export default function WeekBarChart() {
   const lastWeek = [3.5, 4.2, 3.0, 5.5, 4.8, 2.8, 1.5];
   const currentWeek = [2.5, 6.5, 4.0, 8.5, 3.5, 5.0, 2.0];
   const maxVal = 10;
-  const W = 380;
-  const H = 200;
+  const W = 580;
+  const H = 240;
   const barW = 14;
   const gap = 6;
   const groupW = barW * 2 + gap;

@@ -8,8 +8,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular;
+
+  /* Add this line right here */
+  --font-jetbrains: var(--font-jetbrains-mono), monospace;
   
   /* Pacino's Custom Brand Theme */
   --color-brand: #f97316; /* Vibrant Orange */

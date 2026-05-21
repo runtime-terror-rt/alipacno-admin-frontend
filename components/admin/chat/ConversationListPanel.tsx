@@ -1,5 +1,5 @@
 import { Conversation, conversations, ChatTabType } from "@/app/(admin)/admin/chat/page";
-import { Search } from "lucide-react";
+import { Search, Store } from "lucide-react";
 
 function TabButton({
   label,
@@ -88,7 +88,9 @@ function ConversationAvatar({ conv }: { conv: Conversation }) {
   if (conv.isBranch) {
     return (
       <div className="w-10 h-10 rounded-full bg-[#f9671a]/10 border border-[#f9671a] flex items-center justify-center text-[#f9671a]">
-        <span className="text-[11px] font-bold">BR</span>
+        <span className="text-[11px] font-bold">
+          <Store size={18} />
+        </span>
       </div>
     );
   }
@@ -101,8 +103,6 @@ function ConversationAvatar({ conv }: { conv: Conversation }) {
     </div>
   );
 }
-
-
 
 export default function ConversationListPanel({
   activeTab,

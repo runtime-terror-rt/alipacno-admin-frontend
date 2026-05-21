@@ -20,12 +20,6 @@ export default function InventoryManagementPage() {
   return (
     <div className="flex-1 bg-[#0f0f11] min-h-screen text-white p-5 space-y-6">
 
-      {/* Header */}
-      <div>
-        <h1 className="text-xl font-bold text-white">Inventory Management</h1>
-        <p className="text-xs text-zinc-500 mt-0.5"></p>
-      </div>
-
       <PageHeader title="Inventory Management" subtitle="Track stock levels, manage availability across all branches." />
 
       {/* Stat Cards */}

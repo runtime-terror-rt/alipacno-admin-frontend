@@ -17,47 +17,7 @@ import WeekBarChart from "@/components/admin/ui/WeekBarChart";
 import HourlySalesChart from "@/components/admin/ui/HourlySalesChart";
 import TargetTrackingCard from "@/components/admin/earnings/TargetTrackingCard";
 import ChannelCard from "@/components/admin/earnings/ChannelCard";
-
-
-type DateTab = "Today" | "Yesterday" | "Weekly" | "Monthly" | "Yearly" | "Custom Range";
-
-function FiltersBar() {
-  const [active, setActive] = useState<DateTab>("Today");
-  const tabs: DateTab[] = ["Today", "Yesterday", "Weekly", "Monthly", "Yearly", "Custom Range"];
-
-  return (
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      {/* Date tabs */}
-     <div className="flex items-center gap-4 overflow-x-auto scrollbar-hide scrollbar-thumb-[#2e2e30] scrollbar-track-transparent">
-       <div className="flex flex-wrap items-center gap-1 bg-[#1a1a1c] border border-[#2e2e30] rounded-full p-1  min-w-132">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActive(tab)}
-            className={`px-3 py-2 rounded-lg cursor-pointer text-sm font-medium transition-all whitespace-nowrap ${
-              active === tab
-                ? " text-[#f9671a] border-r border-[#f9671a]/60"
-                : "text-[#626262] hover:text-white border-r border-[#2e2e30] hover:border-[#f9671a]/60"
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
-     </div>
-
-      {/* Export buttons */}
-      <div className="flex items-center gap-3">
-        <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#2e2e30] hover:border-[#f9671a] text-[#626262] hover:text-[#f9671a] text-sm font-medium hover:bg-[#f9671a]/10 transition-colors cursor-pointer">
-          <CloudUpload size={15} /> Export CSV
-        </button>
-        <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#2e2e30] hover:border-[#f9671a] text-[#626262] hover:text-[#f9671a] text-sm font-medium hover:bg-[#f9671a]/10 transition-colors cursor-pointer">
-          <CloudUpload  size={15} /> Export Excel
-        </button>
-      </div>
-    </div>
-  );
-}
+import EarningFiltersBar from "@/components/admin/earnings/EarningFiltersBar";
 
 interface MetricCardProps {
   label: string;
@@ -70,7 +30,7 @@ interface MetricCardProps {
 const metricCards: MetricCardProps[] = [
   { label: "Total Revenue", value: "£12,450", change: "+12.5%", positive: true },
   { label: "Net Profit %", value: "24.2%", change: "+2.1%", positive: true },
-  { label: "Net Profit %", value: "24.2%", change: "+2.1%", positive: true },
+  { label: "Average Profit %", value: "24.2%", change: "+2.1%", positive: true },
   { label: "Delivery Fee %", value: "14.8%", change: "-0.8%", positive: false },
   { label: "Cost %", value: "32.4%", change: "+5.4%", positive: false, note: "Labor + COGS" },
 ];
@@ -133,7 +93,7 @@ export default function EarningsPage() {
       {/* Header */}
       <PageHeader title="Earnings Analytics" subtitle="Track revenue, sales, and profit in real time." />
       {/* Filters */}
-      <FiltersBar />
+      <EarningFiltersBar />
 
      <MetricCardsRow metricCards={metricCards} grid="5" />
 
