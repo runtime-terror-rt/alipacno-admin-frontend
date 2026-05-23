@@ -9,7 +9,12 @@ import { IMetricCard } from "@/components/admin/ui/MetricCard";
 import PageHeader from "@/components/admin/ui/PageHeader";
 
 const metricCards: IMetricCard[] = [
-  { label: "TOTAL REVENUE", value: "£18,502.40", change: "+12.4%", positive: true },
+  {
+    label: "TOTAL REVENUE",
+    value: "£18,502.40",
+    change: "+12.4%",
+    positive: true,
+  },
   { label: "TOTAL ORDERS", value: "622", change: "+8.7%", positive: true },
   { label: "Net Profit", value: "£29.78", change: "-2.1%", positive: false },
   { label: "Delivery Success", value: "104%", change: "+4.0%", positive: true },
@@ -40,14 +45,17 @@ function LowerGrid() {
 export default function AdminDashboard() {
   return (
     <main className="p-4 flex flex-col gap-8 min-w-0 overflow-x-hidden">
-        {/* Page title */}
-        <PageHeader title="HQ Overview" subtitle="All branches · Real-time performance" />
-        {/* Metric cards row */}
-        <MetricCardsRow metricCards={metricCards} />
-        {/* Best branch banner */}
-        <BestBranchBanner />
-        {/* Lower grid: charts + table + sidebar widgets */}
-        <LowerGrid />
-      </main>
+      {/* Page title */}
+      <PageHeader
+        title="HQ Overview"
+        subtitle="All branches · Real-time performance"
+      />
+      {/* Metric cards row */}
+      <MetricCardsRow metricCards={metricCards} />
+      {/* Best branch banner */}
+      <BestBranchBanner />
+      {/* Lower grid: charts + table + sidebar widgets */}
+      <LowerGrid />
+    </main>
   );
 }
