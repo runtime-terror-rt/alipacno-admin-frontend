@@ -1,19 +1,18 @@
 "use client";
 
 import {
-  Search, Download, RefreshCw, Phone, MessageSquare, PlusCircle,
-  Star, ChevronRight as ChevRight,
+  Search,  RefreshCw, ChevronRight as ChevRight,
   CloudUpload,
-  CalendarRange,
+  User,
+  Phone,
+  PhoneIncoming,
+  CircleAlert,
 } from "lucide-react";
 import MetricCardsRow from "@/components/admin/common/MetricCardsRow";
 import PageHeader from "@/components/admin/ui/PageHeader";
 import FilterDropdown from "@/components/admin/ui/FilterDropdown";
 import DateFiltersBar from "@/components/admin/ui/DateFilterBar";
 import Pagination from "@/components/admin/ui/Pagination";
-import { useRouter } from "next/navigation";
-import Button from "@/components/admin/ui/Button";
-import Image from "next/image";
 import CustomerTable from "@/components/admin/crm/CustomerTable";
 import CustomerPanel from "@/components/admin/crm/CustomerPanel";
 
@@ -28,7 +27,6 @@ export interface Customer {
   tags: Array<"Regular" | "VIP" | "Loyalty">;
   action: "View Order" | "Call Back" | "Ext#4446";
 }
-
 
 // ── Mock Data ──────────────────────────────────────────────────────────────
 const CUSTOMERS: Customer[] = [
@@ -47,8 +45,13 @@ const CONVERTED: Customer[] = [
 
 // ── Main Page ──────────────────────────────────────────────────────────────
 export default function CRMPage() {
-  const router = useRouter();
-
+  const crmMetrics = [
+          { icon: <Phone size={18} />,label: "TOTAL CUSTOMERS", value: "£185,050", change: "+12.4%", positive: true },
+          { icon: <User size={18} className="fill-primary" />,label: "REPEAT CUSTOMERS", value: "14 Persons", change: "+12.4%", positive: true },
+          { icon: <PhoneIncoming size={18}  />,label: "PHONE ORDERS", value: "£185,050", change: "+12.4%", positive: true },
+          { icon: <User size={18} className="fill-primary" />,label: "NEW ORDERS", value: "£185,050", change: "+12.4%", positive: true },
+          { icon: <CircleAlert   size={18}  />,label: "MISSED OPPORTUNITIES", value: "£185,050", change: "+12.4%", positive: true },
+        ]
   return (
     <div className="flex-1  min-h-screen text-white p-5 space-y-6">
 
@@ -56,13 +59,9 @@ export default function CRMPage() {
 
       <MetricCardsRow 
       metricCards={
-        [
-          { label: "TOTAL CUSTOMERS", value: "£185,050", change: "+12.4%", positive: true },
-          { label: "REPEAT CUSTOMERS", value: "14 Persons", change: "+12.4%", positive: true },
-          { label: "PHONE ORDERS", value: "£185,050", change: "+12.4%", positive: true },
-          { label: "MISSED OPPORTUNITIES", value: "£185,050", change: "+12.4%", positive: true },
-        ]
+        crmMetrics
       }
+      grid="5"
       />
 
       {/* Main grid */}

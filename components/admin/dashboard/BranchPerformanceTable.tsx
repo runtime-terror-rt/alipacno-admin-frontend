@@ -62,7 +62,7 @@ const branchRows: BranchRow[] = [
 
 const statusConfig: Record<BranchRow["status"], { color: string; bg: string; dot: string }> = {
   "PEAK PERFORMANCE": { color: "text-[#00A706]", bg: "bg-emerald-500/10", dot: "bg-emerald-400" },
-  STABLE: { color: "text-[#E6BDBB]", bg: "bg-zinc-700", dot: "bg-zinc-400" },
+  STABLE: { color: "text-[#E6BDBB]", bg: "bg-[#E6BDBB1A]", dot: "bg-[#E6BDBB]" },
   "HIGH AOV": { color: "text-[#FB951D]", bg: "bg-orange-500/10", dot: "bg-orange-400" },
   "CRITICAL LAG": { color: "text-[#E31837]", bg: "bg-red-500/10", dot: "bg-red-400" },
 };
@@ -85,7 +85,7 @@ function TableHeaderRow() {
           <span>TODAY: SEP 24</span>
         </div>
 
-        <button className="flex items-center gap-2 bg-[#E31837] hover:bg-red-700 text-white text-xs font-semibold px-5 py-2.5 rounded-xl transition-colors">
+        <button className="flex items-center gap-2 bg-[#E31837] cursor-pointer hover:bg-red-700 text-white text-xs font-semibold px-5 py-2.5 rounded-md transition-colors">
           EXPORT CSV
         </button>
       </div>
@@ -98,11 +98,11 @@ function BranchTableRow({ row }: { row: BranchRow }) {
   const isAboveTarget = row.targetPct >= 100;
 
   return (
-   <section className="overflow-hidden">
-     <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] items-center py-4 border-b border-[#343436] last:border-b-0 ">
+   <section className="overflow-hidden ">
+     <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_2fr] items-center py-4 border-b border-[#343436] last:border-b-0 ">
       {/* Branch Name */}
       <div>
-        <span className="text-gray-100 text-[15px] font-medium">{row.name}</span>
+        <span className="text-[#FCDBD9] text-[15px] font-medium">{row.name}</span>
       </div>
 
       {/* Orders */}
@@ -117,7 +117,7 @@ function BranchTableRow({ row }: { row: BranchRow }) {
       {/* Target % */}
       <span
         className={`text-[15px] text-right font-semibold ${
-          isAboveTarget ? "text-emerald-400" : "text-white"
+          isAboveTarget ? "text-[#00A706]" : "text-[#626262]"
         }`}
       >
         {row.targetPct}%
@@ -126,7 +126,7 @@ function BranchTableRow({ row }: { row: BranchRow }) {
       {/* Status */}
       <div className="flex justify-end">
         <span
-          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${config.color} ${config.bg}`}
+          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs  ${config.color} ${config.bg}`}
         >
           <span className={`inline-block w-2 h-2 rounded-full ${config.dot}`} />
           {row.status}
@@ -144,9 +144,9 @@ export default function BranchPerformanceTable() {
 
       {/* Scroll Container */}
       <div className="w-full overflow-x-auto">
-        <div className="min-w-[1000px]">
+        <div className="min-w-[1000px] ">
           {/* Table Header */}
-          <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr] py-3 text-[#FCDBD9] text-[11px] tracking-widest uppercase border-b border-[#343436]">
+          <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_2fr] py-3 bg-[#36363A] px-2 rounded-t-xl text-[#FFFFFF] text-sm tracking-widest uppercase border-b border-[#343436]">
             <span>BRANCH NAME</span>
             <span className="text-right">ORDERS</span>
             <span className="text-right">SALES</span>

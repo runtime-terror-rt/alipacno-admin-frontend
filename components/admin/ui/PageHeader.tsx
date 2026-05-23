@@ -17,12 +17,12 @@ export default function PageHeader({
   return (
     <div className="flex flex-col gap-1">
      
-      <h1 className="text-[28px] font-bold text-white flex gap-2 text-center items-center">
+      <h1 className="text-lg font-bold text-white flex gap-2 text-center items-center">
         
         {
         backButton && (<button
         onClick={()=>router.back()}
-        className="w-7 h-7   rounded-lg bg-[#252527] flex items-center justify-center text-zinc-400 hover:text-white">
+        className="w-7 h-7   rounded-lg bg-[#252527] flex items-center justify-center text-[#FFF7F3] hover:text-white">
           <ChevronLeft size={14} className="text-primary" />
         </button>
         )

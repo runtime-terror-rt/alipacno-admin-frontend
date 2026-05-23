@@ -57,14 +57,14 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
       {/* MOBILE OVERLAY */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"
+          className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm border-r "
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* SIDEBAR CONTAINER */}
       <aside className={`
-        fixed inset-y-0 left-0 w-64 bg-[#161618] z-50 flex flex-col justify-between border-r border-zinc-900/60
+        fixed inset-y-0 left-0 w-64 bg-[#161618] z-50 flex flex-col justify-between border-r border-[#343436]
         transform transition-transform duration-300 md:translate-x-0 md:static md:h-screen shrink-0
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
       `}>
@@ -104,9 +104,9 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
                     href={item.href}
                     onClick={() => setIsOpen(false)}
                     className={`
-                      w-full flex items-center space-x-3.5 py-3 pr-4 transition-all group select-none
+                      w-full flex items-center space-x-3.5 py-3 pr-4 transition-all group select-none 
                       ${isActive 
-                        ? "border-l-4 border-orange-500 pl-4 bg-orange-500/5 text-orange-500 font-bold" 
+                        ? "border-l-4 border-orange-500 pl-4 bg-[#252525]/90 text-orange-500 font-bold" 
                         : "border-l-4 border-transparent pl-4 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/10"
                       }
                     `}

@@ -69,11 +69,11 @@ export default function BarChart({
       {/* Legend */}
       <div className="flex items-center gap-6 mt-4 text-sm">
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-[#f9671a] rounded" />
+          <div className="w-4 h-4 bg-[#f9671a] rounded-full" />
           <span className="text-zinc-300">This Period</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-zinc-600 rounded" />
+          <div className="w-4 h-4 bg-zinc-600 rounded-full" />
           <span className="text-zinc-300">Last Period</span>
         </div>
       </div>

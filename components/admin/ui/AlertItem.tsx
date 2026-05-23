@@ -1,6 +1,6 @@
 import { AlertTriangle, CircleGauge } from "lucide-react";
-import { Alert } from "../dashboard/RightSidebarWidgets";
 import { JSX } from "react";
+import { Alert } from "../dashboard/RightSidebarWidgets/OperationalAlertsWidget";
 
 const alertIcons: Record<Alert["type"], JSX.Element> = {
   error: <AlertTriangle size={24} />,
@@ -24,7 +24,7 @@ const alertIconStyles: Record<Alert["type"], string> = {
 export default function AlertItem({ alert }: { alert: Alert }) {
   return (
     <div
-      className={`border-l-3 pl-3 flex space-y-2 gap-0.5 rounded-xl ${alertBorderStyles[alert.type]}`}
+      className={`border-l-3 pl-3 flex space-y-2 gap-0.5 rounded-xl shadow-[#FFB4AB30] py-2 shadow-sm ${alertBorderStyles[alert.type]}`}
     >
         <div className={`flex pt-2 pr-1 gap-2 ${alertIconStyles[alert.type]}`}>
           {alertIcons[alert.type]}

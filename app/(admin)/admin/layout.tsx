@@ -36,7 +36,7 @@ export default function SuperAdminLayout({
       {/* MAIN CONTAINER */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden h-screen relative">
         {/* TOP BAR */}
-        <header className="h-20 bg-[#121214]/90 backdrop-blur-md border-b border-zinc-800/80 flex items-center justify-between px-4 sm:px-6 md:px-8 z-30">
+        <header className="h-20 bg-[#343436]/30 backdrop-blur-md border-b border-[#343436] flex items-center justify-between px-4 sm:px-6 md:px-8 z-30">
           {/* Left items: Mobile menu button, Uptime metrics */}
           <div className="flex items-center space-x-4">
             <button
@@ -94,7 +94,7 @@ export default function SuperAdminLayout({
 
               {/* Messages Button */}
             <button
-              onClick={() => console.log("Messages clicked")}
+              onClick={() => router.push("/admin/chat")}
               className="p-2 text-zinc-500 hover:text-white rounded-xl hover:bg-zinc-800 relative cursor-pointer transition-colors"
               aria-label="Messages"
             >

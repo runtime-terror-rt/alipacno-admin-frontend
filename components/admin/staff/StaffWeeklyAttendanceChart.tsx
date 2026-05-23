@@ -1,7 +1,7 @@
 export default function StaffWeeklyAttendanceChart() {
   const vals = [95, 78, 88, 100, 82, 92, 86];
   const days = ["May 12","May 13","May 14","May 15","May 16","May 17","May 18"];
-  const W = 260, H = 120, padL = 28, padB = 22;
+  const W = 460, H = 120, padL = 28, padB = 22;
   const maxVal = 100;
 
   const pts = vals.map((v, i) => {

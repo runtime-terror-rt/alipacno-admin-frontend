@@ -2,7 +2,7 @@ export default function HourlySalesChart() {
   const times = ["9pm", "12pm", "3pm", "6pm", "9pm", "11pm"];
   const values = [0.3, 0.8, 1.8, 1.2, 3.5, 4.0];
   const maxVal = 5;
-  const W = 420;
+  const W = 580;
   const H = 200;
   const padL = 55;
   const padB = 20;

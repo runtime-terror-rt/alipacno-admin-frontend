@@ -1,36 +1,38 @@
-import { BarChart2, TrendingDown, TrendingUp } from "lucide-react";
+import { ChartNoAxesColumnIncreasing , TrendingDown, TrendingUp } from "lucide-react";
 import Image from "next/image";
+import React from "react";
 
 export interface IMetricCard {
   label: string;
   value: string;
   change: string;
   positive: boolean;
-  note?: string; // Optional note for additional context
+  note?: string;
+  icon?: React.ReactNode
 }
 
 function TrendBadge({ change, positive, note }: { change: string; positive: boolean; note?: string }) {
   return (
-    <div className="flex items-center gap-2 ">
+    <div className="flex items-center gap-2  border border-[#3D3D3DAA] w-fit p-2 rounded-lg ">
       <div
-        className={`flex items-center gap-1 px-2 py-1 rounded-md `}
+        className={`flex items-center gap-1 px-2 py-1 rounded-md  `}
       >
         {positive ? (
-          <TrendingUp size={28} className={`p-1 rounded-lg text-green-400 ${
+          <TrendingUp size={28} className={`p-1 rounded-lg text-[#0E8013] font-bold ${
           positive ? "bg-green-500/10" : "bg-red-500/10"
         }`} />
         ) : (
-          <TrendingDown size={16} className="text-red-400" />
+          <TrendingDown size={16} className="text-red-400 font-bold" />
         )}
         <span
           className={`text-[13px] font-semibold ${
-            positive ? "text-green-400" : "text-red-400"
+            positive ? "text-[#00A706]" : "text-red-400"
           }`}
         >
           {change}
         </span>
       </div>
-      <div className="w-px h-5 bg-[#3d3d3d]" />
+      <div className="w-[2px] h-6 bg-[#3d3d3d]" />
       <span className="text-[#626262] text-[12px]">{note ? note : "vs last period"}</span>
     </div>
   );
@@ -50,8 +52,8 @@ export default function MetricCard({ card }: { card: IMetricCard
 
       {/* Icon */}
       <div className="flex items-center justify-between">
-        <div className="w-6 h-6 text-[#f9671a]">
-          <BarChart2 size={20} />
+        <div className="w-9 h-9 rounded-md text-[#f9671a] bg-[#26262680] p-2 flex items-cener border border-[#FFFFFF1A]">
+            { card.icon ? card.icon :   <ChartNoAxesColumnIncreasing size={20} />}
         </div>
       </div>
 
@@ -60,7 +62,7 @@ export default function MetricCard({ card }: { card: IMetricCard
         <p className="text-gray-100 text-sm font-bold tracking-widest uppercase">
           {card.label}
         </p>
-        <p className="text-sm font-bold text-primary leading-none">
+        <p className="text-sm font-bold text-[#A4542A] leading-none">
           {card.value}
         </p>
       </div>

@@ -1,5 +1,6 @@
 import { Conversation, Member, members} from "@/app/(admin)/admin/chat/page";
 import { ImageIcon } from "lucide-react";
+import Image from "next/image";
 
 const sharedMediaColors = ["#c0392b", "#e67e22", "#27ae60", "#2980b9"];
 
@@ -56,7 +57,8 @@ function MemberRow({ member }: { member: Member }) {
         {/* Avatar */}
         <div className="relative">
           <div className="w-10 h-10 rounded-full bg-[#3d3d3d] flex items-center justify-center text-white text-[13px] font-semibold">
-            {member.initials}
+            {/* {member.initials} */}
+            <Image src="/admin/avatar/default.png" alt={member.name} width={40} height={40} />
           </div>
         </div>
 
