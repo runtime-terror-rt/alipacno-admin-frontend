@@ -504,7 +504,7 @@ export default function DeliveriesPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* Google Map Section */}
-        <div className="lg:col-span-8 bg-[#121214] border border-zinc-850 rounded-3xl overflow-hidden relative min-h-[580px] shadow-2xl flex flex-col justify-between">
+        <div className="lg:col-span-8 bg-[#121214] border border-[#343435] rounded-3xl overflow-hidden relative min-h-[580px] shadow-2xl flex flex-col justify-between">
           
           <div ref={mapContainerRef} className="absolute inset-0 z-0 bg-[#0d0d0e]">
             {!isLoaded && !loadError && (
@@ -611,14 +611,14 @@ export default function DeliveriesPage() {
         </div>
 
         {/* Live Order Roster */}
-        <div className="lg:col-span-4 bg-[#121214] border border-zinc-850 rounded-3xl p-5 space-y-4 shadow-2xl min-h-[580px]">
+        <div className="lg:col-span-4 bg-[#121214] border border-[#343435] rounded-3xl p-5 space-y-4 shadow-2xl min-h-[580px]">
           
-          <div className="flex justify-between items-center pb-2 border-b border-zinc-855">
+          <div className="flex justify-between items-center pb-2 border-b border-[#343435]">
             <h3 className="text-sm font-black text-white uppercase tracking-wider">
               Live Order (12)
             </h3>
             
-            <select className="bg-zinc-900 border border-zinc-850 rounded-lg px-2 py-1 text-[9px] font-black text-zinc-400 uppercase tracking-widest outline-none">
+            <select className="bg-zinc-900 border border-[#343435] rounded-lg px-2 py-1 text-[9px] font-black text-zinc-400 uppercase tracking-widest outline-none">
               <option>Time Remaining</option>
               <option>Distance</option>
               <option>Late First</option>
@@ -640,7 +640,7 @@ export default function DeliveriesPage() {
               return (
                 <div
                   key={order.id}
-                  className="bg-[#161618] border border-zinc-850/80 rounded-2xl p-5 space-y-4 hover:border-zinc-700/80 transition-all duration-300"
+                  className="bg-[#161618] border border-[#343435] rounded-2xl p-5 space-y-4 hover:border-zinc-700/80 transition-all duration-300"
                 >
                   {/* Header Row */}
                   <div className="flex justify-between items-center">

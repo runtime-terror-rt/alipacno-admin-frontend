@@ -60,7 +60,7 @@ export default function IncomeReportsPage() {
 
         {/* Time period quick selector + Export buttons */}
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex bg-[#121214] border border-zinc-850 rounded-xl p-1">
+          <div className="flex bg-[#121214] border border-[#343435] rounded-xl p-1">
             {[
               "Today",
               "Week",
@@ -114,7 +114,7 @@ export default function IncomeReportsPage() {
           return (
             <div
               key={groupIdx}
-              className="bg-[#121214] border border-zinc-800 rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between space-y-4"
+              className="bg-[#121214] border border-[#343435] rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between space-y-4"
               style={{
                 backgroundImage:
                   "radial-gradient(circle at 95% 50%, rgba(204, 166, 147, 0.16) 0%, rgba(204, 166, 147, 0.04) 45%, transparent 75%)"
@@ -133,7 +133,7 @@ export default function IncomeReportsPage() {
               {/* Stat parameters */}
               <div className="space-y-2.5 pt-1">
                 {group.metrics.map((metric, metricIdx) => (
-                  <div key={metricIdx} className="flex justify-between items-end border-b border-zinc-900 pb-1.5 last:border-b-0 last:pb-0">
+                  <div key={metricIdx} className="flex justify-between items-end border-b border-[#343435] pb-1.5 last:border-b-0 last:pb-0">
                     <div>
                       <span className="block text-[9px] font-black text-zinc-550 uppercase tracking-wider">
                         {metric.label}
@@ -173,7 +173,7 @@ export default function IncomeReportsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         
         {/* Left Side: Top Products List (3 columns width) */}
-        <div className="lg:col-span-3 bg-[#121214] border border-zinc-850 rounded-2xl p-5 space-y-4">
+        <div className="lg:col-span-3 bg-[#121214] border border-[#343435] rounded-2xl p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <BarChart3 className="h-4.5 w-4.5 text-orange-500" />
@@ -211,7 +211,7 @@ export default function IncomeReportsPage() {
         </div>
 
         {/* Right Side: Payment Methods split (2 columns width) */}
-        <div className="lg:col-span-2 bg-[#121214] border border-zinc-850 rounded-2xl p-5 space-y-4">
+        <div className="lg:col-span-2 bg-[#121214] border border-[#343435] rounded-2xl p-5 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <CreditCard className="h-4.5 w-4.5 text-orange-500" />
@@ -266,7 +266,7 @@ export default function IncomeReportsPage() {
       </div>
 
       {/* Hourly Performance log list */}
-      <div className="bg-[#121214] border border-zinc-850 rounded-2xl p-5 space-y-4">
+      <div className="bg-[#121214] border border-[#343435] rounded-2xl p-5 space-y-4">
         <div className="flex items-center space-x-2">
           <Calendar className="h-4.5 w-4.5 text-orange-500" />
           <h3 className="text-sm font-black text-white uppercase tracking-wider">
@@ -288,7 +288,7 @@ export default function IncomeReportsPage() {
                 <th className="pb-3.5 text-right">Performance</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-850/50 text-xs">
+            <tbody className="divide-y divide-[#343435] text-xs">
               {HOURLY_PERFORMANCE.map((log, idx) => {
                 // Style Status pills dynamically
                 let statusPill = "bg-emerald-500/10 text-emerald-450 border border-emerald-500/20";
@@ -312,7 +312,7 @@ export default function IncomeReportsPage() {
                     </td>
                     <td className="py-4">
                       <div className="flex items-center space-x-1.5">
-                        <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-[10px] text-zinc-400 font-bold uppercase">
+                        <span className="px-2 py-0.5 rounded bg-zinc-900 border border-[#343435] text-[10px] text-zinc-400 font-bold uppercase">
                           {log.payment}
                         </span>
                       </div>
