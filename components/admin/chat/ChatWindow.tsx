@@ -192,7 +192,7 @@ export default function ChatWindow({
   isTyping: boolean;
 }) {
   return (
-    <div className="flex-1 bg-[#26262680] border border-[#353535] rounded-[20px] flex flex-col overflow-hidden">
+    <div className="flex-1 bg-[#1E1E20] border border-[#353535] rounded-[20px] flex flex-col overflow-hidden">
       {/* Chat header */}
       <ChatHeader conversation={conversation} />
 

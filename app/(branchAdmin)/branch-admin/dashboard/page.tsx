@@ -84,18 +84,18 @@ export default function DashboardPage() {
 
         {/* Filter Controls & Export */}
         <div className="flex items-center space-x-3.5 self-start md:self-auto">
-          <div className="flex bg-[#121214] border border-zinc-800 p-1 rounded-xl">
+          <div className="flex  p-1 gap-2 rounded-xl">
             {(["today", "week", "month", "year"] as FilterType[]).map(
               (filter) => (
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
                   className={`
-                  px-3 py-1.5 rounded-lg text-xs font-bold capitalize transition-all
+                  px-3 py-1.5 rounded-lg cursor-pointer text-xs font-bold capitalize transition-all
                   ${
                     activeFilter === filter
                       ? "bg-orange-500 text-white shadow-md shadow-orange-500/10"
-                      : "text-zinc-400 hover:text-white"
+                      : "text-zinc-400 bg-[#252527] hover:text-white"
                   }
                 `}
                 >
@@ -119,7 +119,7 @@ export default function DashboardPage() {
       {/* 2. STATS CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {dashboardMetrics.map((metric, index) => (
-          <MetricCard key={index} card={metric} />
+          <MetricCard iconBorder={false} key={index} card={metric} />
         ))}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
