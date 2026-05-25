@@ -44,7 +44,7 @@ export default function BranchAdminLayout({
       {/* MAIN CONTAINER */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden h-screen relative">
         {/* TOP BAR */}
-        <header className="h-17 bg-[#1e1e20] border-b border-zinc-800 flex items-center justify-between px-4 md:px-6 relative z-30">
+        <header className="h-17 bg-[#1e1e20] border-b border-[#343436] flex items-center justify-between px-4 md:px-6 relative z-30">
           {/* LEFT */}
           <div className="flex items-center gap-6 min-w-0">
             {/* Mobile Menu */}
