@@ -70,7 +70,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="space-y-6 sm:space-y-8 bg-[#161618]">
+    <div className="space-y-6 sm:space-y-8 ">
       {/* 1. HEADER SECTION */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
@@ -131,7 +131,7 @@ export default function DashboardPage() {
       {/* COLUMN 1:  */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-x-6">
         {/* Top Products */}
-        <div className="bg-[#26262680] border border-zinc-800/80 rounded-2xl p-5 space-y-4 flex-1">
+        <div className="bg-[#252527] border border-zinc-800/80 rounded-2xl p-5 space-y-4 flex-1">
           <div className="flex justify-between items-center">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
               Top Products
@@ -230,7 +230,7 @@ export default function DashboardPage() {
         {/* COLUMN 2: Payments (4 Cols) */}
         <div className="space-y-6 ">
           {/* Payment Methods */}
-          <div className="bg-[#26262680] border border-zinc-800/80 rounded-2xl p-5 space-y-4 flex flex-col justify-between flex-1">
+          <div className="bg-[#252527] border border-zinc-800/80 rounded-2xl p-5 space-y-4 flex flex-col justify-between flex-1">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
               Payment Methods
             </h3>
@@ -301,7 +301,7 @@ export default function DashboardPage() {
         </div>
 
         {/* COLUMN 3: Recent Activity Feed (3 Cols) */}
-        <div className=" bg-[#26262680] border border-zinc-800/80 rounded-2xl p-5 space-y-4.5 ">
+        <div className=" bg-[#252527] border border-zinc-800/80 rounded-2xl p-5 space-y-4.5 ">
           <div>
             <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
               Recent Activity
@@ -400,7 +400,7 @@ export default function DashboardPage() {
 
         <div className="space-x-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {/* Alert 1 */}
-          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#26262680] border border-red-500/10">
+          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#252527] border border-red-500/10">
             <AlertTriangle className="h-4.5 w-4.5 text-[#FB2C36] shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-bold text-white">
@@ -413,7 +413,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Alert 2 */}
-          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#26262680] border border-orange-500/10">
+          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#252527] border border-orange-500/10">
             <AlertTriangle className="h-4.5 w-4.5 text-[#FE9A00] shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-bold text-white">
@@ -426,7 +426,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Alert 3 */}
-          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#26262680] border border-sky-500/10">
+          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#252527] border border-sky-500/10">
             <AlertTriangle className="h-4.5 w-4.5 text-[#2B7FFF] shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-bold text-white">

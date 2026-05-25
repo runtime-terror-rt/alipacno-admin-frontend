@@ -58,7 +58,7 @@ export default function BranchSidebar({ isOpen, setIsOpen }: BranchSidebarProps)
 
       {/* SIDEBAR CONTAINER */}
       <aside className={`
-        fixed inset-y-0 left-0 w-64 bg-[#161618] z-50 flex flex-col justify-between border-r border-zinc-900/60
+        fixed inset-y-0 left-0 w-64 bg-[#1e1e20] z-50 flex flex-col justify-between border-r border-zinc-900/60
         transform transition-transform duration-300 md:translate-x-0 md:static md:h-screen shrink-0
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
       `}>
@@ -116,7 +116,7 @@ export default function BranchSidebar({ isOpen, setIsOpen }: BranchSidebarProps)
         </div>
 
         {/* 3. LOG OUT BUTTON AT BOTTOM (With exact orange accent bar and text) */}
-        <div className="border-t border-zinc-900/60 bg-black/5 py-3">
+        <div className=" py-3">
           <Link
             href="/"
             onClick={() => setIsOpen(false)}

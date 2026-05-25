@@ -37,14 +37,14 @@ export default function BranchAdminLayout({
   };
 
   return (
-    <div className="min-h-screen bg-[#161618] flex text-zinc-100 antialiased font-sans">
+    <div className="min-h-screen bg-[#1e1e20] flex text-zinc-100 antialiased font-sans">
       {/* SEPARATED BRANCH ADMIN SIDEBAR COMPONENT */}
       <BranchSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
       {/* MAIN CONTAINER */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden h-screen relative">
         {/* TOP BAR */}
-        <header className="h-17 bg-[#161618] border-b border-zinc-800 flex items-center justify-between px-4 md:px-6 relative z-30">
+        <header className="h-17 bg-[#1e1e20] border-b border-zinc-800 flex items-center justify-between px-4 md:px-6 relative z-30">
           {/* LEFT */}
           <div className="flex items-center gap-6 min-w-0">
             {/* Mobile Menu */}
@@ -170,7 +170,7 @@ export default function BranchAdminLayout({
         </header>
 
         {/* MAIN BODY VIEWPORT */}
-        <main className="flex-1 overflow-y-auto bg-[#161618] relative">
+        <main className="flex-1 overflow-y-auto bg-[#1e1e20] relative">
          
 
           <div className="p-4 sm:p-6 md:p-8">{children}</div>
