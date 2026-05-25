@@ -12,7 +12,7 @@ import AIRecommendedCampaigns from "@/components/admin/ai-insights/AIRecommended
 
 export default function AIInsightsPage() {
   return (
-    <div className="flex-1 bg-[#0f0f11] min-h-screen text-white p-5 space-y-6">
+    <div className="flex-1 min-h-screen text-white p-5 space-y-6">
 
       {/* ── Page Header ── */}
       <PageHeader title="AI Insights & Suggestions" subtitle="AI-powered inventory and marketing recommendations to grow your business." />    
