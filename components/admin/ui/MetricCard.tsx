@@ -42,7 +42,7 @@ function TrendBadge({ change, positive, note }: { change: string; positive: bool
 export default function MetricCard({ card }: { card: IMetricCard
  }) {
   return (
-    <div className="bg-[#26262680] rounded-2xl border border-[#2e2e30] p-4 flex flex-col gap-4 relative overflow-hidden">
+    <div className="bg-[#252527] rounded-2xl border border-[#2e2e30] p-4 flex flex-col gap-4 relative overflow-hidden">
       {/* Background decorative arc */}
       {/* <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full border-[20px] border-[#f9671a]/5" /> */}
       <div className="absolute  right-0 top-0 w-40 h-40 " >

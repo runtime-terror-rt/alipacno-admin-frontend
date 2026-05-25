@@ -47,25 +47,25 @@ export default function BranchSidebar({ isOpen, setIsOpen }: BranchSidebarProps)
   const pathname = usePathname();
 
   return (
-    <>
+    <div className=" border-r border-zinc-800/90">
       {/* MOBILE OVERLAY */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"
+          className="fixed inset-0 bg-[#343436] z-40 md:hidden backdrop-blur-sm"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* SIDEBAR CONTAINER */}
       <aside className={`
-        fixed inset-y-0 left-0 w-64 bg-[#161618] z-50 flex flex-col justify-between border-r border-zinc-900/60
+        fixed inset-y-0 left-0 w-64 bg-[#1e1e20] z-50 flex flex-col justify-between border-r border-zinc-900/60
         transform transition-transform duration-300 md:translate-x-0 md:static md:h-screen shrink-0
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
       `}>
         <div className="flex flex-col flex-1 overflow-y-auto min-h-0">
           
           {/* 1. TOP LOGO: Centered round Pacino's logo, no text */}
-          <div className="h-32 flex flex-col items-center justify-center relative px-6 mt-4">
+          <div className="h-32 flex flex-col items-center border-b border-zinc-800/90 justify-center relative px-6 mt-4">
             <Link href="/branch-admin" className="relative group block w-24 h-24 transition-transform duration-500 hover:scale-105">
               <div className="absolute inset-0 bg-orange-500/10 rounded-full blur-xl group-hover:bg-orange-500/25 transition-all w-24 h-24" />
               <Image 
@@ -116,7 +116,7 @@ export default function BranchSidebar({ isOpen, setIsOpen }: BranchSidebarProps)
         </div>
 
         {/* 3. LOG OUT BUTTON AT BOTTOM (With exact orange accent bar and text) */}
-        <div className="border-t border-zinc-900/60 bg-black/5 py-3">
+        <div className=" py-3">
           <Link
             href="/"
             onClick={() => setIsOpen(false)}
@@ -128,6 +128,6 @@ export default function BranchSidebar({ isOpen, setIsOpen }: BranchSidebarProps)
         </div>
 
       </aside>
-    </>
+    </div>
   );
 }
