@@ -26,7 +26,7 @@ export default function CallLogsPage() {
         <h1 className="text-lg sm:text-2xl font-black text-white tracking-wider">
           Call Logs
         </h1>
-        <p className="text-[#626262] text-sm mt-1 font-semibold">
+        <p className="text-[#626262] text-base mt-1 font-semibold">
           Track customer calls and communication history.
         </p>
       </div>
@@ -93,11 +93,11 @@ export default function CallLogsPage() {
       <div className="rounded-[26px] border border-[#2E2E32] p-6 ">
         {/* Header */}
         <div className="mb-6">
-          <h3 className="text-[32px] font-bold tracking-[-0.02em] text-white">
+          <h3 className="text-2xl font-bold tracking-[-0.02em] text-white">
             Call Logs Panel
           </h3>
 
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1 text-base text-zinc-500">
             Track and monitor all order-related calls in real time.
           </p>
         </div>
@@ -288,80 +288,111 @@ export default function CallLogsPage() {
       {/* Converted Call Orders Table */}
       <div className=" border border-[#343436] rounded-2xl p-5 space-y-6">
         <div>
-          <h3 className="text-sm font-black text-white uppercase tracking-wider">
+          <h3 className="text-2xl font-bold tracking-[-0.02em] text-white">
             Converted Call Orders
           </h3>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-zinc-800/60 text-[10px] font-black  text-zinc-500 uppercase tracking-widest">
-                <th className="pb-3.5">Time</th>
-                <th className="pb-3.5">Call Number</th>
-                <th className="pb-3.5">Customer</th>
-                <th className="pb-3.5">Duration</th>
-                <th className="pb-3.5">#Order</th>
-                <th className="pb-3.5">Order Type</th>
-                <th className="pb-3.5">Status</th>
-                <th className="pb-3.5">Postcode</th>
-                <th className="pb-3.5 text-right">Action</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#343436] text-xs">
-              {CONVERTED_ORDERS.map((conv) => (
-                <tr key={conv.id} className="hover:bg-zinc-900/10">
-                  <td className="py-4 font-semibold text-zinc-450">
-                    {conv.time}
-                  </td>
-                  <td className="py-4 font-bold text-white">
-                    {conv.callNumber}
-                  </td>
-                  <td className="py-4 font-bold text-zinc-300">
-                    {conv.customer}
-                  </td>
-                  <td className="py-4 font-semibold text-zinc-450">
-                    {conv.duration}
-                  </td>
-                  <td className="py-4 font-extrabold text-emerald-500 flex items-center space-x-1">
-                    <CheckCircle className="h-3.5 w-3.5" />
-                    <span>{conv.orderNumber}</span>
-                  </td>
-                  <td className="py-4 font-bold text-orange-500">
-                    {conv.orderType}
-                  </td>
-                  <td className="py-4">
-                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-500">
-                      {conv.status}
-                    </span>
-                  </td>
-                  <td className="py-4 font-semibold text-zinc-450">
-                    {conv.postcode}
-                  </td>
-                  <td className="py-4 text-right">
-                    <button className="px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:border-orange-500 text-zinc-400 hover:text-orange-500 rounded-lg text-[10px] font-black uppercase tracking-wider transition cursor-pointer">
-                      View Order
-                    </button>
-                  </td>
+        <div className="overflow-hidden rounded-2xl border border-[#343438]">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-300 border-collapse">
+              <thead>
+                <tr className="bg-[#353535] text-left">
+                  {[
+                    "TIME",
+                    "CALL NUMBER",
+                    "CUSTOMER",
+                    "DURATION",
+                    "#ORDER",
+                    "ORDER TYPE",
+                    "STATUS",
+                    "POSTCODE",
+                    "ACTION",
+                  ].map((head) => (
+                    <th
+                      key={head}
+                      className="px-6 py-6 text-sm font-bold uppercase tracking-wide text-white"
+                    >
+                      {head}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+
+              <tbody>
+                {CONVERTED_ORDERS.map((conv) => (
+                  <tr
+                    key={conv.id}
+                    className="border-t border-[#2D2D31] transition hover:bg-[#1D1D21]"
+                  >
+                    <td className="px-6 py-5 text-[15px] font-medium text-zinc-300">
+                      {conv.time}
+                    </td>
+
+                    <td className="px-6 py-5 text-[15px] font-medium text-white">
+                      {conv.callNumber}
+                    </td>
+
+                    <td className="px-6 py-5 text-[15px] text-zinc-200">
+                      {conv.customer}
+                    </td>
+
+                    <td className="px-6 py-5 text-[15px] text-zinc-300">
+                      {conv.duration}
+                    </td>
+
+                    {/* Order ID */}
+                    <td className="px-6 py-5">
+                      <div className="flex items-center gap-2 font-semibold text-green-500">
+                        <CheckCircle className="h-4 w-4" />
+                        <span>{conv.orderNumber}</span>
+                      </div>
+                    </td>
+
+                    {/* Order Type */}
+                    <td className="px-6 py-5">
+                      <span className="inline-flex rounded-full bg-orange-500/10 px-4 py-1.5 text-sm font-semibold text-orange-400">
+                        {conv.orderType}
+                      </span>
+                    </td>
+
+                    {/* Status */}
+                    <td className="px-6 py-5">
+                      <span className="inline-flex rounded-full bg-emerald-500/15 px-4 py-1.5 text-sm font-semibold text-emerald-400">
+                        {conv.status}
+                      </span>
+                    </td>
+
+                    <td className="px-6 py-5 text-[15px] text-zinc-300">
+                      {conv.postcode}
+                    </td>
+
+                    {/* Action */}
+                    <td className="px-6 py-5">
+                      <button className="h-12 rounded-xl border border-[#FF6A00] px-5 text-sm font-semibold text-[#FF6A00] transition hover:bg-[#FF6A00]/10">
+                        View Order
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
       {/* Order History & Call Logs (Horizontal Carousel cards) */}
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-black text-white uppercase tracking-wider">
+          <h3 className="text-2xl font-bold tracking-[-0.02em] text-white">
             Order History & Call Logs
           </h3>
-          <p className="text-[11px] text-zinc-500 font-semibold mt-1">
+          <p className="text-base text-zinc-500 font-semibold mt-1">
             Combined Customer order and support interaction logs
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {HISTORY_CALLS.map((hist) => {
             const isPurple = hist.actionText === "Order Converted";
             const isRed = !hist.isSuccess;
@@ -372,39 +403,41 @@ export default function CallLogsPage() {
                 className=" border border-zinc-800 rounded-2xl p-4 flex flex-col justify-between min-h-48"
               >
                 <div className="space-y-3">
-                  <div className="flex justify-between items-start">
-                    {/* Floating phone icon */}
-                    <div className="h-8 w-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 flex items-center justify-center">
-                      <Phone className="h-4.5 w-4.5" />
+                  <div className="flex items-start justify-between">
+                    <div className="flex gap-2 ">
+                      {/* Floating phone icon */}
+                      <div className="h-8 w-8 rounded-full bg-[#00A7061A] border border-[#00A706] text-[#00A706] flex items-center justify-center">
+                        <Phone className="h-4.5 w-4.5" />
+                      </div>
+
+                      <div className="">
+                        <span className="block text-sm text-white">
+                          {hist.time}
+                        </span>
+                        <span className="block text-base text-[#626262] mt-0.5">
+                          {hist.date}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="text-right">
-                      <span className="block text-[10px] font-bold text-white">
-                        {hist.time}
-                      </span>
-                      <span className="block text-[9px] text-zinc-500 mt-0.5">
-                        {hist.date}
+                    <div className="flex gap-1 items-center text-sm text-[#626262] ">
+                      <span>Call Duration: </span>
+                      <span className="text-white">
+                        {hist.duration}
                       </span>
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <div className="flex justify-between items-center text-[10px] text-zinc-400 font-bold">
-                      <span>Call Duration:</span>
-                      <span className="text-white font-extrabold">
-                        {hist.duration}
-                      </span>
-                    </div>
-
-                    <h4 className="text-xs font-black text-white truncate">
+                    <h4 className="text-sm font-black text-white truncate">
                       {hist.customer}
                     </h4>
 
                     <div className="flex justify-between items-center text-[10px] text-zinc-500 font-semibold">
-                      <span className="truncate max-w-23">
+                      <span className="text-[#626262] text-sm">
                         {hist.branchName}
                       </span>
-                      <span className="text-zinc-400 font-bold">
+                      <span className="text-[#626262] text-xs">
                         {hist.phone}
                       </span>
                     </div>
@@ -413,15 +446,15 @@ export default function CallLogsPage() {
 
                 <div className="mt-4">
                   {isRed ? (
-                    <button className="bg-red-500/5 border border-red-500/25 text-red-400 font-black rounded-lg py-2 w-full text-[11px] uppercase tracking-wide">
+                    <button className="bg-[#FF2D491A] border border-[#FF2D49] text-[#FF2D49] font-black rounded-lg py-2 w-full text-[11px] uppercase tracking-wide">
                       {hist.actionText}
                     </button>
                   ) : isPurple ? (
-                    <button className="bg-purple-500/5 border border-purple-500/25 text-purple-400 font-black rounded-lg py-2 w-full text-[11px] uppercase tracking-wide">
+                    <button className="bg-[#9747FF1A] border border-[#9747FF] text-[#9747FF] font-black rounded-lg py-2 w-full text-[11px] uppercase tracking-wide">
                       {hist.actionText}
                     </button>
                   ) : (
-                    <button className="bg-emerald-500/5 border border-emerald-500/25 text-emerald-450 font-black rounded-lg py-2 w-full text-[11px] uppercase tracking-wide">
+                    <button className="bg-[#00A7061A] border border-[#00A706] text-[#00A706] font-black rounded-lg py-2 w-full text-[11px] uppercase tracking-wide">
                       {hist.actionText}
                     </button>
                   )}

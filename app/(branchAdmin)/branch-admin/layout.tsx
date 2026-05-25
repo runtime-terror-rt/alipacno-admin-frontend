@@ -9,7 +9,6 @@ import {
   User,
   LogOut,
   Bell,
-  Map,
   MapPin,
   Cloud,
   Printer,
