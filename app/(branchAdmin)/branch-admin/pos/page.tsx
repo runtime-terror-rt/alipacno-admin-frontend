@@ -6,10 +6,8 @@ import {
   ShoppingBag,
   Plus,
   Minus,
-  Trash2,
   Utensils,
   DollarSign,
-  Check,
   ChevronLeft,
   Printer,
   Laptop,
@@ -18,9 +16,8 @@ import {
   CheckCircle2,
   Truck,
   Heart,
-  X,
 } from "lucide-react";
-import { CartItem, Product, PRODUCTS } from "./data";
+import { CartItem, categories, foodCards, Product, PRODUCTS } from "./data";
 import ItemConfigModal from "@/components/Branch-manager/POS/ItemConfigModal";
 
 export default function POSPage() {
@@ -176,29 +173,27 @@ export default function POSPage() {
       <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4 border-b border-zinc-800/40 pb-5">
         {/* Categories Pills */}
         <div className="flex flex-wrap items-center gap-2">
-          {[
-            "Steaks",
-            "Starters",
-            "Sides",
-            "Drinks",
-            "Desserts",
-            "Lunch Special",
-          ].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`
-                px-4 py-2 rounded-full text-xs font-bold transition-all border cursor-pointer
-                ${
-                  activeCategory === cat
-                    ? "bg-orange-500 text-white border-orange-600 shadow-md shadow-orange-500/10"
-                    : "bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800"
-                }
-              `}
-            >
-              {cat}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const Icon = cat.icon;
+
+            return (
+              <button
+                key={cat.name}
+                onClick={() => setActiveCategory(cat.name)}
+                className={`
+          px-4 py-2 rounded-full text-base transition-all border cursor-pointer flex items-center gap-2
+          ${
+            activeCategory === cat.name
+              ? "bg-orange-500 text-white border-orange-600 shadow-md shadow-orange-500/10"
+              : "bg-white  text-black hover:text-white hover:bg-zinc-800"
+          }
+        `}
+              >
+                <Icon size={20} />
+                {cat.name}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -230,12 +225,85 @@ export default function POSPage() {
             </div>
           </div>
 
+          {/* Food cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+            {foodCards.map((prod) => {
+              return (
+                <div
+                  key={prod.id}
+                  onClick={() => setSelectedDetailProduct(prod)}
+                  className={` rounded-2xl p-4 flex flex-col justify-between group transition-all duration-300 relative overflow-hidden
+                    hover:bg-zinc-900/70 cursor-pointer
+                  `}
+                >
+                  {/* Product Card Image Container */}
+                  <div className="relative w-full h-40 bg-zinc-900 rounded-xl overflow-hidden mb-4 border border-zinc-800">
+                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent z-10" />
+
+                    {/* Star Rating Badge */}
+                    <span className="absolute top-2.5 left-2.5 z-20 px-2 py-0.5 bg-black/60 backdrop-blur-md rounded-md text-[9px] font-extrabold text-orange-400 flex items-center">
+                      ★ {prod.rating}
+                    </span>
+
+                    {/* Floating Heart Favorite Badge (Row 2 and Row 3) */}
+                    {parseInt(prod.id) > 4 && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        className="absolute top-2.5 right-2.5 z-20 h-6.5 w-6.5 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-zinc-300 hover:text-red-500 transition-colors"
+                      >
+                        <Heart className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+
+                    {/* Render exact food image asset from public folder */}
+                    <Image
+                      src={prod.image}
+                      alt={prod.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <h4 className="text-xs sm:text-lg font-bold text-white truncate">
+                      {prod.name}
+                    </h4>
+                    <div className="flex items-baseline space-x-2">
+                      <span className="text-sm font-black text-orange-500">
+                        £{prod.price}
+                      </span>
+                      <span className="text-sm font-medium text-zinc-500 line-through">
+                        £{prod.originalPrice}
+                      </span>
+                      <span className="text-sm font-bold text-zinc-400">
+                        /portion
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart(prod);
+                    }}
+                    className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm py-2 rounded-xl transition-all flex items-center justify-center space-x-1 shadow-md shadow-orange-500/5 cursor-pointer"
+                  >
+                    <Plus className="h-3 w-3" />
+                    <span>Add to cart</span>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
           <div className="flex justify-between items-center">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
               Most popular Steaks
             </h3>
             <button className="text-xs font-bold text-zinc-400 hover:text-white px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-xl">
-              Sort by Popular
+              Sort by Rating
             </button>
           </div>
 
@@ -282,17 +350,17 @@ export default function POSPage() {
                   </div>
 
                   <div className="space-y-1">
-                    <h4 className="text-xs sm:text-sm font-bold text-white truncate">
+                    <h4 className="text-xs sm:text-lg font-bold text-white truncate">
                       {prod.name}
                     </h4>
                     <div className="flex items-baseline space-x-2">
                       <span className="text-sm font-black text-orange-500">
                         £{prod.price}
                       </span>
-                      <span className="text-[10px] font-medium text-zinc-500 line-through">
+                      <span className="text-sm font-medium text-zinc-500 line-through">
                         £{prod.originalPrice}
                       </span>
-                      <span className="text-[9px] font-bold text-zinc-400">
+                      <span className="text-sm font-bold text-zinc-400">
                         /portion
                       </span>
                     </div>
@@ -303,7 +371,7 @@ export default function POSPage() {
                       e.stopPropagation();
                       addToCart(prod);
                     }}
-                    className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs py-2 rounded-xl transition-all flex items-center justify-center space-x-1 shadow-md shadow-orange-500/5 cursor-pointer"
+                    className="w-full mt-4 bg-[#EA580C] hover:bg-orange-600 text-white font-bold text-xs py-2 rounded-xl transition-all flex items-center justify-center space-x-1 shadow-md shadow-orange-500/5 cursor-pointer"
                   >
                     <Plus className="h-3 w-3" />
                     <span>Add to cart</span>
@@ -317,10 +385,10 @@ export default function POSPage() {
         {/* ORDER CARTS PANEL */}
         {cart.length > 0 && (
           <div className="lg:col-span-4">
-            <div className="bg-[#16161A] border border-zinc-800 rounded-3xl p-5 h-full flex flex-col justify-between">
+            <div className=" border border-[#343436]  p-5 h-full">
               {/* Header */}
               <div>
-                <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
+                <div className="flex items-center justify-between pb-4 border-b border-[#343436]">
                   <div className="flex items-center gap-2">
                     <ShoppingBag className="h-4 w-4 text-white" />
                     <h3 className="text-white font-semibold text-sm">
@@ -353,7 +421,7 @@ export default function POSPage() {
                       {/* Info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex justify-between gap-2">
-                          <h4 className="text-white text-sm font-semibold leading-tight">
+                          <h4 className="text-white text-lg font-semibold leading-tight">
                             {item.product.name}
                           </h4>
 
@@ -366,7 +434,7 @@ export default function POSPage() {
                           </span>
                         </div>
 
-                        <p className="text-[11px] text-zinc-500 mt-1 truncate">
+                        <p className="text-xs text-[#FFF7F3] mt-1 truncate">
                           {item.option}
                         </p>
 
@@ -500,7 +568,7 @@ export default function POSPage() {
                 {/* Checkout Button */}
                 <button
                   onClick={handleProceedCheckout}
-                  className="w-full mt-7 bg-orange-500 hover:bg-orange-600 transition-all rounded-full py-4 text-white font-bold text-sm"
+                  className="w-full mt-7 bg-[#EA580C] hover:bg-orange-600 transition-all rounded-full py-4 text-white font-bold text-sm"
                 >
                   Proceed to checkout
                 </button>
