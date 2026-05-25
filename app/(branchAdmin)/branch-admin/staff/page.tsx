@@ -85,7 +85,7 @@ export default function StaffPage() {
           return (
             <div
               key={idx}
-              className="bg-[#121214] border border-zinc-800 rounded-2xl p-5 relative overflow-hidden flex items-center space-x-4 min-h-[105px]"
+              className="bg-[#121214] border border-[#343435] rounded-2xl p-5 relative overflow-hidden flex items-center space-x-4 min-h-[105px]"
               style={{
                 backgroundImage: "radial-gradient(circle at 95% 50%, rgba(204, 166, 147, 0.28) 0%, rgba(204, 166, 147, 0.06) 45%, transparent 75%)"
               }}
@@ -124,11 +124,11 @@ export default function StaffPage() {
       </div>
 
       {/* Main Staff Duty Table */}
-      <div className="bg-[#121214]/65 border border-zinc-850 rounded-2xl p-5 space-y-4">
+      <div className="bg-[#121214]/65 border border-[#343435] rounded-2xl p-5 space-y-4">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-zinc-800/60 text-[10px] font-black text-zinc-500 uppercase tracking-widest">
+              <tr className="border-b border-[#343435] text-[10px] font-black text-zinc-500 uppercase tracking-widest">
                 <th className="pb-3.5">ID</th>
                 <th className="pb-3.5">Staff Member</th>
                 <th className="pb-3.5">Role</th>
@@ -139,7 +139,7 @@ export default function StaffPage() {
                 <th className="pb-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-850/50 text-xs">
+            <tbody className="divide-y divide-[#343435] text-xs">
               {filteredStaff.map((member) => {
                 const isOnDuty = member.status === "On Duty";
                 return (
