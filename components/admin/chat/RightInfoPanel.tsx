@@ -13,7 +13,7 @@ const sharedMediaImages = [
 
 function MembersPanel({ conversation }: { conversation: Conversation }) {
   return (
-    <div className="bg-[#26262680] border border-[#353535] rounded-[20px] p-4 flex flex-col gap-5">
+    <div className="bg-[#1E1E20] border border-[#353535] rounded-[20px] p-4 flex flex-col gap-5">
       {/* Active conversation header */}
       <div className="flex items-center gap-4 bg-[#f9671a]/5 rounded-lg px-3 py-3">
         <div className="w-10 h-10 rounded-full bg-[#f9671a]/10 border border-[#f9671a] flex items-center justify-center text-[#f9671a] shrink-0">
@@ -83,7 +83,7 @@ function MemberRow({ member }: { member: Member }) {
 
 function SharedMediaPanel() {
   return (
-    <div className="bg-[#26262680] border border-[#353535] rounded-[20px] p-4 flex flex-col gap-4">
+    <div className="bg-[#1E1E20] border border-[#353535] rounded-[20px] p-4 flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <span className="text-[#fff7f3] font-medium text-[18px]">Shared Media</span>
         <button className="text-[#f9671a] text-[12px] hover:underline">

@@ -18,7 +18,7 @@ import {
   Settings,
   X,
   LogOut,
-  Sliders
+  BotMessageSquare
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -43,6 +43,7 @@ const ADMIN_MENU_ITEMS: MenuItem[] = [
   { name: "Drivers", icon: User, href: "/admin/drivers" },
   { name: "Staff", icon: Users, href: "/admin/staff" },
   { name: "Inventory", icon: Package, href: "/admin/inventory" },
+  { name: "Ai Insights", icon: BotMessageSquare , href: "/admin/ai-insights" },
   { name: "Menu", icon: UtensilsCrossed, href: "/admin/menus" },
   { name: "Marketing", icon: Megaphone, href: "/admin/marketing" },
   { name: "Signage", icon: Tv, href: "/admin/signage" },

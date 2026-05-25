@@ -118,7 +118,7 @@ export default function ConversationListPanel({
   const tabs: ChatTabType[] = ["All", "Unread", "Branch"];
 
   return (
-    <div className="w-[372px] shrink-0 bg-[#26262680] border border-[#353535] rounded-[20px] flex flex-col overflow-hidden">
+    <div className="w-[372px] shrink-0 bg-[#1E1E20] border border-[#353535] rounded-[20px] flex flex-col overflow-hidden">
       {/* Header */}
       <div className="p-4 flex flex-col gap-4">
         <h2 className="text-white font-semibold text-[22px]">Conversations</h2>

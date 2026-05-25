@@ -29,7 +29,7 @@ function TrendBadge({ change, positive }: { change: string; positive: boolean })
 
 export default function SignageStatCard({ card }: { card: IStatCard }) {
   return (
-    <div className="bg-[#26262680] rounded-3xl border-2 border-[#343436] p-4 flex flex-col gap-4 relative overflow-hidden h-full">
+    <div className="bg-[#1E1E20] rounded-3xl border-2 border-[#343436] p-4 flex flex-col gap-4 relative overflow-hidden h-full">
       {/* Background decorative arc */}
       <div className="absolute right-0 top-0 w-40 h-40">
         <Image src="/admin/common/stats.svg" alt="Decorative arc" layout="fill" objectFit="cover" />
