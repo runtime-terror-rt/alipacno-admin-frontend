@@ -152,11 +152,11 @@ export default function InventoryPage() {
       </div>
 
       {/* Main Stock Table */}
-      <div className="bg-[#121214]/65 border border-zinc-850 rounded-2xl p-5 space-y-4">
+      <div className="bg-[#121214]/65 border border-[#343435] rounded-2xl p-5 space-y-4">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-zinc-800/60 text-[10px] font-black text-zinc-500 uppercase tracking-widest">
+              <tr className="border-b border-[#343435] text-[10px] font-black text-zinc-500 uppercase tracking-widest">
                 <th className="pb-3.5">Item Name</th>
                 <th className="pb-3.5">Category</th>
                 <th className="pb-3.5">Quantity</th>
@@ -166,7 +166,7 @@ export default function InventoryPage() {
                 <th className="pb-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-850/50 text-xs">
+            <tbody className="divide-y divide-[#343435] text-xs">
               {filteredItems.map((item) => (
                 <tr key={item.id} className="hover:bg-zinc-900/10 group">
                   <td className="py-4 font-bold text-white text-sm">{item.name}</td>
