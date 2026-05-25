@@ -18,7 +18,7 @@ export default function InventoryManagementPage() {
         {label:"Total Stock Value" ,  value:"£18,650", change:"+12.4%",positive:true }
       ]
   return (
-    <div className="flex-1 bg-[#0f0f11] min-h-screen text-white p-5 space-y-6">
+    <div className="flex-1 min-h-screen text-white p-5 space-y-6">
 
       <PageHeader title="Inventory Management" subtitle="Track stock levels, manage availability across all branches." />
 

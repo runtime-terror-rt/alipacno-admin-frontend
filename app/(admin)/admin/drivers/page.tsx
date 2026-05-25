@@ -48,7 +48,7 @@ function InsightTile({ icon, label, sub, value, change, positive }: {
 // ── Main Page ──────────────────────────────────────────────────────────────
 export default function DriversManagementPage() {
   return (
-    <div className="flex-1 bg-[#0f0f11] min-h-screen text-white p-5 space-y-5">
+    <div className="flex-1 min-h-screen text-white p-5 space-y-5">
 
       <PageHeader title="Drivers Management" subtitle="Track, assign, and manage your drivers in real time." />
 
