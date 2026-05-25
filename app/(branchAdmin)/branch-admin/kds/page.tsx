@@ -62,8 +62,8 @@ export default function KDSPage() {
     <div className="space-y-6 animate-fadeIn pb-10">
       
       {/* Top Banner Stats */}
-      <div className="w-full bg-[#121214] border border-zinc-800/80 rounded-2xl p-4 flex flex-wrap items-center gap-6 text-xs sm:text-sm font-bold text-zinc-300">
-        <div className="flex items-center">
+      <div className="w-full  bg-[#15803D1A] border border-[#343435] rounded-2xl p-4 flex flex-wrap items-center gap-6 text-xs sm:text-sm font-bold text-zinc-300">
+        <div className="flex items-center ">
           <span className="h-2 w-2 rounded-full bg-emerald-500 mr-2.5 animate-pulse" />
           <span>Avg Prep: </span>
           <span className="text-emerald-500 ml-1.5">{ORDER_KDS_STATS.avgPrep}</span>
@@ -119,12 +119,12 @@ export default function KDSPage() {
           return (
             <div 
               key={col.key} 
-              className="bg-[#121214]/65 border border-zinc-850 rounded-2xl p-4.5 space-y-4.5 min-h-[500px]"
+              className="bg-[#121214]/65 border border-[#343435] rounded-2xl p-4.5 space-y-4.5 min-h-[500px]"
             >
               {/* Column Header */}
-              <div className="flex justify-between items-center pb-3 border-b border-zinc-850">
+              <div className="flex justify-between items-center pb-3 border-b border-[#343435]">
                 <span className="text-xs sm:text-sm font-black text-white uppercase tracking-wider">{col.label}</span>
-                <span className="h-6 w-6 rounded-md bg-zinc-900 border border-zinc-800 text-[10px] font-black text-zinc-400 flex items-center justify-center">
+                <span className="h-6 w-6 rounded-md bg-zinc-900 border border-[#343435] text-[10px] font-black text-zinc-400 flex items-center justify-center">
                   {colOrders.length}
                 </span>
               </div>
@@ -136,13 +136,13 @@ export default function KDSPage() {
                   return (
                     <div 
                       key={order.id} 
-                      className="bg-zinc-900/90 border border-zinc-850 hover:border-zinc-700/80 transition-all rounded-xl p-4 space-y-4"
+                      className="bg-zinc-900/90 border border-[#343435] hover:border-zinc-700/80 transition-all rounded-xl p-4 space-y-4"
                     >
                       {/* Top Header */}
                       <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
                           <span className="text-sm font-black text-white">{order.id}</span>
-                          <span className="text-[10px] text-zinc-400 font-extrabold px-1.5 py-0.5 bg-sky-500/10 rounded text-sky-400 border border-sky-500/10">
+                          <span className="text-[10px] text-zinc-400 font-extrabold px-1.5 py-0.5 bg-sky-500/10 rounded text-sky-400 border border-[#343435]">
                             {order.type}
                           </span>
                         </div>
