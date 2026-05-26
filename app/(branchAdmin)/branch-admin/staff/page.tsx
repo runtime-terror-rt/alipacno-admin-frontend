@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import {
   User,
   Clock,
@@ -319,7 +318,7 @@ export default function StaffPage() {
             </div>
 
             {/* Shift Overview Section */}
-            <div className="bg-[#121214] border border-zinc-850 rounded-2xl p-5 space-y-4">
+            <div className="bg-[#121214] border border-zinc-700 rounded-2xl p-5 space-y-4">
               <span className="block text-xs font-black text-white uppercase tracking-wider">
                 Shift Overview
               </span>
@@ -369,7 +368,7 @@ export default function StaffPage() {
                 </div>
 
                 {/* Sales split */}
-                <div className="grid grid-cols-2 gap-4 pt-1 border-t border-zinc-850/60">
+                <div className="grid grid-cols-2 gap-4 pt-1 border-t border-zinc-700">
                   {/* Cash Sales */}
                   <div>
                     <div className="flex items-center space-x-1.5">
@@ -420,7 +419,7 @@ export default function StaffPage() {
             </div>
 
             {/* Cash Reconciliation Card */}
-            <div className="bg-[#121214] border border-zinc-850 rounded-2xl p-5 space-y-4">
+            <div className="bg-[#121214] border border-zinc-700 rounded-2xl p-5 space-y-4">
               <span className="block text-xs font-black text-white uppercase tracking-wider">
                 Cash Reconciliation
               </span>
@@ -434,7 +433,7 @@ export default function StaffPage() {
                   <span>Cash Sales Today</span>
                   <span className="text-white">£1247.50</span>
                 </div>
-                <div className="flex justify-between items-center pt-3 border-t border-zinc-850/60 text-sm font-black text-white">
+                <div className="flex justify-between items-center pt-3 border-t border-zinc-700 text-sm font-black text-white">
                   <span>Expected Total</span>
                   <span className="text-base text-white">£1447.50</span>
                 </div>

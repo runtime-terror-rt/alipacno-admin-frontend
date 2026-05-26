@@ -603,7 +603,7 @@ export default function POSPage() {
             {/* STEP 1: PAYMENT METHOD SELECT */}
             {paymentStep === "select" && (
               <div className="p-6 space-y-6">
-                <div className="bg-zinc-900/60 border border-zinc-850 rounded-xl p-5 text-center space-y-1">
+                <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-5 text-center space-y-1">
                   <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
                     Total Amount
                   </span>
@@ -682,7 +682,7 @@ export default function POSPage() {
             {/* STEP 2: CASH BILL INPUT SCREEN */}
             {paymentStep === "cash" && (
               <div className="p-6 space-y-5">
-                <div className="bg-zinc-900/60 border border-zinc-850 rounded-xl p-5 text-center relative">
+                <div className="bg-zinc-900/60 border border-zinc-700 rounded-xl p-5 text-center relative">
                   <button
                     onClick={() => setPaymentStep("select")}
                     className="absolute top-4 left-4 text-[10px] font-bold text-orange-500 hover:text-orange-400 flex items-center space-x-1 cursor-pointer"
@@ -709,7 +709,7 @@ export default function POSPage() {
                       value={amountReceived}
                       onChange={(e) => setAmountReceived(e.target.value)}
                       placeholder="Enter amount"
-                      className="w-full bg-zinc-900 border border-zinc-800 rounded-xl py-3 px-4 text-base font-extrabold text-white focus:outline-none focus:border-orange-500"
+                      className="w-full bg-zinc-900 border border-zinc-700 rounded-xl py-3 px-4 text-base font-extrabold text-white focus:outline-none focus:border-orange-500"
                     />
                   </div>
 
@@ -743,7 +743,7 @@ export default function POSPage() {
                   </button>
                 </div>
 
-                <div className="p-4 bg-zinc-900/40 border border-zinc-850 rounded-xl flex justify-between items-center">
+                <div className="p-4 bg-zinc-900/40 border border-zinc-700 rounded-xl flex justify-between items-center">
                   <span className="text-xs text-zinc-400 font-semibold">
                     Change Due:
                   </span>
@@ -769,7 +769,7 @@ export default function POSPage() {
             {/* STEP 3: CARD TERMINAL AUTHORIZING */}
             {paymentStep === "card" && (
               <div className="p-6 text-center space-y-6">
-                <div className="bg-zinc-900/60 border border-zinc-850 rounded-xl p-5 text-center">
+                <div className="bg-zinc-900/60 border border-zinc-700 rounded-xl p-5 text-center">
                   <span className="block text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
                     Total Amount
                   </span>
