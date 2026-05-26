@@ -207,7 +207,7 @@ export default function SettingsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <div className="lg:col-span-7 space-y-6">
           {/* Card 1: Admin Profile */}
-          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 relative overflow-hidden shadow-2xl">
+          <div className=" border border-zinc-800 rounded-3xl p-6 relative overflow-hidden shadow-2xl">
             {/* Subtle profile gradient mesh */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-radial from-orange-500/10 to-transparent blur-3xl opacity-50 pointer-events-none" />
 
@@ -318,7 +318,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Card 2: Role & Permissions */}
-          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
+          <div className="border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
             <div className="pb-4 mb-5 border-b border-zinc-900/80">
               <h3 className="text-sm font-black text-white uppercase tracking-wider">
                 Role & Permissions
@@ -366,14 +366,14 @@ export default function SettingsPage() {
                       key={mod.name}
                       className={`flex items-center space-x-2 px-3 py-2.5 rounded-xl  select-none ${
                         mod.enabled
-                          ? "bg-orange-500/5 border-orange-555/15 text-white"
+                          ? "bg-[#23272D4D] border-[#23272D4D] text-white"
                           : "bg-zinc-900/30 border-zinc-900 text-zinc-500"
                       }`}
                     >
                       <div
-                        className={`h-4.5 w-4.5 rounded-md flex items-center justify-center border shrink-0 ${
+                        className={`h-4.5 w-4.5 rounded-full flex items-center justify-center border shrink-0 ${
                           mod.enabled
-                            ? "bg-[#23272D4D] border-emerald-500/20 text-emerald-500"
+                            ? "bg-[#10B981] border-emerald-500/20 text-black"
                             : "border-zinc-800 text-zinc-650"
                         }`}
                       >
@@ -390,7 +390,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Card 3: Connected Integrations */}
-          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
+          <div className="border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
             <div className="flex justify-between items-center pb-4 mb-5 border-b border-zinc-900/80">
               <div>
                 <h3 className="text-sm font-black text-white uppercase tracking-wider">
@@ -497,78 +497,117 @@ export default function SettingsPage() {
 
         <div className="lg:col-span-5 space-y-6">
           {/* Mini Cards side-by-side row */}
-          <div className="grid grid-cols-2 gap-4">
-            {/* Staff access card */}
-            <div
-              className="bg-[#121214] border border-zinc-800 rounded-3xl p-4.5 min-h-[105px] relative overflow-hidden flex flex-col justify-between shadow-lg"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle at 100% 0%, rgba(249, 115, 22, 0.28) 0%, rgba(249, 115, 22, 0.04) 45%, transparent 75%)",
-              }}
-            >
-              <div className="flex justify-between items-start">
-                <div className="h-7 w-7 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center shrink-0">
-                  <Users className="h-3.5 w-3.5" />
-                </div>
-                {/* Glowing sphere design matching mockup */}
-                <div className="w-14 h-8 bg-gradient-to-l from-orange-500 to-amber-600 blur-lg rounded-full opacity-35" />
-              </div>
+         <div className="grid grid-cols-2 gap-4">
 
-              <div className="mt-3">
-                <span className="block text-[8px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                  Active Staff
-                </span>
-                <span className="block text-xl font-black text-white mt-1 leading-none">
-                  156
-                </span>
-                <span className="flex items-center space-x-1 mt-1 text-[8px] font-bold text-emerald-500">
-                  <TrendingUp className="h-2.5 w-2.5 text-emerald-500 shrink-0" />
-                  <span>25% of active</span>
-                  <span className="text-zinc-600">|</span>
-                  <span className="text-zinc-550 font-semibold">
-                    vs last period
-                  </span>
-                </span>
-              </div>
-            </div>
+  {/* Staff access card */}
+  <div className="bg-[#1E1E20] rounded-2xl border border-[#2e2e30] p-4 flex flex-col gap-4 relative overflow-hidden">
+    
+    {/* Background Decorative */}
+    <div className="absolute right-0 top-0 w-40 h-40 opacity-90">
+      <Image
+        src="/admin/common/stats.svg"
+        alt="Decorative arc"
+        fill
+        className="object-cover"
+      />
+    </div>
 
-            {/* Revenue access card */}
-            <div
-              className="bg-[#121214] border border-zinc-800 rounded-3xl p-4.5 min-h-[105px] relative overflow-hidden flex flex-col justify-between shadow-lg"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle at 100% 0%, rgba(249, 115, 22, 0.28) 0%, rgba(249, 115, 22, 0.04) 45%, transparent 75%)",
-              }}
-            >
-              <div className="flex justify-between items-start">
-                <div className="h-7 w-7 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center shrink-0">
-                  <Coins className="h-3.5 w-3.5" />
-                </div>
-                {/* Glowing sphere design matching mockup */}
-                <div className="w-14 h-8 bg-gradient-to-l from-orange-500 to-amber-600 blur-lg rounded-full opacity-35" />
-              </div>
+    {/* Top */}
+    <div className="flex items-center justify-between relative z-10">
+      <div className="w-9 h-9 rounded-md text-[#f9671a] bg-[#1E1E20] border border-[#FFFFFF1A] p-2 flex items-center justify-center">
+        <Users size={20} />
+      </div>
+    </div>
 
-              <div className="mt-3">
-                <span className="block text-[8px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                  Total Revenue Access
-                </span>
-                <span className="block text-xl font-black text-white mt-1 leading-none">
-                  156
-                </span>
-                <span className="flex items-center space-x-1 mt-1 text-[8px] font-bold text-emerald-500">
-                  <TrendingUp className="h-2.5 w-2.5 text-emerald-500 shrink-0" />
-                  <span>25% of active</span>
-                  <span className="text-zinc-600">|</span>
-                  <span className="text-zinc-550 font-semibold">
-                    vs last period
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
+    {/* Content */}
+    <div className="flex flex-col gap-1 relative z-10">
+      <p className="text-gray-100 text-sm font-bold tracking-widest uppercase">
+        Active Staff
+      </p>
+
+      <p className="text-sm font-bold text-[#A4542A] leading-none">
+        156
+      </p>
+    </div>
+
+    {/* Trend */}
+    <div className="flex items-center gap-2 border border-[#3D3D3DAA] w-fit p-2 rounded-lg relative z-10">
+      
+      <div className="flex items-center gap-1 px-2 py-1 rounded-md">
+        <TrendingUp
+          size={28}
+          className="p-1 rounded-lg text-[#0E8013] bg-green-500/10"
+        />
+
+        <span className="text-[13px] font-semibold text-[#00A706]">
+          25%
+        </span>
+      </div>
+
+      <div className="w-[2px] h-6 bg-[#3d3d3d]" />
+
+      <span className="text-[#626262] text-[12px]">
+        vs last period
+      </span>
+    </div>
+  </div>
+
+  {/* Revenue access card */}
+  <div className="bg-[#1E1E20] rounded-2xl border border-[#2e2e30] p-4 flex flex-col gap-4 relative overflow-hidden">
+    
+    {/* Background Decorative */}
+    <div className="absolute right-0 top-0 w-40 h-40 opacity-90">
+      <Image
+        src="/admin/common/stats.svg"
+        alt="Decorative arc"
+        fill
+        className="object-cover"
+      />
+    </div>
+
+    {/* Top */}
+    <div className="flex items-center justify-between relative z-10">
+      <div className="w-9 h-9 rounded-md text-[#f9671a] bg-[#1E1E20] border border-[#FFFFFF1A] p-2 flex items-center justify-center">
+        <Coins size={20} />
+      </div>
+    </div>
+
+    {/* Content */}
+    <div className="flex flex-col gap-1 relative z-10">
+      <p className="text-gray-100 text-sm font-bold tracking-widest uppercase">
+        Revenue Access
+      </p>
+
+      <p className="text-sm font-bold text-[#A4542A] leading-none">
+        £45,890
+      </p>
+    </div>
+
+    {/* Trend */}
+    <div className="flex items-center gap-2 border border-[#3D3D3DAA] w-fit p-2 rounded-lg relative z-10">
+      
+      <div className="flex items-center gap-1 px-2 py-1 rounded-md">
+        <TrendingUp
+          size={28}
+          className="p-1 rounded-lg text-[#0E8013] bg-green-500/10"
+        />
+
+        <span className="text-[13px] font-semibold text-[#00A706]">
+          18%
+        </span>
+      </div>
+
+      <div className="w-[2px] h-6 bg-[#3d3d3d]" />
+
+      <span className="text-[#626262] text-[12px]">
+        vs last period
+      </span>
+    </div>
+  </div>
+</div>
 
           {/* Card 4: Activity Timeline */}
-          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
+          <div className=" border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-5 border-b border-zinc-900/80 gap-3">
               <h3 className="text-sm font-black text-white uppercase tracking-wider">
                 Activity Timeline
@@ -631,7 +670,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Card 5: Notification Preferences */}
-          <div className="bg-[#121214] border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
+          <div className=" border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
             <div className="pb-4 mb-5 border-b border-zinc-900/80">
               <h3 className="text-sm font-black text-white uppercase tracking-wider">
                 Notification Preferences
@@ -646,7 +685,7 @@ export default function SettingsPage() {
                 return (
                   <div
                     key={pref.id}
-                    className="bg-[#161618] border border-zinc-900 hover:border-zinc-800 rounded-2xl p-4.5 flex justify-between items-center transition-all"
+                    className=" border border-zinc-900 hover:border-zinc-800 rounded-2xl p-4.5 flex justify-between items-center transition-all"
                   >
                     <div className="flex items-center space-x-3.5 min-w-0">
                       <div className="h-8.5 w-8.5 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center shrink-0">
@@ -786,8 +825,8 @@ export default function SettingsPage() {
 
       {/* ================= CUSTOMIZE MODULE ACCESS DIALOG MODAL ================= */}
       {isCustomizing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-          <div className="w-full max-w-lg bg-[#121214] border border-zinc-800 rounded-3xl p-6 space-y-6 shadow-2xl relative max-h-[85vh] flex flex-col">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-md animate-fadeIn">
+          <div className="w-full max-w-lg bg-[#121214]  rounded-3xl p-6 space-y-6 shadow-2xl relative max-h-[85vh] flex flex-col">
             <button
               onClick={() => setIsCustomizing(false)}
               className="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors"
@@ -809,9 +848,9 @@ export default function SettingsPage() {
                 <button
                   key={mod.name}
                   onClick={() => handleToggleModule(mod.name)}
-                  className={`flex items-center justify-between p-3.5 rounded-xl border transition-all cursor-pointer ${
+                  className={`flex items-center justify-between p-3.5 rounded-xl transition-all cursor-pointer ${
                     mod.enabled
-                      ? "bg-orange-500/5 border-orange-555/35 text-white"
+                      ? "bg-[#23272D4D] border-orange-555/35 text-white"
                       : "bg-[#161618] border-zinc-850/80 text-zinc-500"
                   }`}
                 >
