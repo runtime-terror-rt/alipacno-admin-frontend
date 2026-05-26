@@ -7,7 +7,6 @@ import MetricCardsRow from "@/components/admin/common/MetricCardsRow";
 import Button from "@/components/admin/ui/Button";
 import DriverOperationsPanel from "@/components/admin/drivers/DriverOperationsPanel";
 import DeliveriesBarChart from "@/components/admin/ui/DeliveriesBarChart";
-import Image from "next/image";
 import DriversBottomStats from "@/components/admin/drivers/DriversBottomStats";
 import RecentDriverActivity from "@/components/admin/drivers/RecentDriverActivity";
 import DeliveryGoogleMap from "@/components/admin/deliveries/DeliveryGoogleMap";

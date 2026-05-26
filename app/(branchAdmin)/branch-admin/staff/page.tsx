@@ -1,17 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { 
   User, 
   Clock, 
   DollarSign, 
   Percent,
   Search,
-  Check,
   X,
   TrendingUp,
-  AlertCircle
 } from "lucide-react";
 import { STAFF_STATS, STAFF_MEMBERS, StaffMember } from "./data";
 
@@ -209,7 +206,7 @@ export default function StaffPage() {
       {/* End of Shift - Cash Reconciliation Modal */}
       {isReconciliationOpen && (
         <div className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto animate-fadeIn">
-          <div className="relative w-full max-w-xl bg-[#18181A] border border-zinc-850 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+          <div className="relative w-full max-w-xl bg-[#18181A] border border-zinc-700 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
             
             {/* Modal Header */}
             <div className="flex items-start justify-between">
@@ -236,7 +233,7 @@ export default function StaffPage() {
             </div>
 
             {/* Shift Overview Section */}
-            <div className="bg-[#121214] border border-zinc-850 rounded-2xl p-5 space-y-4">
+            <div className="bg-[#121214] border border-zinc-700 rounded-2xl p-5 space-y-4">
               <span className="block text-xs font-black text-white uppercase tracking-wider">
                 Shift Overview
               </span>
@@ -274,7 +271,7 @@ export default function StaffPage() {
                 </div>
 
                 {/* Sales split */}
-                <div className="grid grid-cols-2 gap-4 pt-1 border-t border-zinc-850/60">
+                <div className="grid grid-cols-2 gap-4 pt-1 border-t border-zinc-700">
                   {/* Cash Sales */}
                   <div>
                     <div className="flex items-center space-x-1.5">
@@ -297,7 +294,7 @@ export default function StaffPage() {
                 </div>
 
                 {/* Total Revenue */}
-                <div className="flex justify-between items-center pt-3.5 border-t border-zinc-850/60">
+                <div className="flex justify-between items-center pt-3.5 border-t border-zinc-700">
                   <span className="text-xs text-zinc-400 font-bold">Total Revenue (All Methods)</span>
                   <span className="text-lg font-black text-orange-500">£3842.50</span>
                 </div>
@@ -305,7 +302,7 @@ export default function StaffPage() {
             </div>
 
             {/* Cash Reconciliation Card */}
-            <div className="bg-[#121214] border border-zinc-850 rounded-2xl p-5 space-y-4">
+            <div className="bg-[#121214] border border-zinc-700 rounded-2xl p-5 space-y-4">
               <span className="block text-xs font-black text-white uppercase tracking-wider">
                 Cash Reconciliation
               </span>
@@ -319,7 +316,7 @@ export default function StaffPage() {
                   <span>Cash Sales Today</span>
                   <span className="text-white">£1247.50</span>
                 </div>
-                <div className="flex justify-between items-center pt-3 border-t border-zinc-850/60 text-sm font-black text-white">
+                <div className="flex justify-between items-center pt-3 border-t border-zinc-700 text-sm font-black text-white">
                   <span>Expected Total</span>
                   <span className="text-base text-white">£1447.50</span>
                 </div>
@@ -359,7 +356,7 @@ export default function StaffPage() {
                         py-2.5 rounded-xl text-[10px] font-black uppercase transition cursor-pointer border
                         ${isSelected
                           ? "bg-orange-500/10 border-orange-500/45 text-orange-550 shadow-md animate-pulse"
-                          : "bg-[#121214] border-zinc-850 text-zinc-400 hover:text-white"
+                          : "bg-[#121214] border-zinc-700 text-zinc-400 hover:text-white"
                         }
                       `}
                     >

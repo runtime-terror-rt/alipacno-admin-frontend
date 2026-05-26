@@ -119,7 +119,7 @@ export default function KDSPage() {
           return (
             <div 
               key={col.key} 
-              className="bg-[#121214]/65 border border-[#343435] rounded-2xl p-4.5 space-y-4.5 min-h-[500px]"
+              className="bg-[#121214]/65 border border-[#343435]! rounded-2xl p-4.5 space-y-4.5 min-h-[500px]"
             >
               {/* Column Header */}
               <div className="flex justify-between items-center pb-3 border-b border-[#343435]">
