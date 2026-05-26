@@ -25,6 +25,7 @@ import {
   LiveOrder,
 } from "./data";
 import MetricCard from "@/components/admin/ui/MetricCard";
+import PageHeader from "@/components/admin/common/PageHeader";
 
 declare global {
   interface Window {
@@ -378,14 +379,10 @@ export default function DeliveriesPage() {
     <div className="space-y-6 sm:space-y-8 animate-fadeIn pb-12">
       {/* Deliveries Title Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-lg sm:text-2xl font-bold text-whitetracking-wider">
-            Deliveries Management
-          </h1>
-          <p className="text-[#9CA3AF] text-base sm:text-sm mt-1">
-            Track and manage your deliveries in real-time
-          </p>
-        </div>
+        <PageHeader
+          title="Deliveries Management"
+          subtitle="Track and manage your deliveries in real-time"
+        />
 
         {/* Quick Period filters */}
         <div className="flex flex-wrap items-center gap-2">

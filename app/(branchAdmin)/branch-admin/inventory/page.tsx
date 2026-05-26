@@ -13,6 +13,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { INVENTORY_STATS, INVENTORY_ITEMS, InventoryItem } from "./data";
+import PageHeader from "@/components/admin/common/PageHeader";
 
 export default function InventoryPage() {
   const [items, setItems] = useState<InventoryItem[]>(INVENTORY_ITEMS);
@@ -70,14 +71,10 @@ export default function InventoryPage() {
     <div className="space-y-6 sm:space-y-8 animate-fadeIn pb-12">
       {/* Title block */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-wider">
-            Inventory Management
-          </h1>
-          <p className="text-zinc-550 text-xs sm:text-sm mt-1 font-semibold">
-            Track and manage stock levels
-          </p>
-        </div>
+        <PageHeader
+          title="Inventory Management"
+          subtitle="Track and manage stock levels"
+        />
 
         {/* Filter Pills and Export Button */}
         <div className="flex flex-wrap items-center gap-2">
