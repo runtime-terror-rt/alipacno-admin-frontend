@@ -167,6 +167,9 @@ export default function KDSPage() {
         {KDS_COLUMNS.map((col) => {
           const colOrders = filteredOrders.filter((o) => o.status === col.key);
           return (
+            <div 
+              key={col.key} 
+              className="bg-[#121214]/65 border border-[#343435]! rounded-2xl p-4.5 space-y-4.5 min-h-[500px]"
             <div
               key={col.key}
               className=" rounded-2xl space-y-4.5 min-h-[500px]"

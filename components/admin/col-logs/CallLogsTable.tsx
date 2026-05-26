@@ -17,7 +17,7 @@ function CallStatusBadge({ status }: { status: CallStatus }) {
       Answered
     </span>
   ) : (
-    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/15 text-red-400 border border-red-500/25">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/15 text-[#FF2D49] border border-red-500/25">
       Missed
     </span>
   );
@@ -27,14 +27,14 @@ function CallStatusBadge({ status }: { status: CallStatus }) {
 function OutcomeBadge({ outcome }: { outcome: CallOutcome }) {
   if (outcome === "Missed Call") {
     return (
-      <span className="inline-flex items-center gap-1.5 text-xs text-red-400 font-medium">
+      <span className="inline-flex items-center gap-1.5 text-xs text-[#FF2D49] font-medium">
         <PhoneMissed size={12} /> Missed Call
       </span>
     );
   }
   if (outcome === "No Order") {
     return (
-      <span className="inline-flex items-center gap-1.5 text-xs text-zinc-400 font-medium">
+      <span className="inline-flex items-center gap-1.5 text-xs text-primary font-medium">
         <Phone size={12} /> No Order
       </span>
     );

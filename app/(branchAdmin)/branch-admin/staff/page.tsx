@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import {
   User,
   Clock,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import { STAFF_STATS, STAFF_MEMBERS, StaffMember } from "./data";
 import PageHeader from "@/components/admin/common/PageHeader";
+import Image from "next/image";
 
 export default function StaffPage() {
   const [staff, setStaff] = useState<StaffMember[]>(STAFF_MEMBERS);
@@ -311,11 +311,138 @@ export default function StaffPage() {
               </button>
             </div>
 
-            <div className="p-6 space-y-6">
-              {/* Shift Overview Section */}
-              <div className="bg-[#121214]  rounded-2xl p-5 space-y-4">
-                <span className="block text-xs font-black text-white uppercase tracking-wider">
-                  Shift Overview
+            {/* Shift Overview Section */}
+            <div className="bg-[#121214] border border-zinc-700 rounded-2xl p-5 space-y-4">
+              <span className="block text-xs font-black text-white uppercase tracking-wider">
+                Shift Overview
+              </span>
+
+              <div className="space-y-4 pt-1">
+                {/* Date */}
+                <div className="flex items-center space-x-2.5">
+                  <div className="h-7 w-7 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center">
+                    <Clock className="h-3.5 w-3.5" />
+                  </div>
+                  <div>
+                    <span className="block text-[9px] text-zinc-500 uppercase font-black tracking-wider leading-none">
+                      Shift Date
+                    </span>
+                    <span className="block text-xs font-black text-white mt-1">
+                      Tuesday 12 May 2026
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Total Orders */}
+                  <div>
+                    <div className="flex items-center space-x-1.5">
+                      <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                      <span className="text-[9px] text-zinc-550 uppercase font-black tracking-wider">
+                        Total Orders
+                      </span>
+                    </div>
+                    <span className="block text-lg font-black text-white mt-1.5">
+                      127
+                    </span>
+                  </div>
+
+                  {/* Cancellations */}
+                  <div>
+                    <div className="flex items-center space-x-1.5">
+                      <span className="h-2 w-2 rounded-full bg-rose-500" />
+                      <span className="text-[9px] text-zinc-555 uppercase font-black tracking-wider">
+                        Cancellations
+                      </span>
+                    </div>
+                    <span className="block text-lg font-black text-rose-500 mt-1.5">
+                      3
+                    </span>
+                  </div>
+                </div>
+
+                {/* Sales split */}
+                <div className="grid grid-cols-2 gap-4 pt-1 border-t border-zinc-700">
+                  {/* Cash Sales */}
+                  <div>
+                    <div className="flex items-center space-x-1.5">
+                      <span className="text-emerald-500 text-xs font-extrabold">
+                        💵
+                      </span>
+                      <span className="text-[9px] text-zinc-500 uppercase font-black tracking-wider font-semibold">
+                        Cash Sales
+                      </span>
+                    </div>
+                    <span className="block text-sm font-black text-white mt-1">
+                      £1247.50
+                    </span>
+                    <span className="block text-[10px] text-zinc-550 mt-0.5 font-bold">
+                      42 transactions
+                    </span>
+                  </div>
+
+                  {/* Card Sales */}
+                  <div>
+                    <div className="flex items-center space-x-1.5">
+                      <span className="text-purple-500 text-xs font-extrabold">
+                        💳
+                      </span>
+                      <span className="text-[9px] text-zinc-500 uppercase font-black tracking-wider font-semibold">
+                        Card Sales
+                      </span>
+                    </div>
+                    <span className="block text-sm font-black text-white mt-1">
+                      £2595.00
+                    </span>
+                    <span className="block text-[10px] text-zinc-550 mt-0.5 font-bold">
+                      85 transactions
+                    </span>
+                  </div>
+                </div>
+
+                {/* Total Revenue */}
+                <div className="flex justify-between items-center pt-3.5 border-t border-zinc-850/60">
+                  <span className="text-xs text-zinc-400 font-bold">
+                    Total Revenue (All Methods)
+                  </span>
+                  <span className="text-lg font-black text-orange-500">
+                    £3842.50
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Cash Reconciliation Card */}
+            <div className="bg-[#121214] border border-zinc-700 rounded-2xl p-5 space-y-4">
+              <span className="block text-xs font-black text-white uppercase tracking-wider">
+                Cash Reconciliation
+              </span>
+
+              <div className="space-y-2.5 pt-1 text-xs">
+                <div className="flex justify-between text-zinc-450 font-bold">
+                  <span>Opening Cash Float</span>
+                  <span className="text-white">£200.00</span>
+                </div>
+                <div className="flex justify-between text-zinc-450 font-bold">
+                  <span>Cash Sales Today</span>
+                  <span className="text-white">£1247.50</span>
+                </div>
+                <div className="flex justify-between items-center pt-3 border-t border-zinc-700 text-sm font-black text-white">
+                  <span>Expected Total</span>
+                  <span className="text-base text-white">£1447.50</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Actual Cash Counted Section */}
+            <div className="space-y-3">
+              <label className="block text-[10px] font-black text-zinc-455 uppercase tracking-widest">
+                Actual Cash Counted
+              </label>
+
+              <div className="relative">
+                <span className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-zinc-500 font-bold">
+                  £
                 </span>
 
                 <div className="space-y-4 pt-1">
