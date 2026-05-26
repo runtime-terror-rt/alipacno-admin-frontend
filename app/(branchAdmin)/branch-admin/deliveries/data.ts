@@ -27,13 +27,13 @@ export interface LiveOrder {
   address: string;
   price: string;
   timeLabel: string;
-  status: "Preparing" | "Ready" | "Out for Delivery" | "Delivered" | "Late";
+  status: "Preparing" | "Ready" | "Out for Delivery" | "Delivered" | "Late" |"Driver Assigned" |"Ready for Dispatch";
   timerState: "overdue" | "warning" | "good";
 }
 
 export const DELIVERY_STATS: DeliveryStat[] = [
   { label: "Active Deliveries", value: "12/30", change: "+12.4%", isPositive: true },
-  { label: "Late Order", value: "3", change: "25% of active", isPositive: false },
+  { label: "Late Order", value: "3", change: "25% of active", isPositive: true },
   { label: "Avg Delivery Time", value: "3 mins", change: "25% of active", isPositive: false },
   { label: "Delivery Today", value: "3 mins", change: "25% of active", isPositive: false },
   { label: "Completed Delivery", value: "18 Orders", change: "25% of active", isPositive: true },
