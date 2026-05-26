@@ -729,8 +729,8 @@ export default function SettingsPage() {
 
       {/* ================= EDIT PROFILE DIALOG MODAL ================= */}
       {isEditing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-          <div className="w-full max-w-md bg-[#121214] border border-zinc-800 rounded-3xl p-6 space-y-6 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm animate-fadeIn">
+          <div className="w-full max-w-md bg-[#1e1e20] border border-zinc-800 rounded-3xl p-6 space-y-6 shadow-2xl relative">
             <button
               onClick={() => setIsEditing(false)}
               className="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors"
@@ -743,13 +743,13 @@ export default function SettingsPage() {
                 Edit Admin Profile
               </h3>
               <p className="text-[11px] text-zinc-450 mt-1 font-semibold">
-                Update Jesse Hayden's administrative details
+                Update Jesse Hayden&apos;s administrative details
               </p>
             </div>
 
             <div className="space-y-4 text-xs font-semibold">
               <div className="space-y-1.5">
-                <label className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold">
+                <label className="text-xs tracking-widest text-zinc-400 font-bold">
                   Full Name
                 </label>
                 <input
@@ -758,12 +758,12 @@ export default function SettingsPage() {
                   onChange={(e) =>
                     setEditForm({ ...editForm, name: e.target.value })
                   }
-                  className="w-full bg-[#161618] border border-zinc-850 focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
+                  className="w-full bg-[#1e1e20] border border-[#353537] focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold">
+                <label className="text-xs tracking-widest text-zinc-400 font-bold">
                   Email Address
                 </label>
                 <input
@@ -772,12 +772,12 @@ export default function SettingsPage() {
                   onChange={(e) =>
                     setEditForm({ ...editForm, email: e.target.value })
                   }
-                  className="w-full bg-[#161618] border border-zinc-850 focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
+                  className="w-full bg-[#1e1e20] border border-[#353537] focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold">
+                <label className="text-xs tracking-widest text-zinc-400 font-bold">
                   Phone Number
                 </label>
                 <input
@@ -786,12 +786,12 @@ export default function SettingsPage() {
                   onChange={(e) =>
                     setEditForm({ ...editForm, phone: e.target.value })
                   }
-                  className="w-full bg-[#161618] border border-zinc-850 focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
+                  className="w-full bg-[#1e1e20] border border-[#353537] focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[9px] uppercase tracking-widest text-zinc-400 font-bold">
+                <label className="text-xs tracking-widest text-zinc-400 font-bold">
                   Office Address
                 </label>
                 <textarea
@@ -800,7 +800,7 @@ export default function SettingsPage() {
                   onChange={(e) =>
                     setEditForm({ ...editForm, address: e.target.value })
                   }
-                  className="w-full bg-[#161618] border border-zinc-850 focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors resize-none leading-relaxed"
+                  className="w-full bg-[#1e1e20] border border-[#353537] focus:border-orange-500 rounded-xl px-4 py-3 text-white focus:outline-none transition-colors resize-none leading-relaxed"
                 />
               </div>
             </div>
@@ -808,7 +808,7 @@ export default function SettingsPage() {
             <div className="flex space-x-3 pt-2">
               <button
                 onClick={() => setIsEditing(false)}
-                className="flex-1 py-3 bg-[#161618] hover:bg-[#252528] border border-zinc-800 rounded-xl text-xs font-black uppercase tracking-wider text-zinc-400 transition cursor-pointer"
+                className="flex-1 py-3 bg-[#1e1e20] hover:bg-[#252528] border border-[#353537] rounded-xl text-xs font-black uppercase tracking-wider text-zinc-400 transition cursor-pointer"
               >
                 Cancel
               </button>
