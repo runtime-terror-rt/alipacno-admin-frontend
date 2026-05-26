@@ -22,8 +22,7 @@ export default function OrdersKanbanPage() {
       key: "new",
       label: "New Orders",
       buttonText: "Start Preparing",
-      color:
-        "bg-[#1A1A1C] hover:bg-orange-600 text-white",
+      color: "bg-[#1A1A1C] hover:bg-orange-600 text-white",
     },
     {
       key: "kitchen",
@@ -78,11 +77,11 @@ export default function OrdersKanbanPage() {
   return (
     <div className="space-y-6 animate-fadeIn pb-10">
       {/* Top Banner Stats */}
-      <div className="w-full bg-[#15803D1A] border border-[#15803D4D] rounded-2xl p-4 flex flex-wrap items-center gap-6 text-xs sm:text-sm font-bold text-zinc-300">
-        <div className="flex items-center">
+      <div className="w-full bg-[#15803D1A] border border-[#15803D4D] rounded-2xl p-4 flex flex-wrap items-center gap-6 text-xs sm:text-sm text-zinc-300">
+        <div className="flex items-center text-sm">
           <span className="h-2 w-2 rounded-full bg-emerald-500 mr-2.5 animate-pulse" />
-          <span>Avg Prep: </span>
-          <span className="text-emerald-500 ml-1.5">
+          <span className="text-[#22C55E]">Avg Prep: </span>
+          <span className="text-[#22C55E] ml-1.5">
             {ORDER_KDS_STATS.avgPrep}
           </span>
         </div>
@@ -93,10 +92,10 @@ export default function OrdersKanbanPage() {
           <span className="text-white ml-1.5">{ORDER_KDS_STATS.active}</span>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center text-sm">
           <span className="h-2 w-2 rounded-full bg-amber-500 mr-2.5 animate-pulse" />
-          <span>Delayed: </span>
-          <span className="text-amber-500 ml-1.5">
+          <span className="text-[#F59E0B]">Delayed: </span>
+          <span className="text-[#F59E0B] ml-1.5">
             {ORDER_KDS_STATS.delayed}
           </span>
         </div>
@@ -107,10 +106,7 @@ export default function OrdersKanbanPage() {
         {COLUMNS.map((col) => {
           const colOrders = orders.filter((o) => o.status === col.key);
           return (
-            <div
-              key={col.key}
-              className=" rounded-2xl space-y-4"
-            >
+            <div key={col.key} className=" rounded-2xl space-y-4">
               {/* Column Header */}
               <div className="flex justify-between border border-[#343435] items-center p-3 rounded-t-xl bg-[#1A1A1C] ">
                 <span className="text-xs sm:text-sm font-black text-white uppercase tracking-wider">

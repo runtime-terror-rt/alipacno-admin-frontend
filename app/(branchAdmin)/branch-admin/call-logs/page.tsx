@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { CALL_LOGS, CONVERTED_ORDERS, HISTORY_CALLS } from "./data";
 import MetricCard from "@/components/admin/ui/MetricCard";
+import PageHeader from "@/components/admin/common/PageHeader";
 
 export default function CallLogsPage() {
   const [activeTab, setActiveTab] = useState("All");
@@ -22,14 +23,10 @@ export default function CallLogsPage() {
   return (
     <div className="space-y-8 animate-fadeIn pb-12">
       {/* Page Title & Subtitle */}
-      <div>
-        <h1 className="text-lg sm:text-2xl font-black text-white tracking-wider">
-          Call Logs
-        </h1>
-        <p className="text-[#626262] text-base mt-1 font-semibold">
-          Track customer calls and communication history.
-        </p>
-      </div>
+      <PageHeader
+        title="Call Logs"
+        subtitle="Track customer calls and communication history."
+      />
 
       {/* Top Stat Cards (radial glow centered at 95% 50% with #CCA693 theme color) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">

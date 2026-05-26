@@ -16,6 +16,7 @@ import {
 import MetricCard from "@/components/admin/ui/MetricCard";
 import BreakdownCard from "@/components/Branch-manager/POS/Dashboard/BreakdownCard";
 import { dashboardBreakdownData } from "./data";
+import PageHeader from "@/components/admin/common/PageHeader";
 
 type FilterType = "today" | "week" | "month" | "year";
 
@@ -71,14 +72,10 @@ export default function DashboardPage() {
     <div className="space-y-6 sm:space-y-8 ">
       {/* 1. HEADER SECTION */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center">
-            Welcome to dashboard
-          </h1>
-          <p className="text-zinc-400 text-sm mt-1.5 font-medium">
-            Detailed insights into your business performance
-          </p>
-        </div>
+        <PageHeader
+          title="Dashboard"
+          subtitle="Detailed insights into your business performance"
+        />
 
         {/* Filter Controls & Export */}
         <div className="flex items-center space-x-3.5 self-start md:self-auto">
@@ -386,8 +383,6 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
-
-          
         </div>
       </div>
 

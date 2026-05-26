@@ -23,6 +23,7 @@ import {
   HOURLY_PERFORMANCE,
   StatGroup
 } from "./data";
+import PageHeader from "@/components/admin/common/PageHeader";
 
 export default function IncomeReportsPage() {
   const [activePeriod, setActivePeriod] = useState<string>("Today");
@@ -49,14 +50,10 @@ export default function IncomeReportsPage() {
       
       {/* Nearest Branch Banner & Global Timing Header (Pre-constructed in layout) */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-wider">
-            Income Reports & Analytics
-          </h1>
-          <p className="text-zinc-555 text-xs sm:text-sm mt-1 font-semibold">
-            Detailed insights into your business performance
-          </p>
-        </div>
+        <PageHeader
+          title="Income Reports & Analytics"
+          subtitle="Detailed insights into your business performance"
+        />
 
         {/* Time period quick selector + Export buttons */}
         <div className="flex flex-wrap items-center gap-2">

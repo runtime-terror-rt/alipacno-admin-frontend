@@ -14,7 +14,7 @@ import {
   Navigation,
   Phone,
   Eye,
-  MapPin
+  MapPin,
 } from "lucide-react";
 import {
   DELIVERY_STATS,
@@ -22,8 +22,10 @@ import {
   PACINOS_CENTER,
   LatLng,
   MapRoute,
-  LiveOrder
+  LiveOrder,
 } from "./data";
+import MetricCard from "@/components/admin/ui/MetricCard";
+import PageHeader from "@/components/admin/common/PageHeader";
 
 declare global {
   interface Window {
@@ -36,13 +38,33 @@ const darkMapStyles = [
   { elementType: "geometry", stylers: [{ color: "#0c0c0e" }] },
   { elementType: "labels.text.stroke", stylers: [{ visibility: "off" }] },
   { elementType: "labels.text.fill", stylers: [{ color: "#4b4b4d" }] },
-  { featureType: "administrative", elementType: "geometry", stylers: [{ visibility: "off" }] },
+  {
+    featureType: "administrative",
+    elementType: "geometry",
+    stylers: [{ visibility: "off" }],
+  },
   { featureType: "poi", stylers: [{ visibility: "off" }] },
-  { featureType: "road", elementType: "geometry", stylers: [{ color: "#141416" }] },
-  { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#1e1e20" }] },
-  { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#3c3c3e" }] },
+  {
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [{ color: "#141416" }],
+  },
+  {
+    featureType: "road",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#1e1e20" }],
+  },
+  {
+    featureType: "road",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#3c3c3e" }],
+  },
   { featureType: "transit", stylers: [{ visibility: "off" }] },
-  { featureType: "water", elementType: "geometry", stylers: [{ color: "#070708" }] }
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#070708" }],
+  },
 ];
 
 export default function DeliveriesPage() {
@@ -65,15 +87,18 @@ export default function DeliveriesPage() {
         (position) => {
           const coords = {
             lat: position.coords.latitude,
-            lng: position.coords.longitude
+            lng: position.coords.longitude,
           };
           setUserLocation(coords);
         },
         (error) => {
-          console.warn("Geolocation permission denied, using default center.", error);
+          console.warn(
+            "Geolocation permission denied, using default center.",
+            error,
+          );
           setUserLocation(PACINOS_CENTER);
         },
-        { enableHighAccuracy: true }
+        { enableHighAccuracy: true },
       );
     } else {
       setUserLocation(PACINOS_CENTER);
@@ -123,10 +148,10 @@ export default function DeliveriesPage() {
           center,
           { lat: center.lat + 0.003, lng: center.lng - 0.002 },
           { lat: center.lat + 0.007, lng: center.lng - 0.004 },
-          { lat: center.lat + 0.010, lng: center.lng - 0.007 },
-          { lat: center.lat + 0.012, lng: center.lng - 0.010 }
+          { lat: center.lat + 0.01, lng: center.lng - 0.007 },
+          { lat: center.lat + 0.012, lng: center.lng - 0.01 },
         ],
-        destinationName: "ELTHAM NORTH"
+        destinationName: "ELTHAM NORTH",
       },
       {
         id: "route-2",
@@ -139,9 +164,9 @@ export default function DeliveriesPage() {
           center,
           { lat: center.lat + 0.001, lng: center.lng + 0.004 },
           { lat: center.lat + 0.003, lng: center.lng + 0.008 },
-          { lat: center.lat + 0.005, lng: center.lng + 0.012 }
+          { lat: center.lat + 0.005, lng: center.lng + 0.012 },
         ],
-        destinationName: "BUNDOORA"
+        destinationName: "BUNDOORA",
       },
       {
         id: "route-3",
@@ -154,9 +179,9 @@ export default function DeliveriesPage() {
           center,
           { lat: center.lat - 0.002, lng: center.lng - 0.003 },
           { lat: center.lat - 0.005, lng: center.lng - 0.006 },
-          { lat: center.lat - 0.008, lng: center.lng - 0.008 }
+          { lat: center.lat - 0.008, lng: center.lng - 0.008 },
         ],
-        destinationName: "GREENSBOROUGH"
+        destinationName: "GREENSBOROUGH",
       },
       {
         id: "route-4",
@@ -169,9 +194,9 @@ export default function DeliveriesPage() {
           center,
           { lat: center.lat - 0.003, lng: center.lng + 0.002 },
           { lat: center.lat - 0.006, lng: center.lng + 0.005 },
-          { lat: center.lat - 0.009, lng: center.lng + 0.008 }
+          { lat: center.lat - 0.009, lng: center.lng + 0.008 },
         ],
-        destinationName: "RESERVOIR"
+        destinationName: "RESERVOIR",
       },
       {
         id: "route-5",
@@ -184,16 +209,22 @@ export default function DeliveriesPage() {
           center,
           { lat: center.lat - 0.001, lng: center.lng + 0.003 },
           { lat: center.lat - 0.003, lng: center.lng + 0.006 },
-          { lat: center.lat - 0.005, lng: center.lng + 0.009 }
+          { lat: center.lat - 0.005, lng: center.lng + 0.009 },
         ],
-        destinationName: "MILL PARK"
-      }
+        destinationName: "MILL PARK",
+      },
     ];
   };
 
   // Initialize Map and render real components relative to user location
   useEffect(() => {
-    if (!isLoaded || !userLocation || !mapContainerRef.current || !window.google) return;
+    if (
+      !isLoaded ||
+      !userLocation ||
+      !mapContainerRef.current ||
+      !window.google
+    )
+      return;
 
     // Create Map centered at user's current GPS location
     const map = new window.google.maps.Map(mapContainerRef.current, {
@@ -204,7 +235,7 @@ export default function DeliveriesPage() {
       zoomControl: false,
       mapTypeControl: false,
       streetViewControl: false,
-      fullscreenControl: false
+      fullscreenControl: false,
     });
     mapRef.current = map;
 
@@ -231,9 +262,9 @@ export default function DeliveriesPage() {
       map: map,
       icon: {
         url: "data:image/svg+xml;utf-8," + encodeURIComponent(centerIconSvg),
-        anchor: new window.google.maps.Point(65, 22)
+        anchor: new window.google.maps.Point(65, 22),
       },
-      title: "Pacinos Eltham"
+      title: "Pacinos Eltham",
     });
 
     // Generate dynamic routes around user location
@@ -248,7 +279,7 @@ export default function DeliveriesPage() {
         strokeColor: route.color,
         strokeOpacity: 0.85,
         strokeWeight: 4.5,
-        map: map
+        map: map,
       });
 
       // High-Fidelity Numerated Driver Badge + Floating detail tag inside a single native SVG
@@ -258,7 +289,7 @@ export default function DeliveriesPage() {
           <text x="15" y="19" font-family="system-ui, sans-serif" font-weight="900" font-size="11" fill="white" text-anchor="middle">${route.driverId}</text>
           <rect x="32" y="5" width="100" height="20" rx="6" fill="#0d0d0e" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
           <text x="82" y="18" font-family="system-ui, sans-serif" font-weight="900" font-size="8" fill="white" text-anchor="middle">
-            <tspan fill="${route.status === 'late' ? '#ef4444' : '#f97316'}">${route.timeLabel}</tspan>
+            <tspan fill="${route.status === "late" ? "#ef4444" : "#f97316"}">${route.timeLabel}</tspan>
             <tspan fill="#6b7280"> | </tspan>
             <tspan fill="#9ca3af">${route.distanceLabel}</tspan>
           </text>
@@ -271,16 +302,16 @@ export default function DeliveriesPage() {
         map: map,
         icon: {
           url: "data:image/svg+xml;utf-8," + encodeURIComponent(markerSvg),
-          anchor: new window.google.maps.Point(15, 15)
+          anchor: new window.google.maps.Point(15, 15),
         },
-        title: `Driver ${route.driverId} - ${route.destinationName}`
+        title: `Driver ${route.driverId} - ${route.destinationName}`,
       });
 
       driverMarkers.push({
         route,
         marker: driverMarker,
         currentNodeIndex: 1,
-        movingForward: true
+        movingForward: true,
       });
     });
     driverMarkersRef.current = driverMarkers;
@@ -309,7 +340,7 @@ export default function DeliveriesPage() {
 
         dm.currentNodeIndex = nextIndex;
         const targetPos = nodes[nextIndex];
-        
+
         if (dm.marker && typeof dm.marker.setPosition === "function") {
           dm.marker.setPosition(targetPos);
         }
@@ -346,21 +377,16 @@ export default function DeliveriesPage() {
 
   return (
     <div className="space-y-6 sm:space-y-8 animate-fadeIn pb-12">
-      
       {/* Deliveries Title Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-wider">
-            Deliveries Management
-          </h1>
-          <p className="text-zinc-555 text-xs sm:text-sm mt-1 font-semibold">
-            Track and manage your deliveries in real-time
-          </p>
-        </div>
+        <PageHeader
+          title="Deliveries Management"
+          subtitle="Track and manage your deliveries in real-time"
+        />
 
         {/* Quick Period filters */}
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex bg-[#121214] border border-zinc-850 rounded-xl p-1">
+          <div className="flex gap-2 ">
             {["Today", "Week", "Month", "Year"].map((period) => {
               const isActive = activePeriod === period;
               return (
@@ -368,11 +394,11 @@ export default function DeliveriesPage() {
                   key={period}
                   onClick={() => setActivePeriod(period)}
                   className={`
-                    px-3.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wider transition cursor-pointer
+                    px-4 py-2 rounded-lg text-sm tracking-wider transition cursor-pointer
                     ${
                       isActive
-                        ? "bg-orange-500 text-white"
-                        : "text-zinc-400 hover:text-zinc-200"
+                        ? "bg-[#F9671A] text-white"
+                        : "text-[#9CA3AF] bg-[#252527] hover:text-zinc-200"
                     }
                   `}
                 >
@@ -384,7 +410,7 @@ export default function DeliveriesPage() {
 
           <button
             onClick={() => alert("Deliveries logs exported successfully.")}
-            className="px-4 py-2.5 bg-orange-500 hover:bg-orange-600 rounded-xl text-xs font-black uppercase tracking-wider text-white flex items-center justify-center space-x-1.5 transition shadow-md shadow-orange-500/10 cursor-pointer"
+            className="px-4 py-2.5 bg-[#F9671A] hover:bg-[#F9671A]/80 rounded-xl text-xs font-black uppercase tracking-wider text-white flex items-center justify-center space-x-1.5 transition shadow-md shadow-orange-500/10 cursor-pointer"
           >
             <Navigation className="h-3.5 w-3.5" />
             <span>Export</span>
@@ -393,47 +419,34 @@ export default function DeliveriesPage() {
       </div>
 
       {/* Stats Panel */}
+      {/* Stats Panel */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {DELIVERY_STATS.map((stat, idx) => {
           let Icon = Truck;
-          let iconBg = "bg-orange-500/10 border-orange-500/20 text-orange-500";
 
           if (stat.label.includes("Late")) {
             Icon = AlertTriangle;
-            iconBg = "bg-rose-500/10 border-rose-500/20 text-rose-500";
-          } else if (stat.label.includes("Time") || stat.label.includes("Today")) {
+          } else if (
+            stat.label.includes("Time") ||
+            stat.label.includes("Today")
+          ) {
             Icon = Clock;
-            iconBg = "bg-amber-500/10 border-amber-500/20 text-amber-500";
           } else if (stat.label.includes("Completed")) {
             Icon = CheckCircle2;
-            iconBg = "bg-emerald-500/10 border-emerald-500/20 text-emerald-500";
           }
 
           return (
-            <div
+            <MetricCard
               key={idx}
-              className="bg-[#121214] border border-zinc-800 rounded-2xl p-4.5 relative overflow-hidden flex items-center space-x-3.5 min-h-[95px]"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle at 95% 50%, rgba(204, 166, 147, 0.22) 0%, rgba(204, 166, 147, 0.05) 45%, transparent 75%)"
+              card={{
+                label: stat.label,
+                value: stat.value,
+                change: stat.change,
+                positive: stat.isPositive,
+                note: "vs last period",
+                icon: <Icon size={18} />,
               }}
-            >
-              <div className={`h-9 w-9 rounded-xl flex items-center justify-center shrink-0 border ${iconBg}`}>
-                <Icon className="h-4.5 w-4.5" />
-              </div>
-
-              <div>
-                <span className="block text-[9px] font-black text-zinc-550 uppercase tracking-widest leading-none">
-                  {stat.label}
-                </span>
-                <span className="block text-xl font-black text-white mt-1.5 leading-none">
-                  {stat.value}
-                </span>
-                <span className={`block text-[9px] mt-1 font-bold ${stat.isPositive ? "text-emerald-500" : "text-rose-500"}`}>
-                  {stat.change} <span className="text-zinc-550 font-semibold">vs last period</span>
-                </span>
-              </div>
-            </div>
+            />
           );
         })}
       </div>
@@ -448,7 +461,7 @@ export default function DeliveriesPage() {
           placeholder="Search live order or driver by customer name, address, ID..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-[#121214] border border-zinc-800 rounded-2xl py-3.5 pl-11 pr-4 text-xs sm:text-sm text-white placeholder-zinc-555 focus:outline-none focus:border-orange-500 transition-colors"
+          className="w-full bg-[#252527] border border-zinc-800 rounded-2xl py-3.5 pl-11 pr-4 text-xs sm:text-sm text-white placeholder-zinc-555 focus:outline-none focus:border-orange-500 transition-colors"
         />
       </div>
 
@@ -461,7 +474,7 @@ export default function DeliveriesPage() {
             { id: "Ready", label: "Ready (2)" },
             { id: "Out for Delivery", label: "Out for Delivery (12)" },
             { id: "Delivered", label: "Delivered (34)" },
-            { id: "Late", label: "Late (3)" }
+            { id: "Late", label: "Late (3)" },
           ].map((pill) => {
             const isActive = activeFilter === pill.id;
             return (
@@ -469,11 +482,11 @@ export default function DeliveriesPage() {
                 key={pill.id}
                 onClick={() => setActiveFilter(pill.id)}
                 className={`
-                  px-4.5 py-2 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wider transition-all cursor-pointer border
+                  px-4.5 py-2 rounded-lg text-xs sm:text-base tracking-wider transition-all cursor-pointer border
                   ${
                     isActive
                       ? "bg-orange-500 border-orange-600 text-white"
-                      : "bg-[#121214] border-zinc-850 text-zinc-400 hover:text-white"
+                      : " border-[#626262] text-[#626262] hover:text-white"
                   }
                 `}
               >
@@ -484,15 +497,15 @@ export default function DeliveriesPage() {
         </div>
 
         {/* Sync panel */}
-        <div className="flex items-center gap-2.5 shrink-0 text-[10px] font-black uppercase tracking-wider">
-          <div className="flex items-center space-x-1.5 px-3 py-2 bg-[#121214] border border-zinc-855 rounded-xl text-zinc-400">
-            <Calendar className="h-3.5 w-3.5 text-orange-500" />
+        <div className="flex items-center gap-2.5 shrink-0 tracking-wider">
+          <div className="flex items-center space-x-1.5 px-3 py-2 border border-[#626262] rounded-xl text-[#626262]">
+            <Calendar className="h-3.5 w-3.5 text-[#626262]" />
             <span>Today, 15 Apr</span>
           </div>
 
           <button
             onClick={() => alert("Re-fetching live updates...")}
-            className="flex items-center space-x-1.5 px-3 py-2 bg-[#121214] border border-zinc-855 hover:border-zinc-700 rounded-xl text-orange-500 transition cursor-pointer"
+            className="flex items-center text-base space-x-1.5 px-3 py-2 bg-[#3B2012] hover:border-zinc-700 rounded-xl text-[#F9671A] transition cursor-pointer"
           >
             <RefreshCw className="h-3.5 w-3.5 animate-spin" />
             <span>Refresh Auto 10s</span>
@@ -502,11 +515,12 @@ export default function DeliveriesPage() {
 
       {/* Main Map tracking split */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
         {/* Google Map Section */}
-        <div className="lg:col-span-8 bg-[#121214] border border-[#343435] rounded-3xl overflow-hidden relative min-h-[580px] shadow-2xl flex flex-col justify-between">
-          
-          <div ref={mapContainerRef} className="absolute inset-0 z-0 bg-[#0d0d0e]">
+        <div className="lg:col-span-9 bg-[#121214] border border-[#343435] rounded-3xl overflow-hidden relative min-h-[580px] shadow-2xl flex flex-col justify-between">
+          <div
+            ref={mapContainerRef}
+            className="absolute inset-0 z-0 bg-[#0d0d0e]"
+          >
             {!isLoaded && !loadError && (
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0d0d0e] z-10 space-y-3">
                 <RefreshCw className="h-8 w-8 text-orange-500 animate-spin" />
@@ -520,17 +534,18 @@ export default function DeliveriesPage() {
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0d0d0e] z-10 p-6 text-center space-y-3.5">
                 <AlertTriangle className="h-10 w-10 text-rose-500" />
                 <div>
-                  <h4 className="text-sm font-black text-white uppercase tracking-wider">Maps API Load Notice</h4>
+                  <h4 className="text-sm font-black text-white uppercase tracking-wider">
+                    Maps API Load Notice
+                  </h4>
                   <p className="text-xs text-zinc-500 font-semibold max-w-xs mt-1.5">
-                    Google Maps is active. Tracing coordinate overlays smoothly next to your exact geographical browser location!
+                    Google Maps is active. Tracing coordinate overlays smoothly
+                    next to your exact geographical browser location!
                   </p>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Absolute Overlays */}
-          
           {/* Map Legend */}
           <div className="relative z-10 p-5 flex justify-between items-start pointer-events-none w-full">
             <div className="bg-zinc-950/85 backdrop-blur-md border border-zinc-850 rounded-2xl p-4 space-y-2.5 pointer-events-auto shadow-xl max-w-[170px]">
@@ -551,7 +566,9 @@ export default function DeliveriesPage() {
                   <span>Late / Overdue</span>
                 </div>
                 <div className="flex items-center space-x-2 flex-row leading-none">
-                  <span className="text-orange-500 font-bold text-xs mr-1">📍</span>
+                  <span className="text-orange-500 font-bold text-xs mr-1">
+                    📍
+                  </span>
                   <span>Restaurant</span>
                 </div>
               </div>
@@ -607,17 +624,15 @@ export default function DeliveriesPage() {
               </button>
             </div>
           </div>
-
         </div>
 
         {/* Live Order Roster */}
-        <div className="lg:col-span-4 bg-[#121214] border border-[#343435] rounded-3xl p-5 space-y-4 shadow-2xl min-h-[580px]">
-          
+        <div className="lg:col-span-3 border border-[#343435] rounded-3xl p-5 space-y-4 shadow-2xl min-h-[580px]">
           <div className="flex justify-between items-center pb-2 border-b border-[#343435]">
             <h3 className="text-sm font-black text-white uppercase tracking-wider">
               Live Order (12)
             </h3>
-            
+
             <select className="bg-zinc-900 border border-[#343435] rounded-lg px-2 py-1 text-[9px] font-black text-zinc-400 uppercase tracking-widest outline-none">
               <option>Time Remaining</option>
               <option>Distance</option>
@@ -627,10 +642,15 @@ export default function DeliveriesPage() {
 
           {/* Roster Cards list mapping screenshot perfectly */}
           <div className="space-y-4 max-h-[480px] overflow-y-auto pr-1">
-            {LIVE_ORDERS.filter(o => o.customerName.toLowerCase().includes(searchQuery.toLowerCase()) || searchQuery === "").map((order) => {
-              
+            {LIVE_ORDERS.filter(
+              (o) =>
+                o.customerName
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase()) || searchQuery === "",
+            ).map((order) => {
               // Style caps by overdue state
-              let capColor = "border-emerald-500/30 text-emerald-450 bg-emerald-500/5";
+              let capColor =
+                "border-emerald-500/30 text-emerald-450 bg-emerald-500/5";
               if (order.timerState === "overdue") {
                 capColor = "border-rose-500/30 text-rose-500 bg-rose-500/5";
               } else if (order.timerState === "warning") {
@@ -640,22 +660,28 @@ export default function DeliveriesPage() {
               return (
                 <div
                   key={order.id}
-                  className="bg-[#161618] border border-[#343435] rounded-2xl p-5 space-y-4 hover:border-zinc-700/80 transition-all duration-300"
+                  className=" border border-[#343435] rounded-2xl p-5 space-y-4 hover:border-zinc-700/80 transition-all duration-300"
                 >
                   {/* Header Row */}
                   <div className="flex justify-between items-center">
-                    <span className="text-[#F9671A] text-xs font-black tracking-wider">{order.id}</span>
-                    
+                    <span className="text-[#F9671A] text-base tracking-wider">
+                      {order.id}
+                    </span>
+
                     <div className="flex items-center space-x-2">
-                      <button 
-                        onClick={() => alert(`Calling ${order.customerName}...`)}
-                        className="flex items-center space-x-1 text-[#F9671A] hover:text-[#ff7f3b] text-[10px] font-black uppercase tracking-wider transition cursor-pointer"
+                      <button
+                        onClick={() =>
+                          alert(`Calling ${order.customerName}...`)
+                        }
+                        className="flex items-center space-x-1 bg-[#3B2012] p-2 rounded-full text-[#F9671A] hover:text-[#ff7f3b] text-sm tracking-wider transition cursor-pointer"
                       >
                         <Phone className="h-3 w-3" />
                         <span>Call</span>
                       </button>
-                      
-                      <span className={`px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider border ${capColor}`}>
+
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-xs font-black border ${capColor}`}
+                      >
                         {order.timeLabel}
                       </span>
                     </div>
@@ -664,30 +690,42 @@ export default function DeliveriesPage() {
                   {/* Customer Info */}
                   <div className="flex justify-between items-end">
                     <div>
-                      <h4 className="text-white text-sm font-extrabold">{order.customerName}</h4>
-                      <div className="flex items-center space-x-1 text-zinc-500 text-[11px] font-semibold mt-1">
+                      <h4 className="text-white text-sm">
+                        {order.customerName}
+                      </h4>
+                      <div className="flex items-center space-x-1 text-zinc-500 text-xs font-semibold mt-1">
                         <MapPin className="h-3.5 w-3.5 text-[#F9671A]/70 shrink-0" />
-                        <span className="truncate max-w-[150px]">{order.address}</span>
+                        <span className="truncate max-w-37">
+                          {order.address}
+                        </span>
                       </div>
                     </div>
-                    <span className="text-zinc-400 text-xs font-bold">{order.price}</span>
+                    <span className="text-zinc-400 text-xs">
+                      {order.price}
+                    </span>
                   </div>
 
                   {/* Status & View Order */}
                   <div className="flex justify-between items-center pt-3 border-t border-zinc-900/60">
-                    <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider border ${
-                      order.status === "Out for Delivery" 
-                        ? "border-zinc-800 text-zinc-400 bg-zinc-900/40"
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs tracking-wider border ${
+                        order.status === "Out for Delivery"
+                          ? "border-[#0E8013] text-[#0E8013] bg-[#0E80131A]"
+                          : order.status === "Ready for Dispatch"
+                            ? "border-[#D01616] text-[#D01616] bg-[#D016161A]"
+                            : "border-[#D01616] text-[#D01616] bg-[#D016161A]"
+                      }`}
+                    >
+                      {order.status === "Out for Delivery"
+                        ? "OUT for Delivery"
                         : order.status === "Ready"
-                        ? "border-orange-500/30 text-orange-500 bg-orange-500/5"
-                        : "border-amber-500/30 text-amber-500 bg-amber-500/5"
-                    }`}>
-                      {order.status === "Out for Delivery" ? "OUT for Delivery" : order.status === "Ready" ? "Driver Assigned" : "Ready for Dispatch"}
+                          ? "Driver Assigned"
+                          : "Ready for Dispatch"}
                     </span>
 
-                    <button 
+                    <button
                       onClick={() => alert(`Opening order ${order.id}...`)}
-                      className="text-zinc-450 hover:text-white text-[10px] font-bold underline transition cursor-pointer"
+                      className="text-[#626262] hover:text-white text-xs border border-[#626262] rounded-full p-2 transition cursor-pointer"
                     >
                       View Order
                     </button>
@@ -696,11 +734,8 @@ export default function DeliveriesPage() {
               );
             })}
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }

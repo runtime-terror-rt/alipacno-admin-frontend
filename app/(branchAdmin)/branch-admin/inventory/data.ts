@@ -26,7 +26,7 @@ export const INVENTORY_STATS: InventoryStat[] = [
     value: "6",
     iconName: "box",
     iconColor:
-      "text-blue-500 bg-blue-500/10 border border-blue-500/20",
+      "text-white bg-[#2B7FFF] border border-blue-500/20",
     change: "+12.5%",
     positive: true,
     note: "vs last period",
@@ -37,7 +37,7 @@ export const INVENTORY_STATS: InventoryStat[] = [
     value: "3",
     iconName: "trend-up",
     iconColor:
-      "text-emerald-500 bg-emerald-500/10 border border-emerald-500/20",
+      "text-white bg-[#00C950] border border-emerald-500/20",
     change: "+5.2%",
     positive: true,
     note: "Healthy inventory",
@@ -48,7 +48,7 @@ export const INVENTORY_STATS: InventoryStat[] = [
     value: "2",
     iconName: "alert-triangle",
     iconColor:
-      "text-amber-500 bg-amber-500/10 border border-amber-500/20",
+      "text-white bg-[#FE9A00] border border-amber-500/20",
     change: "-2.4%",
     positive: false,
     note: "Needs restock",
@@ -59,7 +59,7 @@ export const INVENTORY_STATS: InventoryStat[] = [
     value: "1",
     iconName: "alert-circle",
     iconColor:
-      "text-red-500 bg-red-500/10 border border-red-500/20",
+      "text-white bg-[#FB2C36] border border-red-500/20",
     change: "-1.1%",
     positive: false,
     note: "Critical shortage",
