@@ -114,7 +114,7 @@ export default function InventoryPage() {
               className="bg-[#1E1E20] rounded-2xl border border-[#2e2e30] p-5 relative overflow-hidden flex items-center space-x-4 min-h-[105px]"
             >
               {/* Decorative BG */}
-              <div className="absolute right-0 top-0 w-40 h-40 pointer-events-none">
+              <div className="absolute -right-10 -top-10 w-40 h-40 pointer-events-none">
                 <Image
                   src="/admin/common/stats.svg"
                   alt="Decorative arc"

@@ -124,7 +124,7 @@ export default function DriversManagementPage() {
         </div>
 
         {/* Bottom stats row */}
-       <DriversBottomStats />
+          <DriversBottomStats />
       </div>
     </div>
   );

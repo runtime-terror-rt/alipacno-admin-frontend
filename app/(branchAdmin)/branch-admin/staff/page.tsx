@@ -266,7 +266,7 @@ export default function StaffPage() {
           cursor-pointer
         "
                           >
-                            <Clock1 /> Check Out
+                            <Clock1 className="w-5 h-5"  /> Check Out
                           </button>
                         ) : (
                           <button
@@ -282,7 +282,7 @@ export default function StaffPage() {
           cursor-pointer
         "
                           >
-                            <Clock1 /> Check In
+                            <Clock1 className="w-5 h-5" /> Check In
                           </button>
                         )}
                       </div>

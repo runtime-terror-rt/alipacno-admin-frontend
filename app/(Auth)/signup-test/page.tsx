@@ -149,7 +149,7 @@ export default function SignUp() {
           {/* Footer link — identical to login */}
           <p className="text-center text-zinc-400 mt-6">
             Already have an account?{" "}
-            <Link href="/" className="text-[#F9671A] font-semibold hover:underline cursor-pointer transition-colors duration-300">
+            <Link href="/login" className="text-[#F9671A] font-semibold hover:underline cursor-pointer transition-colors duration-300">
               Sign In
             </Link>{" "}
             Here
