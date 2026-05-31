@@ -201,49 +201,43 @@ export default function StaffPage() {
                           {member.avatar}
                         </div>
 
-                        <span className="font-medium text-white text-[15px]">
+                        <span className="font-medium text-white text-base">
                           {member.name}
                         </span>
                       </div>
                     </td>
 
-                    <td className="px-6 py-5 text-[15px] font-semibold text-zinc-200">
+                    <td className="px-6 py-5 text-base font-semibold text-zinc-200">
                       {member.role}
                     </td>
 
-                    <td className="px-6 py-5 text-[15px] text-zinc-300 font-medium">
+                    <td className="px-6 py-5 text-base text-zinc-300 font-medium">
                       <div>In: {member.clockIn}</div>
 
-                      <div className="text-[12px] mt-1 text-zinc-500">
+                      <div className="text-xs mt-1 text-zinc-500">
                         Out: {member.clockOut}
                       </div>
                     </td>
 
                     <td
-                      className={`px-6 py-5 text-[15px] font-bold ${
+                      className={`px-6 py-5 text-base font-bold ${
                         isOnDuty ? "text-orange-500" : "text-zinc-400"
                       }`}
                     >
                       {member.hoursToday}
                     </td>
 
-                    <td className="px-6 py-5 text-[15px] font-semibold text-white">
+                    <td className="px-6 py-5 text-base font-semibold text-white">
                       {member.sales}
                     </td>
 
                     <td className="px-6 py-5 text-center">
                       <span
-                        className={`
-                    inline-flex items-center justify-center
-                    px-4 py-1.5 rounded-full
-                    text-[12px] font-semibold
-                   
-
-                    ${
-                      isOnDuty
-                        ? "bg-[#006FA7] text-white"
-                        : "bg-[#313131] text-[#808080]"
-                    }
+                        className={`inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[12px] font-semibold ${
+                          isOnDuty
+                            ? "bg-[#006FA7] text-white"
+                            : "bg-[#313131] text-[#808080]"
+                        }
                   `}
                       >
                         {member.status}
@@ -255,32 +249,14 @@ export default function StaffPage() {
                         {isOnDuty ? (
                           <button
                             onClick={() => handleToggleShift(member.id)}
-                            className="
-          px-5 py-2 flex items-center gap-1
-          rounded-xl
-          bg-[#FF2D49]
-          hover:bg-[#FF2D49]/80
-          text-white
-          text-sm
-          transition-all
-          cursor-pointer
-        "
+                            className="px-5 py-2 flex items-center gap-1 rounded-xl bg-[#FF2D49] hover:bg-[#FF2D49]/80 text-white text-sm transition-all cursor-pointer"
                           >
-                            <Clock1 className="w-5 h-5"  /> Check Out
+                            <Clock1 className="w-5 h-5" /> Check Out
                           </button>
                         ) : (
                           <button
                             onClick={() => handleToggleShift(member.id)}
-                            className="
-          px-5 py-2 flex items-center gap-1
-          rounded-xl
-          bg-[#00A706]
-          hover:bg-[#00A706]/80
-          text-white
-          text-sm
-          transition-all
-          cursor-pointer
-        "
+                            className="px-5 py-2 flex items-center gap-1 rounded-xl bg-[#00A706] hover:bg-[#00A706]/80 text-white text-sm transition-all cursor-pointer"
                           >
                             <Clock1 className="w-5 h-5" /> Check In
                           </button>
@@ -299,7 +275,6 @@ export default function StaffPage() {
       {isReconciliationOpen && (
         <div className="fixed inset-0 bg-black/75 backdrop-blur-[1px] flex items-center justify-center p-4 z-50 animate-fadeIn">
           <div className="w-full max-w-2xl bg-[#1C1C1E] border border-[#2D2D30] rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
-            
             {/* Header */}
             <div className="flex items-start justify-between bg-[#1A1A1C] px-6 pt-6 pb-4">
               <PageHeader
@@ -318,7 +293,6 @@ export default function StaffPage() {
 
             {/* Content Container (Scrollable) */}
             <div className="flex-1 bg-[#252527] overflow-y-auto p-6 space-y-6">
-              
               {/* SHIFT OVERVIEW */}
               <div className="space-y-3">
                 <span className="text-base font-semibold text-white tracking-wider">
@@ -479,14 +453,14 @@ export default function StaffPage() {
                   <span className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">
                     Quick Fill
                   </span>
-                  
+
                   <div className="flex flex-wrap gap-2">
                     {[
                       { label: "£1000", value: "1000.00" },
                       { label: "£1200", value: "1200.00" },
                       { label: "£1400", value: "1400.00" },
                       { label: "£1447.50", value: "1447.50" },
-                      { label: "Exact", value: "1447.50" }
+                      { label: "Exact", value: "1447.50" },
                     ].map((fill) => {
                       const isSelected = actualCash === fill.value;
                       return (
@@ -530,7 +504,6 @@ export default function StaffPage() {
                   Submit for Review
                 </button>
               </div>
-
             </div>
           </div>
         </div>
