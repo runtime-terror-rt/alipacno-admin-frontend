@@ -25,7 +25,7 @@ const OrderHistoryCallLogs = () => {
         <p className="text-xs text-zinc-500 mb-4">Combined Customer order and support interaction logs</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {HISTORY_LOGS.map((log, i) => (
-            <div key={i} className="bg-[#1a1a1c] border border-[#2e2e30] rounded-xl p-4 flex flex-col gap-3">
+            <div key={i} className="bg-[#1E1E20] border border-[#2e2e30] rounded-xl p-4 flex flex-col gap-3">
               <div className="flex items-start gap-2">
                 <div className="w-6 h-6 rounded-full bg-green-500/15 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Phone size={11} className="text-green-400" />

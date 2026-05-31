@@ -1,6 +1,7 @@
-import { CalendarRange, ChevronRight, MessageSquare, Phone } from "lucide-react";
+import { CalendarRange, ChevronRight, MessageSquare, Phone, Router } from "lucide-react";
 import Image from "next/image";
 import Button from "../ui/Button";
+import { useRouter } from "next/navigation";
 
 interface MenuItem {
   name: string;
@@ -20,8 +21,9 @@ const MENU_ITEMS: MenuItem[] = [
 
 
 export default function CustomerPanel() {
+  const router = useRouter();
   return (
-    <div className="bg-[#1a1a1c] border border-[#2e2e30] rounded-2xl p-5 flex flex-col gap-5">
+    <div className="bg-[#1e1e20] border border-[#2e2e30] rounded-2xl p-5 flex flex-col gap-5">
       {/* Header */}
       <div className="flex items-center gap-3">
         <Image src="/admin/avatar/cody.png" alt="Cody" width={40} height={40} className="rounded-full" />
@@ -68,7 +70,7 @@ export default function CustomerPanel() {
         <Button variant="ghost">
           <CalendarRange size={13} className="text-[#f9671a]" /> Add note
         </Button>
-        <Button variant="ghost">
+        <Button onClick={()=> router.push("/admin/messages")} variant="ghost">
           <MessageSquare size={13} /> Send Message
         </Button>
       </div>

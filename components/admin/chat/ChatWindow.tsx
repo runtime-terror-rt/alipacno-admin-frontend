@@ -1,5 +1,5 @@
 
-import { Conversation, Message } from "@/app/(admin)/admin/chat/page";
+import { Conversation, Message } from "@/app/(admin)/admin/messages/page";
 import {
   Paperclip,
   Smile,

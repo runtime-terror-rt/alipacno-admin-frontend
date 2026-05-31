@@ -34,7 +34,8 @@ const STATISTICS : IMetricCard[] = [
           change: "+1% vs period",
           positive: true,
         }
-  ];
+];
+
 interface DriverSummary {
   name: string;
   deliveries: number;

@@ -1,14 +1,14 @@
-import { Conversation, Member, members} from "@/app/(admin)/admin/chat/page";
+import { Conversation, Member, members} from "@/app/(admin)/admin/messages/page";
 import { ImageIcon } from "lucide-react";
 import Image from "next/image";
 
 const sharedMediaColors = ["#c0392b", "#e67e22", "#27ae60", "#2980b9"];
 
 const sharedMediaImages = [
-  "/admin/chat/pizza.jpg",
-  "/admin/chat/burger.jpg",
-  "/admin/chat/media3.jpg",
-  "/admin/chat/media4.jpg",
+  "/admin/messages/pizza.jpg",
+  "/admin/messages/burger.jpg",
+  "/admin/messages/media3.jpg",
+  "/admin/messages/media4.jpg",
 ];
 
 function MembersPanel({ conversation }: { conversation: Conversation }) {

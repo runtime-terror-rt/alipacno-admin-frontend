@@ -1,4 +1,4 @@
-import { Conversation, conversations, ChatTabType } from "@/app/(admin)/admin/chat/page";
+import { Conversation, conversations, ChatTabType } from "@/app/(admin)/admin/messages/page";
 import { Search, Store } from "lucide-react";
 
 function TabButton({

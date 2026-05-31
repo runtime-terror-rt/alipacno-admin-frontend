@@ -28,7 +28,7 @@ const ConvertedCallOrders = () => {
   const router = useRouter();
 
   return (
-    <div className="bg-[#1a1a1c] border border-[#2e2e30] rounded-2xl p-5 space-y-4">
+    <div className="bg-[#1E1E20] border border-[#2e2e30] rounded-2xl p-5 space-y-4">
       {/* Header section */}
       <div className="flex items-center gap-3">
         <h2 className="text-sm font-semibold text-white">Converted Call Orders</h2>
