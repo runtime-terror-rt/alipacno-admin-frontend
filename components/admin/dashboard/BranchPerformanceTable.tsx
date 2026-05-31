@@ -139,7 +139,7 @@ function BranchTableRow({ row }: { row: BranchRow }) {
 
 export default function BranchPerformanceTable() {
   return (
-    <div className="bg-[#26262680] border border-[#343436] rounded-2xl p-6 min-w-0">
+    <div className="bg-[#1E1E20] border border-[#343436] rounded-2xl p-6 min-w-0">
       <TableHeaderRow />
 
       {/* Scroll Container */}

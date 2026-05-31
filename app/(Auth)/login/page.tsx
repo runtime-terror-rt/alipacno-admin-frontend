@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push("/admin");
+    // Handle form submission
+  };
   return (
     <div
       className="min-h-screen w-full bg-[##26262680] bg-cover bg-no-repeat bg-center md:[background-position:75%_105px] flex flex-col md:flex-row relative overflow-hidden"
@@ -78,7 +85,8 @@ export default function Login() {
             </div>
 
             <button
-              type="submit"
+              onClick={handleSubmit}
+              type="button"
               className="w-full bg-[#F9671A] hover:bg-[#e85a15] text-white font-bold py-4 rounded-full shadow-lg shadow-orange-600/20 transform transition-all active:scale-[0.98] cursor-pointer duration-300"
             >
               Sign in

@@ -7,7 +7,6 @@ import MetricCardsRow from "@/components/admin/common/MetricCardsRow";
 import Button from "@/components/admin/ui/Button";
 import DriverOperationsPanel from "@/components/admin/drivers/DriverOperationsPanel";
 import DeliveriesBarChart from "@/components/admin/ui/DeliveriesBarChart";
-import Image from "next/image";
 import DriversBottomStats from "@/components/admin/drivers/DriversBottomStats";
 import RecentDriverActivity from "@/components/admin/drivers/RecentDriverActivity";
 import DeliveryGoogleMap from "@/components/admin/deliveries/DeliveryGoogleMap";
@@ -48,7 +47,7 @@ function InsightTile({ icon, label, sub, value, change, positive }: {
 // ── Main Page ──────────────────────────────────────────────────────────────
 export default function DriversManagementPage() {
   return (
-    <div className="flex-1 bg-[#0f0f11] min-h-screen text-white p-5 space-y-5">
+    <div className="flex-1 min-h-screen text-white p-5 space-y-5">
 
       <PageHeader title="Drivers Management" subtitle="Track, assign, and manage your drivers in real time." />
 
@@ -125,7 +124,7 @@ export default function DriversManagementPage() {
         </div>
 
         {/* Bottom stats row */}
-       <DriversBottomStats />
+          <DriversBottomStats />
       </div>
     </div>
   );

@@ -116,7 +116,7 @@ const OrderReportPanel = () => {
     setSelectedRows((prev) => (prev.includes(i) ? prev.filter((r) => r !== i) : [...prev, i]));
 
   return (
-    <div className="bg-[#1C1C1E] rounded-xl p-5">
+    <div className="bg-[#1C1C1E] rounded-xl p-5 border border-[#353535]">
       <div className="mb-4">
         <h2 className="text-base font-semibold text-white">Order Report</h2>
         <p className="text-xs text-zinc-500">Comprehensive order monitoring and filtering</p>

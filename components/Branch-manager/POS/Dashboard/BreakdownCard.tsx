@@ -29,7 +29,7 @@ export default function BreakdownCard({
   items,
 }: BreakdownCardProps) {
   return (
-    <div className="bg-[#26262680] border border-[#2B2B2E] rounded-2xl p-5 relative overflow-hidden">
+    <div className="bg-[#252527] border border-[#2B2B2E] rounded-2xl p-5 relative overflow-hidden">
       {/* top */}
       <div className="mb-6">
         <h3 className="text-white text-[18px] font-bold">{title}</h3>

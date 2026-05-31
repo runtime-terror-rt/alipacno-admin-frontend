@@ -27,7 +27,7 @@ const alerts: Alert[] = [
 
 export default function OperationalAlertsWidget() {
   return (
-    <div className="bg-[#26262680] border border-[#343436] rounded-xl p-4 flex flex-col gap-4 min-w-0 overflow-hidden">
+    <div className="bg-[#1E1E20] border border-[#343436] rounded-xl p-4 flex flex-col gap-4 min-w-0 overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between gap-3">
         <p className="text-white font-semibold text-[14px]">

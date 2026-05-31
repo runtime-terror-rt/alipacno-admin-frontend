@@ -28,7 +28,7 @@ export default function CreateAutomationFlowPage() {
   };
 
   return (
-    <div className="flex-1 bg-[#0f0f11] min-h-screen text-white select-none">
+    <div className="flex-1 min-h-screen text-white select-none">
       {/* ── Top Header Bar ── */}
       <div className="flex items-start justify-between px-6 py-5">
         <div className="flex items-center gap-3">

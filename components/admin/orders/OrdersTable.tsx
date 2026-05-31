@@ -29,7 +29,7 @@ function StatusBadge({ status }: { status: OrderStatus }) {
 
 const OrdersTable = ({ ORDERS, selectedRows, toggleRow }: OrdersTableProps) => {
   return (
-    <div className="w-full overflow-x-auto rounded-xl border border-zinc-800/80 bg-[#1e1e1e]/20">
+    <div className="w-full overflow-x-auto rounded-xl border border-[#353535] bg-[#1e1e1e]/20 ">
       <table className="w-full text-sm border-collapse">
         <thead>
           <tr className="bg-[#3D3D3A] border-b border-zinc-800/80 [&>th:first-child]:rounded-tl-xl [&>th:last-child]:rounded-tr-xl">

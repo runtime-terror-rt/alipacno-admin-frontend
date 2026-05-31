@@ -42,7 +42,7 @@ function Sparkline({ color = "#E8833A" }: { color?: string }) {
 
 const OrderOperationalInsights = () => {
   return (
-    <div className="space-y-4 bg-[#1C1C1E] rounded-xl p-5">
+    <div className="space-y-4 bg-[#1C1C1E] rounded-xl p-5 border border-[#353535]">
             <h2 className="text-base font-semibold text-white">Operational Insights</h2>
 
             {/* Peak Order Hour */}
