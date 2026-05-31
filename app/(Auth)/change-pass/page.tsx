@@ -1,7 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
+  const handleSubmit = (e: React.FormEvent)=>{
+    e.preventDefault();
+    console.log("Form submitted");
+    router.push("/admin");
+  }
   return (
     <div
       className="min-h-screen w-full bg-[##26262680] bg-cover bg-no-repeat bg-center md:[background-position:75%_105px] flex flex-col md:flex-row relative overflow-hidden"
@@ -67,31 +76,14 @@ export default function Login() {
               />
             </div>
 
-            <div className="flex items-center justify-between text-xs sm:text-sm">
-              <label className="flex items-center gap-2 text-zinc-400 cursor-pointer group">
-                <input type="checkbox" className="w-4 h-4 rounded border-white/10 bg-zinc-800 text-[#FFA175] accent-[#FFA175] checked:bg-[#FFA175] checked:hover:bg-[#FFA175] checked:focus:bg-[#FFA175] focus:ring-0 focus:ring-offset-0" />
-                <span className="group-hover:text-zinc-200 transition-colors duration-300">Remember Password</span>
-              </label>
-              <Link href="/forgot-password" className="text-zinc-400 hover:text-[#F9671A] transition-colors duration-300">
-                Forget Password?
-              </Link>
-            </div>
-
             <button
-              type="submit"
+              onClick={handleSubmit}
+              type="button"
               className="w-full bg-[#F9671A] hover:bg-[#e85a15] text-white font-bold py-4 rounded-full shadow-lg shadow-orange-600/20 transform transition-all active:scale-[0.98] cursor-pointer duration-300"
             >
-              Sign in
+              Update Password
             </button>
           </form>
-
-          <p className="text-center text-zinc-400 mt-8">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="text-[#F9671A] font-semibold hover:underline cursor-pointer transition-colors duration-300">
-              Sign Up
-            </Link>{" "}
-            Here
-          </p>
         </div>
       </div>
     </div>

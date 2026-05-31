@@ -1,7 +1,18 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ForgotPassword() {
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission
+    console.log("Form submitted");
+    // Navigate to reset password page
+    router.push("/verify");
+  };
   return (
     <div
       className="min-h-screen w-full bg-[##26262680] bg-cover bg-no-repeat bg-center md:[background-position:75%_105px] flex flex-col md:flex-row relative overflow-hidden"
@@ -74,7 +85,8 @@ export default function ForgotPassword() {
 
             {/* Continue Button */}
             <button
-              type="submit"
+              onClick={handleSubmit}
+              type="button"
               className="w-full bg-[#F9671A] hover:bg-[#e85a15] text-white font-bold py-4 rounded-full shadow-lg shadow-orange-600/20 transform transition-all active:scale-[0.98] cursor-pointer duration-300 mt-8"
             >
               Continue

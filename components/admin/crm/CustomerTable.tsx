@@ -1,6 +1,8 @@
+"use client"
+
 import { Customer } from "@/app/(admin)/admin/crm/page";
 import Button from "../ui/Button";
-
+import { useRouter } from "next/navigation";
 
 function TagBadge({ tag }: { tag: "Regular" | "VIP" | "Loyalty" }) {
   const map: Record<string, string> = {
@@ -12,6 +14,7 @@ function TagBadge({ tag }: { tag: "Regular" | "VIP" | "Loyalty" }) {
 }
 
 export default function CustomerTable({ rows }: { rows: Customer[] }) {
+  const router = useRouter();
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-xs">
@@ -42,7 +45,7 @@ export default function CustomerTable({ rows }: { rows: Customer[] }) {
                   {row.tags.map((t) => <TagBadge key={t} tag={t} />)}
                 </div>
               </td>
-              <td className="py-3"><Button variant="table" >View Order</Button></td>
+              <td className="py-3"><Button onClick={() => router.push(`/admin/call-logs/2`)} variant="table" >View Order</Button></td>
             </tr>
           ))}
         </tbody>

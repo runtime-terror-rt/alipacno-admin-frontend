@@ -35,7 +35,7 @@ const CallLogsPanel = () => {
   const [activeTab, setActiveTab] = useState("All");
 
   return (
-    <div className="bg-[#1a1a1c] border border-[#2e2e30] rounded-2xl p-5 space-y-4">
+    <div className="bg-[#1E1E20] border border-[#2e2e30] rounded-2xl p-5 space-y-4">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
           <h2 className="text-sm font-semibold text-white">Call Logs Panel</h2>
@@ -77,7 +77,7 @@ const CallLogsPanel = () => {
       <CallLogsTable 
         logs={CALL_LOGS} 
         onViewOrder={(id) => router.push(`/admin/call-logs/${id}`)}
-        onCallBack={(num) => console.log("Calling back standard trigger:", num)}
+        onCallBack={(num) => router.push(`/admin/messages?num=${num}`)}
       />
 
       <Pagination />

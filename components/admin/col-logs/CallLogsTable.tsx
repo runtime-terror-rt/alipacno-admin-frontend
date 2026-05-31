@@ -109,7 +109,7 @@ const CallLogsTable = ({ logs, onViewOrder, onCallBack }: CallLogsTableProps) =>
                     View Order
                   </Button>
                 ) : (
-                  <Button onClick={() => onCallBack(row.number)} variant="table">
+                  <Button onClick={() => onCallBack(row.number)} variant="table" className="text-gray-200 border border-zinc-500">
                     Call Back
                   </Button>
                 )}

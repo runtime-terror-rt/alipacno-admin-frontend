@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 
 export default function VerifyPhone() {
+  const router = useRouter();
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(54);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -62,6 +63,12 @@ export default function VerifyPhone() {
     return `${mins}:${secs}`;
   };
 
+  const handleSubmit = (e: React.FormEvent)=>{
+    e.preventDefault();
+    console.log("Otp submitted", otp);
+    router.push("/change-pass")
+  }
+
   return (
     <div
       className="min-h-screen w-full bg-[##26262680] bg-cover bg-no-repeat bg-center md:[background-position:75%_105px] flex flex-col md:flex-row relative overflow-hidden"
@@ -95,26 +102,17 @@ export default function VerifyPhone() {
         </div>
 
       {/* Right Section: OTP Verification Form */}
-      <div className="flex-1 flex items-center justify-center p-4 md:p-8 z-10">
+      <div className="flex-1 flex items-center justify-center p-4 md:p-8 z-10"
+      >
         <div className="w-full max-w-[400px] md:max-w-[440px] lg:max-w-[550px] bg-[##26262680] border border-white/10 rounded-2xl p-6 md:p-8 lg:p-12 shadow-2xl my-4 md:my-0">
-
-          {/* Logo */}
-          <div className="flex justify-center mb-8">
-            <Image
-              src="/logo.png"
-              alt="Pacino's Logo"
-              width={180}
-              height={120}
-              className="object-contain"
-            />
-          </div>
+         
 
           {/* Title */}
-          <h2 className="text-2xl font-bold text-white text-center mb-4">Verify Phone Number</h2>
+          <h2 className="text-2xl font-bold text-white text-center mb-4">Verify OTP</h2>
 
           {/* Subtitle */}
           <p className="text-center text-zinc-400 text-sm mb-8 leading-relaxed">
-            A 6-digit code has been sent to +1 (xxx) xxx-<br />xxxx
+           We sent a code to your email address ex********.com Please check your email for the 5 digit code.
           </p>
 
           {/* OTP Input Boxes */}
@@ -142,21 +140,12 @@ export default function VerifyPhone() {
 
           {/* Login Button */}
           <button
+            onClick={handleSubmit}
             type="button"
             className="w-full bg-[#F9671A] hover:bg-[#e85a15] text-white font-bold py-4 rounded-full shadow-lg shadow-orange-600/20 transform transition-all active:scale-[0.98] cursor-pointer duration-300 mb-6"
           >
            verify
           </button>
-
-          {/* Resend Timer */}
-          <div className="text-center mb-2">
-            <p className="text-zinc-500 text-xs flex items-center justify-center gap-1.5">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-                <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clipRule="evenodd" />
-              </svg>
-              Resend code in <span className="text-[#F9671A] font-semibold">{formatTime(timer)}</span>
-            </p>
-          </div>
 
           {/* Resend Code Link */}
           <div className="text-center mb-8">
@@ -172,14 +161,6 @@ export default function VerifyPhone() {
             >
               Resend Code
             </button>
-          </div>
-
-          {/* End-to-End Encrypted */}
-          <div className="flex items-center justify-center gap-2 text-zinc-500">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-              <path fillRule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clipRule="evenodd" />
-            </svg>
-            <span className="text-[10px] font-semibold tracking-widest uppercase">END-TO-END ENCRYPTED VERIFICATION</span>
           </div>
         </div>
       </div>
