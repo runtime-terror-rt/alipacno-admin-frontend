@@ -21,6 +21,7 @@ import {
   ChevronRight,
   ShieldCheck,
   X,
+  Search,
 } from "lucide-react";
 import {
   ADMIN_PROFILE_DATA,
@@ -497,114 +498,109 @@ export default function SettingsPage() {
 
         <div className="lg:col-span-5 space-y-6">
           {/* Mini Cards side-by-side row */}
-         <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
+            {/* Staff access card */}
+            <div className="bg-[#1E1E20] rounded-2xl border border-[#2e2e30] p-4 flex flex-col gap-4 relative overflow-hidden">
+              {/* Background Decorative */}
+              <div className="absolute right-0 top-0 w-40 h-40 opacity-90">
+                <Image
+                  src="/admin/common/stats.svg"
+                  alt="Decorative arc"
+                  fill
+                  className="object-cover"
+                />
+              </div>
 
-  {/* Staff access card */}
-  <div className="bg-[#1E1E20] rounded-2xl border border-[#2e2e30] p-4 flex flex-col gap-4 relative overflow-hidden">
-    
-    {/* Background Decorative */}
-    <div className="absolute right-0 top-0 w-40 h-40 opacity-90">
-      <Image
-        src="/admin/common/stats.svg"
-        alt="Decorative arc"
-        fill
-        className="object-cover"
-      />
-    </div>
+              {/* Top */}
+              <div className="flex items-center justify-between relative z-10">
+                <div className="w-9 h-9 rounded-md text-[#f9671a] bg-[#1E1E20] border border-[#FFFFFF1A] p-2 flex items-center justify-center">
+                  <Users size={20} />
+                </div>
+              </div>
 
-    {/* Top */}
-    <div className="flex items-center justify-between relative z-10">
-      <div className="w-9 h-9 rounded-md text-[#f9671a] bg-[#1E1E20] border border-[#FFFFFF1A] p-2 flex items-center justify-center">
-        <Users size={20} />
-      </div>
-    </div>
+              {/* Content */}
+              <div className="flex flex-col gap-1 relative z-10">
+                <p className="text-gray-100 text-sm font-bold tracking-widest uppercase">
+                  Active Staff
+                </p>
 
-    {/* Content */}
-    <div className="flex flex-col gap-1 relative z-10">
-      <p className="text-gray-100 text-sm font-bold tracking-widest uppercase">
-        Active Staff
-      </p>
+                <p className="text-sm font-bold text-[#A4542A] leading-none">
+                  156
+                </p>
+              </div>
 
-      <p className="text-sm font-bold text-[#A4542A] leading-none">
-        156
-      </p>
-    </div>
+              {/* Trend */}
+              <div className="flex items-center gap-2 border border-[#3D3D3DAA] w-fit p-2 rounded-lg relative z-10">
+                <div className="flex items-center gap-1 px-2 py-1 rounded-md">
+                  <TrendingUp
+                    size={28}
+                    className="p-1 rounded-lg text-[#0E8013] bg-green-500/10"
+                  />
 
-    {/* Trend */}
-    <div className="flex items-center gap-2 border border-[#3D3D3DAA] w-fit p-2 rounded-lg relative z-10">
-      
-      <div className="flex items-center gap-1 px-2 py-1 rounded-md">
-        <TrendingUp
-          size={28}
-          className="p-1 rounded-lg text-[#0E8013] bg-green-500/10"
-        />
+                  <span className="text-[13px] font-semibold text-[#00A706]">
+                    25%
+                  </span>
+                </div>
 
-        <span className="text-[13px] font-semibold text-[#00A706]">
-          25%
-        </span>
-      </div>
+                <div className="w-[2px] h-6 bg-[#3d3d3d]" />
 
-      <div className="w-[2px] h-6 bg-[#3d3d3d]" />
+                <span className="text-[#626262] text-[12px]">
+                  vs last period
+                </span>
+              </div>
+            </div>
 
-      <span className="text-[#626262] text-[12px]">
-        vs last period
-      </span>
-    </div>
-  </div>
+            {/* Revenue access card */}
+            <div className="bg-[#1E1E20] rounded-2xl border border-[#2e2e30] p-4 flex flex-col gap-4 relative overflow-hidden">
+              {/* Background Decorative */}
+              <div className="absolute right-0 top-0 w-40 h-40 opacity-90">
+                <Image
+                  src="/admin/common/stats.svg"
+                  alt="Decorative arc"
+                  fill
+                  className="object-cover"
+                />
+              </div>
 
-  {/* Revenue access card */}
-  <div className="bg-[#1E1E20] rounded-2xl border border-[#2e2e30] p-4 flex flex-col gap-4 relative overflow-hidden">
-    
-    {/* Background Decorative */}
-    <div className="absolute right-0 top-0 w-40 h-40 opacity-90">
-      <Image
-        src="/admin/common/stats.svg"
-        alt="Decorative arc"
-        fill
-        className="object-cover"
-      />
-    </div>
+              {/* Top */}
+              <div className="flex items-center justify-between relative z-10">
+                <div className="w-9 h-9 rounded-md text-[#f9671a] bg-[#1E1E20] border border-[#FFFFFF1A] p-2 flex items-center justify-center">
+                  <Coins size={20} />
+                </div>
+              </div>
 
-    {/* Top */}
-    <div className="flex items-center justify-between relative z-10">
-      <div className="w-9 h-9 rounded-md text-[#f9671a] bg-[#1E1E20] border border-[#FFFFFF1A] p-2 flex items-center justify-center">
-        <Coins size={20} />
-      </div>
-    </div>
+              {/* Content */}
+              <div className="flex flex-col gap-1 relative z-10">
+                <p className="text-gray-100 text-sm font-bold tracking-widest uppercase">
+                  Revenue Access
+                </p>
 
-    {/* Content */}
-    <div className="flex flex-col gap-1 relative z-10">
-      <p className="text-gray-100 text-sm font-bold tracking-widest uppercase">
-        Revenue Access
-      </p>
+                <p className="text-sm font-bold text-[#A4542A] leading-none">
+                  £45,890
+                </p>
+              </div>
 
-      <p className="text-sm font-bold text-[#A4542A] leading-none">
-        £45,890
-      </p>
-    </div>
+              {/* Trend */}
+              <div className="flex items-center gap-2 border border-[#3D3D3DAA] w-fit p-2 rounded-lg relative z-10">
+                <div className="flex items-center gap-1 px-2 py-1 rounded-md">
+                  <TrendingUp
+                    size={28}
+                    className="p-1 rounded-lg text-[#0E8013] bg-green-500/10"
+                  />
 
-    {/* Trend */}
-    <div className="flex items-center gap-2 border border-[#3D3D3DAA] w-fit p-2 rounded-lg relative z-10">
-      
-      <div className="flex items-center gap-1 px-2 py-1 rounded-md">
-        <TrendingUp
-          size={28}
-          className="p-1 rounded-lg text-[#0E8013] bg-green-500/10"
-        />
+                  <span className="text-[13px] font-semibold text-[#00A706]">
+                    18%
+                  </span>
+                </div>
 
-        <span className="text-[13px] font-semibold text-[#00A706]">
-          18%
-        </span>
-      </div>
+                <div className="w-[2px] h-6 bg-[#3d3d3d]" />
 
-      <div className="w-[2px] h-6 bg-[#3d3d3d]" />
-
-      <span className="text-[#626262] text-[12px]">
-        vs last period
-      </span>
-    </div>
-  </div>
-</div>
+                <span className="text-[#626262] text-[12px]">
+                  vs last period
+                </span>
+              </div>
+            </div>
+          </div>
 
           {/* Card 4: Activity Timeline */}
           <div className=" border border-zinc-800 rounded-3xl p-6 shadow-2xl relative">
@@ -622,26 +618,13 @@ export default function SettingsPage() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="bg-[#1a1a1c] border border-zinc-800 rounded-lg px-2.5 py-1.5 pl-7 text-[10px] text-white font-semibold outline-none focus:border-orange-500 transition-colors w-full sm:w-36"
                 />
-                <span className="absolute left-2.5 top-2.5">
-                  <svg
-                    className="w-2.5 h-2.5 text-zinc-550"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="3"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                </span>
+
+                <Search className="absolute left-2.5 top-2.5 h-3 w-3 text-zinc-550" />
               </div>
             </div>
 
             {/* Vertical timeline matching screenshot perfectly */}
-            <div className="space-y-4 max-h-[300px] overflow-y-auto pr-1 relative pl-3.5 border-l border-zinc-900">
+            <div className="space-y-4 max-h-75 overflow-y-auto pr-1 relative pl-3.5 border-l border-zinc-900">
               {filteredActivities.length > 0 ? (
                 filteredActivities.map((act) => (
                   <div
