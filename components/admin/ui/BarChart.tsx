@@ -40,7 +40,7 @@ export default function BarChart({
                 width={barWidth}
                 height={lastHeight}
                 rx="4"
-                fill="#52525b"
+                fill="#3D3D3D"
               />
               {/* This Period (Orange) */}
               <rect

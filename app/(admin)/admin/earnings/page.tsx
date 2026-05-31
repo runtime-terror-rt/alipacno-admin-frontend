@@ -125,13 +125,11 @@ export default function EarningsPage() {
       <div className="flex flex-col gap-3">
         {alerts.map((alert, i) => (
           <div key={i} className="flex items-start gap-3">
-            <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${
-              alert.type === "up" ? "bg-green-500/15" : "bg-red-500/15"
-            }`}>
+            <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 `}>
               {alert.type === "up" ? (
-                <TrendingUp size={10} className="text-green-400" />
+                <TrendingUp size={16} className="text-green-400" />
               ) : (
-                <TrendingDown size={10} className="text-red-400" />
+                <TrendingDown size={16} className="text-red-400" />
               )}
             </div>
             <p className="text-sm text-zinc-300 leading-snug">{alert.text}</p>

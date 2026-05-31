@@ -5,10 +5,8 @@ import {
   TrendingUp,
   ShoppingBag,
   Users,
-  AlertCircle,
   AlertTriangle,
   Clock,
-  ArrowRight,
   Download,
   Smartphone,
   CreditCard,
@@ -18,6 +16,7 @@ import {
 import MetricCard from "@/components/admin/ui/MetricCard";
 import BreakdownCard from "@/components/Branch-manager/POS/Dashboard/BreakdownCard";
 import { dashboardBreakdownData } from "./data";
+import PageHeader from "@/components/admin/common/PageHeader";
 
 type FilterType = "today" | "week" | "month" | "year";
 
@@ -70,32 +69,28 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="space-y-6 sm:space-y-8 bg-[#161618]">
+    <div className="space-y-6 sm:space-y-8 ">
       {/* 1. HEADER SECTION */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center">
-            Welcome to dashboard
-          </h1>
-          <p className="text-zinc-400 text-sm mt-1.5 font-medium">
-            Detailed insights into your business performance
-          </p>
-        </div>
+        <PageHeader
+          title="Dashboard"
+          subtitle="Detailed insights into your business performance"
+        />
 
         {/* Filter Controls & Export */}
         <div className="flex items-center space-x-3.5 self-start md:self-auto">
-          <div className="flex bg-[#121214] border border-zinc-800 p-1 rounded-xl">
+          <div className="flex  p-1 gap-2 rounded-xl">
             {(["today", "week", "month", "year"] as FilterType[]).map(
               (filter) => (
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
                   className={`
-                  px-3 py-1.5 rounded-lg text-xs font-bold capitalize transition-all
+                  px-3 py-1.5 rounded-lg cursor-pointer text-xs font-bold capitalize transition-all
                   ${
                     activeFilter === filter
                       ? "bg-orange-500 text-white shadow-md shadow-orange-500/10"
-                      : "text-zinc-400 hover:text-white"
+                      : "text-zinc-400 bg-[#252527] hover:text-white"
                   }
                 `}
                 >
@@ -119,7 +114,7 @@ export default function DashboardPage() {
       {/* 2. STATS CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {dashboardMetrics.map((metric, index) => (
-          <MetricCard key={index} card={metric} />
+          <MetricCard iconBorder={false} key={index} card={metric} />
         ))}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -131,7 +126,7 @@ export default function DashboardPage() {
       {/* COLUMN 1:  */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-x-6">
         {/* Top Products */}
-        <div className="bg-[#26262680] border border-zinc-800/80 rounded-2xl p-5 space-y-4 flex-1">
+        <div className="bg-[#252527] border border-zinc-800/80 rounded-2xl p-5 space-y-4 flex-1">
           <div className="flex justify-between items-center">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
               Top Products
@@ -230,7 +225,7 @@ export default function DashboardPage() {
         {/* COLUMN 2: Payments (4 Cols) */}
         <div className="space-y-6 ">
           {/* Payment Methods */}
-          <div className="bg-[#26262680] border border-zinc-800/80 rounded-2xl p-5 space-y-4 flex flex-col justify-between flex-1">
+          <div className="bg-[#252527] border border-zinc-800/80 rounded-2xl p-5 space-y-4 flex flex-col justify-between flex-1">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
               Payment Methods
             </h3>
@@ -301,7 +296,7 @@ export default function DashboardPage() {
         </div>
 
         {/* COLUMN 3: Recent Activity Feed (3 Cols) */}
-        <div className=" bg-[#26262680] border border-zinc-800/80 rounded-2xl p-5 space-y-4.5 ">
+        <div className=" bg-[#252527] border border-zinc-800/80 rounded-2xl p-5 space-y-4.5 ">
           <div>
             <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
               Recent Activity
@@ -388,8 +383,6 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
-
-          
         </div>
       </div>
 
@@ -400,7 +393,7 @@ export default function DashboardPage() {
 
         <div className="space-x-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {/* Alert 1 */}
-          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#26262680] border border-red-500/10">
+          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#252527] border border-red-500/10">
             <AlertTriangle className="h-4.5 w-4.5 text-[#FB2C36] shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-bold text-white">
@@ -413,7 +406,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Alert 2 */}
-          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#26262680] border border-orange-500/10">
+          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#252527] border border-orange-500/10">
             <AlertTriangle className="h-4.5 w-4.5 text-[#FE9A00] shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-bold text-white">
@@ -426,7 +419,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Alert 3 */}
-          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#26262680] border border-sky-500/10">
+          <div className="flex items-start space-x-3.5 p-3.5 rounded-xl bg-[#252527] border border-sky-500/10">
             <AlertTriangle className="h-4.5 w-4.5 text-[#2B7FFF] shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-xs font-bold text-white">

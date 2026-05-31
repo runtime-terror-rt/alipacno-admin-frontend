@@ -2,7 +2,7 @@ import { CircleCheckBig } from "lucide-react";
 
 export default function InfrastructureSyncWidget() {
   return (
-    <div className="bg-[#26262680] border border-[#343436] rounded-xl p-4 flex flex-col gap-4 min-w-0 overflow-hidden">
+    <div className="bg-[#1E1E20] border border-[#343436] rounded-xl p-4 flex flex-col gap-4 min-w-0 overflow-hidden">
       {/* Icon */}
       <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-[#4EDEA31A] text-[#00A706]">
         <CircleCheckBig size={26} />

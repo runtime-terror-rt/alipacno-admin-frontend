@@ -29,14 +29,14 @@ export default function SuperAdminLayout({
   const router = useRouter();
 
   return (
-    <div className="min-h-screen  bg-[#09090b] flex text-zinc-100 antialiased font-sans">
+    <div className="min-h-screen  bg-[#1e1e20] flex text-zinc-100 antialiased font-sans">
       {/* SEPARATED SUPER ADMIN SIDEBAR COMPONENT */}
       <AdminSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
       {/* MAIN CONTAINER */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden h-screen relative">
         {/* TOP BAR */}
-        <header className="h-20 bg-[#343436]/30 backdrop-blur-md border-b border-[#343436] flex items-center justify-between px-4 sm:px-6 md:px-8 z-30">
+        <header className="h-20 bg-[#1e1e20] backdrop-blur-md border-b border-[#343436] flex items-center justify-between px-4 sm:px-6 md:px-8 z-30">
           {/* Left items: Mobile menu button, Uptime metrics */}
           <div className="flex items-center space-x-4">
             <button
@@ -177,10 +177,10 @@ export default function SuperAdminLayout({
         {/* MAIN BODY VIEWPORT */}
         <main className="flex-1 overflow-y-auto bg-[#0a0a0c] relative">
           {/* Subtle mesh background glows for content */}
-          <div className="mesh-glow absolute top-20 right-10 opacity-15 pointer-events-none" />
-          <div className="mesh-glow absolute bottom-10 left-10 opacity-10 pointer-events-none" />
+          {/* <div className="mesh-glow absolute top-20 right-10 opacity-15 pointer-events-none" />
+          <div className="mesh-glow absolute bottom-10 left-10 opacity-10 pointer-events-none" /> */}
 
-          <div className="p-4 sm:p-6 md:p-8 bg-[#0f0f11]">{children}</div>
+          <div className="p-4 sm:p-6 md:p-8 bg-[#1e1e20]">{children}</div>
         </main>
       </div>
     </div>

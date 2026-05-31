@@ -1,11 +1,12 @@
 "use client";
 
-import SignUp from "./(Auth)/signup-test/page";
+import Login from "./(Auth)/login/page";
+
 
 export default function Page() {
   return (
     <div className="">
-      <SignUp />
+      <Login />
     </div>
   );
 }

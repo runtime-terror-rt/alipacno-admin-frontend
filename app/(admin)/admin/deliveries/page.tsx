@@ -52,7 +52,7 @@ const DRIVERS: DriverSummary[] = [
 // ── Main Page ──────────────────────────────────────────────────────────────
 export default function DeliveriesManagementPage() {
   return (
-    <div className="flex-1 bg-[#0f0f11] min-h-screen text-white p-5 space-y-5">
+    <div className="flex-1  min-h-screen text-white p-5 space-y-5">
       {/* Header */}
       <div className="flex items-center gap-2">
         <ChevronDown size={14} className="rotate-90 text-[#f9671a]" />

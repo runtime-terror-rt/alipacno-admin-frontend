@@ -32,7 +32,7 @@ export default function ChartsRow() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Branch Sales Trend - Line Chart */}
-      <div className="bg-[#26262680] border border-[#343436] rounded-2xl p-6">
+      <div className="bg-[#1E1E20] border border-[#343436] rounded-2xl p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="text-white font-semibold text-lg">Branch Sales Trend</h3>
@@ -45,7 +45,7 @@ export default function ChartsRow() {
       </div>
 
       {/* Revenue Breakdown - Bar Chart */}
-      <div className="bg-[#26262680] border border-[#343436] rounded-2xl p-6">
+      <div className="bg-[#1E1E20] border border-[#343436] rounded-2xl p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="text-white font-semibold text-lg">Revenue Breakdown by Branch</h3>

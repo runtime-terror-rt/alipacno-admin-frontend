@@ -21,7 +21,7 @@ export default function MenuPage() {
       ]
 
   return (
-    <div className="flex-1 bg-[#0f0f11] min-h-screen text-white p-5 space-y-6">
+    <div className="flex-1 min-h-screen text-white p-5 space-y-6">
 
       {/* Header */}
 

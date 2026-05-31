@@ -8,12 +8,12 @@ export default function NewCampaignPulseWidget() {
         src="/admin/dashboard/campaign-pulse.png"
         alt="Campaign Pulse"
         width={400}
-        height={400}
+        height={480}
         className="w-full h-auto object-cover"
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/65" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#20161645] to-[#191C1D] " />
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
@@ -21,7 +21,7 @@ export default function NewCampaignPulseWidget() {
           New Campaign Pulse
         </p>
 
-        <button className="text-primary text-sm font-semibold tracking-widest underline underline-offset-4 uppercase mt-2">
+        <button className="text-[#F9671A] text-sm font-semibold tracking-widest underline underline-offset-4 uppercase mt-2">
           VIEW ANALYTICS
         </button>
       </div>
