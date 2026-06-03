@@ -14,6 +14,7 @@ import DateFiltersBar from "../ui/DateFilterBar";
 import FilterDropdown from "../ui/FilterDropdown";
 import Button from "../ui/Button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type MenuStatus =
   | "Available"
@@ -122,6 +123,7 @@ function StatusBadge({
 }
 
 export default function MenuManagementPanel() {
+  const router = useRouter();
   const [activeTab, setActiveTab] =
     useState("All");
 
@@ -188,7 +190,7 @@ export default function MenuManagementPanel() {
           />
         </div>
 
-        <Button className="px-4 py-2.5 flex items-center gap-1.5 w-fit">
+        <Button type="button" onClick={() => router.push("/admin/menus/add")} className="px-4 py-2.5 flex items-center gap-1.5 w-fit">
           <Plus size={14} />
           Add Item
         </Button>
