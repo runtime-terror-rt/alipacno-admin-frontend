@@ -1,16 +1,18 @@
 "use client";
 
-import { MoreVertical } from 'lucide-react';
+import { MoreVertical, Edit2, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { Order, OrderStatus } from './OrderReportPanel';
+import toast from 'react-hot-toast';
 
 interface OrdersTableProps {
   ORDERS: Order[];
   selectedRows: number[];
   toggleRow: (index: number) => void;
+  onEditOrder: (order: Order) => void;
+  onDeleteOrder: (order: Order) => void;
 }
 
-// Status Config local context binding
 const statusConfig: Record<OrderStatus, { label: string; className: string }> = {
   Completed: { label: "Completed", className: "bg-(--color-grant)/10 text-(--color-grant) border border-(--color-grant)/20" },
   Preparing: { label: "Preparing", className: "bg-(--color-brand)/10 text-(--color-brand) border border-(--color-brand)/20" },
@@ -27,7 +29,15 @@ function StatusBadge({ status }: { status: OrderStatus }) {
   );
 }
 
-const OrdersTable = ({ ORDERS, selectedRows, toggleRow }: OrdersTableProps) => {
+const OrdersTable = ({ 
+  ORDERS, 
+  selectedRows, 
+  toggleRow, 
+  onEditOrder, 
+  onDeleteOrder 
+}: OrdersTableProps) => {
+
+
   return (
     <div className="w-full overflow-x-auto rounded-xl border border-[#353535] bg-[#1e1e1e]/20 ">
       <table className="w-full text-sm border-collapse">
@@ -90,22 +100,18 @@ const OrdersTable = ({ ORDERS, selectedRows, toggleRow }: OrdersTableProps) => {
                 </div>
               </td>
 
-              {/* BRANCH */}
               <td className="py-3.5 pr-4 text-xs font-medium text-zinc-300 align-middle whitespace-nowrap">
                 {order.branch}
               </td>
 
-              {/* ORDER TYPE */}
               <td className="py-3.5 pr-4 text-xs font-medium text-zinc-300 align-middle whitespace-nowrap">
                 {order.orderType}
               </td>
 
-              {/* AMOUNT */}
               <td className="py-3.5 pr-4 text-xs font-semibold text-white align-middle whitespace-nowrap">
                 {order.amount}
               </td>
 
-              {/* PAYMENT */}
               <td className="py-3.5 pr-4 align-middle whitespace-nowrap">
                 <div className="flex items-center gap-2">
                   <div className={`w-6 h-4 rounded-sm flex-shrink-0 ${order.payment === "Card" ? "bg-gradient-to-r from-zinc-600 to-zinc-500" : "bg-zinc-700"} flex items-center justify-center border border-zinc-600/30`}>
@@ -115,12 +121,10 @@ const OrdersTable = ({ ORDERS, selectedRows, toggleRow }: OrdersTableProps) => {
                 </div>
               </td>
 
-              {/* STATUS */}
               <td className="py-3.5 pr-4 align-middle">
                 <StatusBadge status={order.status} />
               </td>
 
-              {/* DRIVER */}
               <td className="py-3.5 pr-4 align-middle">
                 <div className="flex items-center gap-2.5">
                   <div className="relative w-7 h-7 rounded-full overflow-hidden border border-zinc-800 bg-zinc-900 flex-shrink-0">
@@ -136,18 +140,31 @@ const OrdersTable = ({ ORDERS, selectedRows, toggleRow }: OrdersTableProps) => {
                 </div>
               </td>
 
-              {/* TIME & DATE */}
               <td className="py-3.5 pr-4 align-middle whitespace-nowrap">
                 <p className="text-xs font-medium text-zinc-300">{order.time}</p>
                 <p className="text-[11px] text-zinc-500 font-medium mt-0.5">{order.date}</p>
               </td>
 
-              {/* ACTION */}
-              <td className="py-3.5 pr-4 last:pr-4 align-middle text-right">
-                <button className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer inline-flex items-center justify-center">
-                  <MoreVertical className="w-4 h-4" />
-                </button>
-              </td>
+            {/* ACTION */}
+<td className="py-3.5 pr-4 last:pr-4 align-middle text-right">
+  <div className="flex items-center justify-end gap-1">
+    <button 
+      onClick={() => onEditOrder(order)}
+      className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-orange-400 transition-colors"
+      title="Edit Order"
+    >
+      <Edit2 className="w-4 h-4" />
+    </button>
+    
+    <button 
+      onClick={() => onDeleteOrder(order)}   // ← Pass full order
+      className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-red-400 transition-colors"
+      title="Delete Order"
+    >
+      <Trash2 className="w-4 h-4" />
+    </button>
+  </div>
+</td>
             </tr>
           ))}
         </tbody>

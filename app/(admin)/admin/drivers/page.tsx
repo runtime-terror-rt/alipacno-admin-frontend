@@ -10,8 +10,9 @@ import DeliveriesBarChart from "@/components/admin/ui/DeliveriesBarChart";
 import DriversBottomStats from "@/components/admin/drivers/DriversBottomStats";
 import RecentDriverActivity from "@/components/admin/drivers/RecentDriverActivity";
 import DeliveryGoogleMap from "@/components/admin/deliveries/DeliveryGoogleMap";
+import { useRouter } from "next/navigation";
 
-// ── Mini Sparkline ─────────────────────────────────────────────────────────
+
 function Sparkline({ color = "#f9671a", up = true }: { color?: string; up?: boolean }) {
   const pts = up
     ? "0,30 20,25 40,20 60,15 80,18 100,8"
@@ -23,7 +24,7 @@ function Sparkline({ color = "#f9671a", up = true }: { color?: string; up?: bool
   );
 }
 
-// ── Insight Tile ───────────────────────────────────────────────────────────
+
 function InsightTile({ icon, label, sub, value, change, positive }: {
   icon: React.ReactNode; label: string; sub: string; value?: string; change: string; positive: boolean;
 }) {
@@ -46,6 +47,7 @@ function InsightTile({ icon, label, sub, value, change, positive }: {
 
 // ── Main Page ──────────────────────────────────────────────────────────────
 export default function DriversManagementPage() {
+  const router = useRouter();
   return (
     <div className="flex-1 min-h-screen text-white p-5 space-y-5">
 
@@ -86,7 +88,7 @@ export default function DriversManagementPage() {
       <div className="bg-[#1a1a1c] border border-[#2e2e30] rounded-2xl p-5 space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold text-white">Live Driver Activity</h2>
-          <Button className="w-fit px-6">
+          <Button className="w-fit px-6" onClick={() => router.push("/admin/ai-insights")}>
             View All Insights
           </Button>
         </div>

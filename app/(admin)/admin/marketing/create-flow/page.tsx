@@ -8,8 +8,10 @@ import InputField from "@/components/admin/ui/InputField";
 import TextareaField from "@/components/admin/ui/TextareaField";
 import Toggle from "@/components/admin/ui/Toggle";
 import UploadZone from "@/components/admin/Marketing/UploadZone";
+import { useRouter } from "next/navigation";
 
 export default function CreateAutomationFlowPage() {
+  const router = useRouter();
   // Input Form Component Controlled States
   const [gender, setGender] = useState("");
   const [postCode, setPostCode] = useState("");
@@ -33,7 +35,7 @@ export default function CreateAutomationFlowPage() {
       <div className="flex items-start justify-between px-6 py-5">
         <div className="flex items-center gap-3">
           <button
-            onClick={() => console.log("Navigate back")}
+            onClick={() => router.back()}
             className="w-8 h-8 rounded-lg bg-[#1c1c1e] border border-[#2e2e30]/60 flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
           >
             <ArrowLeft size={14} />

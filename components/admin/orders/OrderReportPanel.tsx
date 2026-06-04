@@ -6,6 +6,8 @@ import FilterDropdown from "@/components/admin/ui/FilterDropdown";
 import { Search, CloudUpload } from "lucide-react";
 import { useState } from "react";
 import OrdersTable from "./OrdersTable";
+import EditOrderModal from "./modal/EditOrderModal";
+import toast from 'react-hot-toast';
 
 export type OrderStatus = "Completed" | "Preparing" | "On Delivery" | "Cancelled";
 
@@ -110,7 +112,56 @@ const ORDERS: Order[] = [
 ];
 
 const OrderReportPanel = () => {
-  const [selectedRows, setSelectedRows] = useState<number[]>([]);  
+  const [MocORDERS, setMocORDERS] = useState<Order[]>(ORDERS);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [editingOrder, setEditingOrder] = useState<Order | null>(null);
+  const handleEdit = (order: Order) => setEditingOrder(order);
+  
+  const handleDelete = (order: Order) => {
+    const toastId = toast((t) => (
+      <div className="flex flex-col gap-3 min-w-[280px]">
+        <div className="text-sm font-medium text-white">
+          Delete Order <span className="text-(--color-brand)">{order.id}</span>?
+        </div>
+        <p className="text-xs text-zinc-400">
+          This action cannot be undone.
+        </p>
+        <div className="flex gap-2 justify-end mt-2">
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="px-4 py-1.5 text-xs font-medium rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => {
+              setMocORDERS(prev => prev.filter(o => o.id !== order.id));
+              toast.dismiss(t.id);
+              toast.success(`Order ${order.id} has been deleted`, {
+                duration: 3000,
+              });
+            }}
+            className="px-4 py-1.5 text-xs font-medium rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors"
+          >
+            Yes, Delete
+          </button>
+        </div>
+      </div>
+    ), {
+      duration: Infinity,        // Keep open until user decides
+      position: 'top-center',
+      style: {
+        background: '#1a1a1c',
+        border: '1px solid #353535',
+        padding: '16px',
+        borderRadius: '12px',
+      },
+    });
+  };
+
+  const handleSaveOrder = (updated: Order) => {
+    setMocORDERS(prev => prev.map(o => o.id === updated.id ? updated : o));
+  };  
   
   const toggleRow = (i: number) =>
     setSelectedRows((prev) => (prev.includes(i) ? prev.filter((r) => r !== i) : [...prev, i]));
@@ -163,10 +214,19 @@ const OrderReportPanel = () => {
 
       {/* Table Section (Props Connected) */}
       <OrdersTable 
-        ORDERS={ORDERS} 
+        ORDERS={MocORDERS} 
         selectedRows={selectedRows} 
-        toggleRow={toggleRow} 
+        toggleRow={toggleRow}
+        onEditOrder={handleEdit}
+        onDeleteOrder={handleDelete} 
       />
+      {editingOrder && (
+      <EditOrderModal 
+        order={editingOrder}
+        onClose={() => setEditingOrder(null)}
+        onSave={handleSaveOrder}
+      />
+    )}
 
       {/* Pagination wrapper spacing */}
       <div className="mt-5">
