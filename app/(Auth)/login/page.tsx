@@ -95,13 +95,13 @@ export default function Login() {
             </button>
           </form>
 
-          <p className="text-center text-zinc-400 mt-8">
+          {/* <p className="text-center text-zinc-400 mt-8">
             Don&apos;t have an account?{" "}
             <Link href="/signup" className="text-[#F9671A] font-semibold hover:underline cursor-pointer transition-colors duration-300">
               Sign Up
             </Link>{" "}
             Here
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

@@ -135,11 +135,6 @@ export default function InventoryStockOverview() {
           </div>
         ))}
       </div>
-
-      {/* Action CTA View Button Footer */}
-      <button className="w-full mt-1.5 py-3 rounded-xl border border-[#d35400]/40 bg-[#e67e22]/10 text-[#f9671a] hover:bg-[#e67e22]/15 text-xs font-semibold tracking-wide transition-all duration-200">
-        View All reports
-      </button>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   Store, 
   Clock, 
@@ -7,6 +6,7 @@ import {
   ArrowUp, 
   ArrowDown 
 } from "lucide-react";
+import { useRouter } from 'next/navigation';
 
 // Highly accurate wave sparkline matching the uploaded design
 function CustomSparkline({ color = "#f9671a" }: { color?: string }) {
@@ -90,6 +90,7 @@ const INSIGHTS_DATA = [
 ];
 
 export default function StaffWorkforceInsights() {
+  const router = useRouter();
   return (
     <div className="bg-[#18181a] border border-[#2e2e30] rounded-2xl p-5 flex flex-col gap-3.5 max-w-sm w-full select-none">
       <h2 className="text-lg font-bold text-zinc-100 tracking-wide px-1 mb-1">
@@ -185,7 +186,7 @@ export default function StaffWorkforceInsights() {
       </div>
 
       {/* Action Footer Call to Action Button */}
-      <button className="w-full mt-2 py-3 rounded-xl border border-[#d35400]/40 bg-[#e67e22]/10 text-[#f9671a] hover:bg-[#e67e22]/15 text-xs font-semibold tracking-wide transition-all duration-200">
+      <button onClick={()=>router.push("/admin/ai-insights")} className="w-full mt-2 py-3 rounded-xl border border-[#d35400]/40 bg-[#e67e22]/10 text-[#f9671a] hover:bg-[#e67e22]/15 text-xs font-semibold tracking-wide transition-all duration-200">
         View All Insights
       </button>
     </div>

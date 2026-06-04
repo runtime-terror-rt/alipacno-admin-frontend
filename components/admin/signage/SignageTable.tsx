@@ -76,7 +76,7 @@ export default function SignageTable() {
               <tr key={row.id} className="hover:bg-[#161618] transition-colors group">
                 <td className="py-4 px-4">
                   <div className="flex items-center space-x-3">
-                    <div className="h-10 w-16 bg-zinc-800 rounded overflow-hidden shrink-0 relative">
+                    <div className="h-16 w-16 bg-zinc-800 rounded overflow-hidden shrink-0 relative">
                        {/* Placeholder Image using next/image. If it fails, bg-zinc-800 shows */}
                        <Image src={row.image} alt={row.name} layout="fill" objectFit="cover" />
                     </div>
