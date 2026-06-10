@@ -3,7 +3,6 @@
 import PageHeader from "@/components/admin/ui/PageHeader";
 import MetricCardsRow from "@/components/admin/common/MetricCardsRow";
 import StockTrackingPanel from "@/components/admin/inventory/StockTrackingPanel";
-import InventoryStockOverview from "@/components/admin/inventory/InventoryStockOverview";
 
 export default function InventoryManagementPage() {
   const inventoryStats = [
@@ -27,13 +26,7 @@ export default function InventoryManagementPage() {
       <MetricCardsRow metricCards={inventoryStats} />
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-6">
-        {/* LEFT — Stock Tracking Table */}
-        <StockTrackingPanel />
-
-        {/* RIGHT — Stock Alert Overview */}
-        <InventoryStockOverview />
-      </div>
+     <StockTrackingPanel />
     </div>
   );
 }
