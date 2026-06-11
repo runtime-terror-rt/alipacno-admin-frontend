@@ -38,8 +38,9 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
-      <Toaster 
+      <body className="min-h-full flex flex-col">
+        {children}
+         <Toaster 
           position="top-center"
           toastOptions={{
             duration: 4000,
@@ -64,6 +65,7 @@ export default function RootLayout({
             },
           }}
         />
+        </body>
     </html>
   );
 }

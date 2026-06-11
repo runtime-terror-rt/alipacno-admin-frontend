@@ -8,6 +8,7 @@ import FilterDropdown from "../ui/FilterDropdown";
 import Image from "next/image";
 import toast from 'react-hot-toast';
 import EditDriverModal from "./modal/EditDriverModal";
+import { useRouter } from "next/navigation";
 
 // ── Types & Data ───────────────────────────────────────────────────────────
 export type DriverStatus = "Available" | "On Delivery" | "Break" | "Offline";
@@ -54,6 +55,7 @@ function VehicleIcon({ type }: { type: "bike" | "car" | "scooter" }) {
 }
 
 export default function DriverOperationsPanel() {
+  const router = useRouter();
   const [drivers, setDrivers] = useState<Driver[]>(DRIVERS);
   const [editingDriver, setEditingDriver] = useState<Driver | null>(null);
 
@@ -137,7 +139,7 @@ export default function DriverOperationsPanel() {
           <FilterDropdown key={f} label={f} />
         ))}
 
-        <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-[#f9671a]/50 text-[#f9671a] text-xs font-medium hover:bg-[#f9671a]/10 transition-colors whitespace-nowrap">
+        <button onClick={()=>{router.push("/admin/settings")}} className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-[#f9671a]/50 text-[#f9671a] text-xs font-medium hover:bg-[#f9671a]/10 transition-colors whitespace-nowrap">
           <PlusCircle size={12} /> Add Driver
         </button>
         <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-[#2e2e30] text-zinc-400 text-xs font-medium hover:text-white transition-colors whitespace-nowrap">

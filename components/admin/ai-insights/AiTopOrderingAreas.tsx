@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface OrderingArea {
   name: string;
@@ -23,6 +24,7 @@ const ORDERING_AREAS: OrderingArea[] = [
 ];
 
 const AiTopOrderingAreas = () => {
+  const router = useRouter();
   return (
     <div className="bg-[#1a1a1c] border border-[#2e2e30] rounded-2xl p-5">
       {/* Header matching image_ba01a4.png architecture */}
@@ -31,7 +33,7 @@ const AiTopOrderingAreas = () => {
           <h2 className="text-base font-bold text-white tracking-tight">Top Ordering Areas</h2>
           <span className="text-xs text-zinc-400 font-normal">(by Region)</span>
         </div>
-        <button className="flex items-center gap-0.5 text-xs text-[#f9671a] font-medium hover:brightness-110 transition-all">
+        <button onClick={()=>router.push("/admin/orders")} className="flex items-center gap-0.5 text-xs text-[#f9671a] font-medium hover:brightness-110 transition-all">
           View all <ChevronRight size={14} className="mt-0.5" />
         </button>
       </div>

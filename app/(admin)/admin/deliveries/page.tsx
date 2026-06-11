@@ -7,6 +7,7 @@ import Image from "next/image";
 import { IMetricCard } from "@/components/admin/ui/MetricCard";
 import DeliveryGoogleMap from "@/components/admin/deliveries/DeliveryGoogleMap";
 import LiveOrdersSidebar from "@/components/admin/deliveries/LiveOrdersSidebar";
+import { useRouter } from 'next/navigation';
 
 const STATISTICS : IMetricCard[] = [
         {
@@ -52,6 +53,7 @@ const DRIVERS: DriverSummary[] = [
 
 // ── Main Page ──────────────────────────────────────────────────────────────
 export default function DeliveriesManagementPage() {
+  const router = useRouter();
   return (
     <div className="flex-1  min-h-screen text-white p-5 space-y-5">
       {/* Header */}
@@ -80,7 +82,7 @@ export default function DeliveriesManagementPage() {
             <span className="text-xs font-semibold text-white uppercase tracking-wide">Driver Summary</span>
             <button className="text-xs text-[#f9671a] hover:underline">View All Drivers →</button>
           </div>
-          <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#3B2012] text-[#F9671A] hover:text-white hover:text-white cursor-pointer text-xs font-medium hover:bg-[#e05a15] transition-colors">
+          <button onClick={()=> {router.push("/admin/settings")}}  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#3B2012] text-[#F9671A] hover:text-white hover:text-white cursor-pointer text-xs font-medium hover:bg-[#e05a15] transition-colors">
               <Plus size={20} className=" fill-[#3B2012] transition-colors" /> 
           Add Customer
           </button>
