@@ -59,11 +59,11 @@ const ADMIN_MENU_ITEMS: MenuItem[] = [
     icon: Package,
     href: "/admin/inventory",
     subItems: [
-      { name: "Inventory",        icon: Monitor,         href: "/admin/inventory" },
-      { name: "Items conversions",icon: Globe,           href: "/admin/inventory/items-conversions" },
-      { name: "Add stock",        icon: Plus,            href: "/admin/inventory/add-stock" },
-      { name: "Menu item",        icon: UtensilsCrossed, href: "/admin/inventory/menu-item" },
-      { name: "Add menu item",    icon: Plus,            href: "/admin/inventory/add-menu-item" },
+      { name: "Inventory", icon: Monitor, href: "/admin/inventory" },
+      { name: "Items conversions", icon: Globe, href: "/admin/inventory/items-conversions" },
+      { name: "Add stock", icon: Plus, href: "/admin/inventory/add-stock" },
+      { name: "Menu item", icon: UtensilsCrossed, href: "/admin/inventory/menu-item" },
+      { name: "Add menu item", icon: Plus, href: "/admin/inventory/add-menu-item" },
     ],
   },
   { name: "Ai Insights", icon: BotMessageSquare, href: "/admin/ai-insights" },
@@ -144,7 +144,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
         <div className="flex flex-col flex-1 overflow-y-auto min-h-0">
 
           {/* LOGO */}
-          <div className="flex flex-col items-center justify-center relative px-6 py-5 border-b border-[#343436]">
+          <div className="flex flex-col items-center justify-center relative px-6 py-3 border-b border-[#343436]">
             <Link
               href="/admin"
               className="relative group block w-24 h-24 transition-transform duration-500 hover:scale-105"
@@ -199,20 +199,18 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
                       >
                         <div className="flex items-center space-x-3.5">
                           <Icon
-                            className={`h-[18px] w-[18px] shrink-0 transition-colors ${
-                              isActive
+                            className={`h-[18px] w-[18px] shrink-0 transition-colors ${isActive
                                 ? "text-orange-500"
                                 : "text-zinc-500 group-hover:text-zinc-300"
-                            }`}
+                              }`}
                           />
                           <span className="text-sm tracking-wide">{item.name}</span>
                         </div>
                         <ChevronDown
-                          className={`h-4 w-4 shrink-0 transition-transform duration-300 ${
-                            isDropdownOpen
+                          className={`h-4 w-4 shrink-0 transition-transform duration-300 ${isDropdownOpen
                               ? "rotate-180 text-orange-500"
                               : "text-zinc-500 group-hover:text-zinc-300"
-                          }`}
+                            }`}
                         />
                       </button>
                     ) : (
@@ -229,11 +227,10 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
                         `}
                       >
                         <Icon
-                          className={`h-[18px] w-[18px] shrink-0 transition-colors ${
-                            isActive
+                          className={`h-[18px] w-[18px] shrink-0 transition-colors ${isActive
                               ? "text-orange-500"
                               : "text-zinc-500 group-hover:text-zinc-300"
-                          }`}
+                            }`}
                         />
                         <span className="text-sm tracking-wide">{item.name}</span>
                       </Link>
@@ -242,11 +239,10 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
                     {/* ── Submenu dropdown ── */}
                     {hasSubItems && (
                       <div
-                        className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                          isDropdownOpen
+                        className={`overflow-hidden transition-all duration-300 ease-in-out ${isDropdownOpen
                             ? "max-h-72 opacity-100"
                             : "max-h-0 opacity-0"
-                        }`}
+                          }`}
                       >
                         <div className="flex flex-col py-1 space-y-0.5">
                           {item.subItems!.map((sub) => {
@@ -266,11 +262,10 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
                                 `}
                               >
                                 <SubIcon
-                                  className={`h-[15px] w-[15px] shrink-0 ${
-                                    isSubItemActive
+                                  className={`h-[15px] w-[15px] shrink-0 ${isSubItemActive
                                       ? "text-orange-500"
                                       : "text-zinc-600"
-                                  }`}
+                                    }`}
                                 />
                                 <span>{sub.name}</span>
                               </Link>
