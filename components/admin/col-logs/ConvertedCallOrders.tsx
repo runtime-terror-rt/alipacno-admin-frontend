@@ -40,8 +40,8 @@ const ConvertedCallOrders = () => {
           <thead>
             <tr className="bg-[#3D3D3A] border-b border-zinc-800/80 [&>th:first-child]:rounded-tl-xl [&>th:last-child]:rounded-tr-xl">
               {["TIME", "CALL NUMBER", "CUSTOMER", "DURATION", "#ORDER", "ORDER TYPE", "STATUS", "POSTCODE", "ACTION"].map((h) => (
-                <th 
-                  key={h} 
+                <th
+                  key={h}
                   className="text-left text-xs text-gray-100 font-semibold py-4 pr-4 first:pl-4 last:pr-4 whitespace-nowrap tracking-wider uppercase align-middle"
                 >
                   {h}
@@ -49,7 +49,7 @@ const ConvertedCallOrders = () => {
               ))}
             </tr>
           </thead>
-          
+
           <tbody className="divide-y divide-zinc-800/60">
             {CONVERTED_ORDERS.map((row, i) => (
               <tr key={i} className="hover:bg-zinc-800/30 transition-colors">
@@ -97,7 +97,7 @@ const ConvertedCallOrders = () => {
 
                 {/* ACTION */}
                 <td className="py-3.5 pr-4 last:pr-4 align-middle text-right whitespace-nowrap">
-                  <Button onClick={() => router.push('/admin/call-logs/2')} variant="table">
+                  <Button onClick={() => router.push('/admin/orders')} variant="table">
                     View Order
                   </Button>
                 </td>

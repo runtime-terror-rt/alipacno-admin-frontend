@@ -236,7 +236,7 @@ export default function InventoryPageView() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-[#1C1C1C] border-b border-[#343436]">
-                  {["Branch Name", "Location", "Stock available", "% of total distributed", "Threshold", "Status"].map((h) => (
+                  {["SL", "Branch Name", "Location", "Stock available",  "Threshold", "Status"].map((h) => (
                     <th key={h} className="text-left text-zinc-400 text-xs font-medium px-5 py-4 whitespace-nowrap">
                       {h}
                     </th>
@@ -246,20 +246,11 @@ export default function InventoryPageView() {
               <tbody className="divide-y divide-[#2e2e30]/60">
                 {MOCK_BRANCH_STOCK.map((row, idx) => (
                   <tr key={idx} className="hover:bg-zinc-800/20 transition-colors">
+                    <td className="px-5 py-4 text-zinc-400 whitespace-nowrap">{idx + 1}</td>
                     <td className="px-5 py-4 font-medium text-white whitespace-nowrap">{row.branch}</td>
                     <td className="px-5 py-4 text-zinc-300 whitespace-nowrap">{row.location}</td>
                     <td className="px-5 py-4 text-zinc-300 whitespace-nowrap">{row.stock} {viewItem.unit.toLowerCase()}</td>
-                    <td className="px-5 py-4 whitespace-nowrap">
-                      <div className="flex items-center gap-3">
-                        <div className="w-24 h-1.5 bg-[#2a2a2c] rounded-full overflow-hidden">
-                          <div 
-                            className={`h-full rounded-full ${row.percent > 90 ? "bg-blue-500" : row.percent > 50 ? "bg-blue-500" : "bg-purple-500"}`} 
-                            style={{ width: `${row.percent}%` }}
-                          />
-                        </div>
-                        <span className="text-zinc-300 text-xs">{row.percent}%</span>
-                      </div>
-                    </td>
+                   
                     <td className="px-5 py-4 text-zinc-300 whitespace-nowrap">{row.threshold}</td>
                     <td className="px-5 py-4">
                       <StatusBadge status={row.status} />
