@@ -225,13 +225,13 @@ export default function ItemsConversionsView() {
                   </td>
                   <td className="px-5 py-3 whitespace-nowrap">
                     <div className="flex items-center gap-2">
-                      <div className="w-20"><InputField defaultValue={row.packSize} /></div>
+                      <div className="w-20"><InputField placeholder="e.g. 5" /></div>
                       <div className="w-20"><SelectField value={row.packUnit} options={["KG", "PCS"]} /></div>
                     </div>
                   </td>
                   <td className="px-5 py-3 whitespace-nowrap">
                     <div className="flex items-center gap-2">
-                      <div className="w-20"><InputField defaultValue={row.yieldQty} /></div>
+                      <div className="w-20"><InputField placeholder="e.g. 20" /></div>
                       <div className="w-20"><SelectField value={row.yieldUnit} options={["PCS", "KG"]} /></div>
                     </div>
                   </td>
