@@ -50,7 +50,7 @@ export default function BranchSidebar({ isOpen, setIsOpen }: BranchSidebarProps)
     <div className=" border-r border-[#343436]">
       {/* MOBILE OVERLAY */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-[#343436] z-40 md:hidden backdrop-blur-sm"
           onClick={() => setIsOpen(false)}
         />
@@ -63,21 +63,21 @@ export default function BranchSidebar({ isOpen, setIsOpen }: BranchSidebarProps)
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
       `}>
         <div className="flex flex-col flex-1 overflow-y-auto min-h-0">
-          
+
           {/* 1. TOP LOGO: Centered round Pacino's logo, no text */}
           <div className="h-32 flex flex-col items-center border-b border-[#343436] justify-center relative px-6 mt-4">
             <Link href="/branch-admin" className="relative group block w-24 h-24 transition-transform duration-500 hover:scale-105">
               <div className="absolute inset-0 bg-orange-500/10 rounded-full blur-xl group-hover:bg-orange-500/25 transition-all w-24 h-24" />
-              <Image 
-                src="/logo.png" 
-                alt="Pacino's Logo" 
-                fill 
+              <Image
+                src="/logo.png"
+                alt="Pacino's Logo"
+                fill
                 className="object-contain drop-shadow-[0_4px_12px_rgba(249,115,22,0.15)]"
                 priority
               />
             </Link>
-            
-            <button 
+
+            <button
               onClick={() => setIsOpen(false)}
               className="md:hidden absolute top-4 right-4 text-zinc-400 hover:text-white"
             >
@@ -91,7 +91,7 @@ export default function BranchSidebar({ isOpen, setIsOpen }: BranchSidebarProps)
               {MENU_ITEMS.map((item) => {
                 const isActive = pathname === item.href || (item.name === "Dashboard" && pathname === "/branch-admin");
                 const Icon = item.icon;
-                
+
                 return (
                   <Link
                     key={item.name}
@@ -99,13 +99,13 @@ export default function BranchSidebar({ isOpen, setIsOpen }: BranchSidebarProps)
                     onClick={() => setIsOpen(false)}
                     className={`
                       w-full flex items-center space-x-3.5 py-3 pr-4 transition-all group select-none
-                      ${isActive 
-                        ? "border-l-4 border-orange-500 pl-4 bg-orange-500/5 text-orange-500 font-bold" 
-                        : "border-l-4 border-transparent pl-4 text-[#626262] hover:text-zinc-200 hover:bg-zinc-800/10"
+                      ${isActive
+                        ? "border-l-4 border-orange-500 pl-4 bg-[#252525]/90 text-orange-500 font-bold"
+                        : "border-l-4 border-transparent pl-4 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/10"
                       }
                     `}
                   >
-                    <Icon className={`h-4.5 w-4.5 transition-colors ${isActive ? "text-orange-500" : "text-[#626262] group-hover:text-zinc-400"}`} />
+                    <Icon className={`h-4.5 w-4.5 transition-colors ${isActive ? "text-orange-500" : "text-zinc-500 group-hover:text-zinc-300"}`} />
                     <span className="text-sm tracking-wide">{item.name}</span>
                   </Link>
                 );
