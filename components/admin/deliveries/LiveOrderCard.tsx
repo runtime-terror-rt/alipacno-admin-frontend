@@ -1,5 +1,8 @@
+"use client";
+
 import { Clock, Eye, Navigation, Phone } from "lucide-react";
 import { ILiveOrder, OrderStatus } from "./LiveOrdersSidebar";
+import { useRouter } from "next/navigation";
 
 function StatusBadge({ status }: { status: OrderStatus }) {
   const map: Record<OrderStatus, string> = {
@@ -16,6 +19,7 @@ function StatusBadge({ status }: { status: OrderStatus }) {
 }
 
 export default function LiveOrderCard({ order }: { order: ILiveOrder }) {
+  const router = useRouter()
   return (
     <div className="bg-[#1f1f21] border border-[#2e2e30] rounded-xl p-3 space-y-2 hover:border-[#f9671a]/30 transition-colors">
       <div className="flex items-center justify-between">
@@ -36,7 +40,7 @@ export default function LiveOrderCard({ order }: { order: ILiveOrder }) {
         <button className="flex-1 py-1 rounded-lg bg-[#252527] text-zinc-400 text-[10px] hover:text-white transition-colors flex items-center justify-center gap-1">
           <Phone size={9} /> Call
         </button>
-        <button className="flex-1 py-1 rounded-lg border border-[#f9671a]/50 text-[#f9671a] text-[10px] hover:bg-[#f9671a]/10 transition-colors flex items-center justify-center gap-1">
+        <button onClick={() => router.push('/admin/call-logs/2')} className="flex-1 py-1 rounded-lg border border-[#f9671a]/50 text-[#f9671a] text-[10px] hover:bg-[#f9671a]/10 transition-colors flex items-center justify-center gap-1">
           <Eye size={9} /> View Order
         </button>
       </div>

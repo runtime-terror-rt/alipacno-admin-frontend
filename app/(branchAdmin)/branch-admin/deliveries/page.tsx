@@ -419,7 +419,6 @@ export default function DeliveriesPage() {
       </div>
 
       {/* Stats Panel */}
-      {/* Stats Panel */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {DELIVERY_STATS.map((stat, idx) => {
           let Icon = Truck;

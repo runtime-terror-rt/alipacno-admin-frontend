@@ -1,6 +1,7 @@
 "use client";
 
-import { Bike, Clock, AlertTriangle, Users, Zap,
+import {
+  Bike, Clock, AlertTriangle, Users, Zap,
 } from "lucide-react";
 import PageHeader from "@/components/admin/ui/PageHeader";
 import MetricCardsRow from "@/components/admin/common/MetricCardsRow";
@@ -10,6 +11,7 @@ import DeliveriesBarChart from "@/components/admin/ui/DeliveriesBarChart";
 import DriversBottomStats from "@/components/admin/drivers/DriversBottomStats";
 import RecentDriverActivity from "@/components/admin/drivers/RecentDriverActivity";
 import DeliveryGoogleMap from "@/components/admin/deliveries/DeliveryGoogleMap";
+import { useRouter } from "next/navigation";
 
 // ── Mini Sparkline ─────────────────────────────────────────────────────────
 function Sparkline({ color = "#f9671a", up = true }: { color?: string; up?: boolean }) {
@@ -46,12 +48,13 @@ function InsightTile({ icon, label, sub, value, change, positive }: {
 
 // ── Main Page ──────────────────────────────────────────────────────────────
 export default function DriversManagementPage() {
+  const router = useRouter()
   return (
     <div className="flex-1 min-h-screen text-white p-5 space-y-5">
 
       <PageHeader title="Drivers Management" subtitle="Track, assign, and manage your drivers in real time." />
 
-      <MetricCardsRow 
+      <MetricCardsRow
         metricCards={
           [
             {
@@ -77,7 +80,7 @@ export default function DriversManagementPage() {
               value: "24",
               change: "+2.9%",
               positive: false,
-            },    
+            },
           ]
         }
       />
@@ -86,7 +89,7 @@ export default function DriversManagementPage() {
       <div className="bg-[#1a1a1c] border border-[#2e2e30] rounded-2xl p-5 space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold text-white">Live Driver Activity</h2>
-          <Button className="w-fit px-6">
+          <Button onClick={() => router.push('/admin/ai-insights')} className="w-fit px-6">
             View All Insights
           </Button>
         </div>
@@ -106,9 +109,9 @@ export default function DriversManagementPage() {
 
       {/* Driver Performance Analytics */}
       <div>
-          <h2 className="text-sm font-semibold text-white">Driver Performance Analytics</h2>
-          <p className="text-xs text-zinc-500">Track driver activity and performance.</p>
-        </div>
+        <h2 className="text-sm font-semibold text-white">Driver Performance Analytics</h2>
+        <p className="text-xs text-zinc-500">Track driver activity and performance.</p>
+      </div>
 
 
       <div className=" ">
@@ -124,7 +127,7 @@ export default function DriversManagementPage() {
         </div>
 
         {/* Bottom stats row */}
-          <DriversBottomStats />
+        <DriversBottomStats />
       </div>
     </div>
   );

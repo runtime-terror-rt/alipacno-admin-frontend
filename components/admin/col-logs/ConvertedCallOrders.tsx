@@ -97,7 +97,7 @@ const ConvertedCallOrders = () => {
 
                 {/* ACTION */}
                 <td className="py-3.5 pr-4 last:pr-4 align-middle text-right whitespace-nowrap">
-                  <Button onClick={() => router.push('/admin/orders')} variant="table">
+                  <Button onClick={() => router.push('/admin/call-logs/2')} variant="table">
                     View Order
                   </Button>
                 </td>

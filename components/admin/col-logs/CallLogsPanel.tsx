@@ -77,7 +77,8 @@ const CallLogsPanel = () => {
       <CallLogsTable 
         logs={CALL_LOGS} 
         onViewOrder={(id) => router.push(`/admin/call-logs/${id}`)}
-        onCallBack={(num) => console.log("Calling back standard trigger:", num)}
+        // onCallBack={(num) => router.push(`tel:${num}`)}
+        onCallBack={(num) => router.push('/admin/chat')}
       />
 
       <Pagination />

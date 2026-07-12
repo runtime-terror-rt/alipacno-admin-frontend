@@ -84,14 +84,13 @@ export default function StaffManagementPage() {
       <MetricCardsRow metricCards={metricCards} />
 
       {/* ── Main Grid ── */}
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_280px] gap-6">
+      <div className="grid grid-cols-1 gap-6">
 
         {/* LEFT — Staff Table Panel */}
 
         <StaffManagementPanel />
 
-        {/* RIGHT — Workforce Insights */}
-        <StaffWorkforceInsights />
+       
       </div>
 
       {/* ── Attendance & Workforce Analytics ── */}
