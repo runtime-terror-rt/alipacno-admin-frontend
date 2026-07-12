@@ -4,7 +4,7 @@ import Button from "../ui/Button";
 
 function TagBadge({ tag }: { tag: "Regular" | "VIP" | "Loyalty" }) {
   const map: Record<string, string> = {
-    Regular: "bg-[#00A70633] text-[#0E8013] border-[#00A706]", 
+    Regular: "bg-[#00A70633] text-[#0E8013] border-[#00A706]",
     VIP: "bg-[#f9671a]/15 text-[#f9671a] border-[#f9671a]/30",
     Loyalty: "bg-purple-500/15 text-purple-400 border-purple-500/30",
   };
@@ -19,7 +19,7 @@ export default function CustomerTable({ rows }: { rows: Customer[] }) {
           <tr className="bg-[#3D3D3A] border-b border-zinc-800/80 [&>th:first-child]:rounded-tl-xl [&>th:last-child]:rounded-tr-xl"
 
           >
-            {["NAME","CALLER NUMBER","LAST VISIT","TOTAL ORDERS","TOTAL VISITS","TOTAL SPEND","TAGS","ACTION"].map((h) => (
+            {["NAME", "CALLER NUMBER", "LAST VISIT", "TOTAL ORDERS", "TOTAL VISITS", "TOTAL SPEND", "TAGS", "ACTION"].map((h) => (
               <th key={h} className="text-left py-2 pl-1 text-white font-medium pb-2.5 pr-4 whitespace-nowrap">{h}</th>
             ))}
           </tr>

@@ -180,7 +180,7 @@ export default function SuperAdminLayout({
           {/* <div className="mesh-glow absolute top-20 right-10 opacity-15 pointer-events-none" />
           <div className="mesh-glow absolute bottom-10 left-10 opacity-10 pointer-events-none" /> */}
 
-          <div className="p-4 sm:p-6 md:p-8 bg-[#1e1e20]">{children}</div>
+          <div className="p-2 bg-[#1e1e20]">{children}</div>
         </main>
       </div>
     </div>
