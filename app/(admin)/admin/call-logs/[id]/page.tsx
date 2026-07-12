@@ -40,11 +40,10 @@ function Step({
     <div className="flex items-center gap-2 flex-1 min-w-0">
       <div className="flex flex-col items-center gap-1 flex-shrink-0">
         <div
-          className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-colors ${
-            done || active
+          className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-colors ${done || active
               ? "border-[#f9671a] bg-[#f9671a]/15 text-[#f9671a]"
               : "border-[#2e2e30] bg-[#1a1a1c] text-zinc-500"
-          }`}
+            }`}
         >
           {icon}
         </div>
@@ -154,7 +153,7 @@ export default function OrderDetailsPage() {
       </div>
 
       {/* Ordered Items */}
-     <DetailsOrderedItem ORDER_ITEMS={ORDER_ITEMS} />
+      <DetailsOrderedItem ORDER_ITEMS={ORDER_ITEMS} />
     </div>
   );
 }
