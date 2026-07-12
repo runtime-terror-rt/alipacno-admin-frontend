@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Search, ChevronDown, MoreVertical, Plus, Edit2, Trash2, X, Save } from "lucide-react";
 import Image from "next/image";
 import { signageTableData } from "@/app/(admin)/admin/signage/data";
+import { useRouter } from "next/navigation";
 
 interface SignageItem {
   id: string;
@@ -148,6 +149,7 @@ function DeleteSignageModal({ signage, onClose, onConfirm }: DeleteSignageModalP
 }
 
 export default function SignageTable() {
+  const router = useRouter();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [signageList, setSignageList] = useState<SignageItem[]>(signageTableData);
   const [editSignage, setEditSignage] = useState<SignageItem | null>(null);
@@ -206,7 +208,7 @@ export default function SignageTable() {
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500 pointer-events-none" />
             </div>
-            <button className="flex items-center space-x-2 px-4 py-2 border border-orange-500/50 hover:bg-orange-500/10 text-orange-500 rounded-xl text-xs font-black uppercase tracking-wider transition-colors shrink-0">
+            <button onClick={() => { router.push("/admin/signage/add") }} className="flex items-center space-x-2 px-4 py-2 border border-orange-500/50 hover:bg-orange-500/10 text-orange-500 rounded-xl text-xs font-black uppercase tracking-wider transition-colors shrink-0">
               <Plus className="h-4 w-4" />
               <span>Add Item</span>
             </button>
@@ -231,8 +233,8 @@ export default function SignageTable() {
                   <td className="py-4 px-4">
                     <div className="flex items-center space-x-3">
                       <div className="h-10 w-16 bg-zinc-800 rounded overflow-hidden shrink-0 relative">
-                         {/* Placeholder Image using next/image. If it fails, bg-zinc-800 shows */}
-                         <Image src={row.image} alt={row.name} layout="fill" objectFit="cover" />
+                        {/* Placeholder Image using next/image. If it fails, bg-zinc-800 shows */}
+                        <Image src={row.image} alt={row.name} layout="fill" objectFit="cover" />
                       </div>
                       <div className="flex flex-col space-y-0.5">
                         <span className="text-white font-bold text-xs">{row.name}</span>
@@ -242,11 +244,10 @@ export default function SignageTable() {
                   </td>
                   <td className="py-4 text-zinc-300">{row.branch}</td>
                   <td className="py-4">
-                    <span className={`inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${
-                      row.status === "Active" 
-                        ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" 
+                    <span className={`inline-flex items-center space-x-1 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${row.status === "Active"
+                        ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500"
                         : "bg-orange-500/10 border-orange-500/20 text-orange-500"
-                    }`}>
+                      }`}>
                       {row.status === "Active" && <span className="mr-0.5">+</span>}
                       <span>{row.status}</span>
                     </span>
@@ -260,18 +261,18 @@ export default function SignageTable() {
                     <span className="text-[10px]">{row.updatedDate}</span>
                   </td>
                   <td className="py-4 text-right px-4 relative z-10">
-                    <button 
+                    <button
                       onClick={() => toggleDropdown(row.id)}
                       className="p-2 text-zinc-500 hover:text-white transition-colors"
                     >
                       <MoreVertical className="h-4 w-4 ml-auto" />
                     </button>
-                    
+
                     {openDropdown === row.id && (
                       <>
                         {/* Invisible overlay to close dropdown */}
                         <div className="fixed inset-0 z-40" onClick={() => setOpenDropdown(null)} />
-                        
+
                         <div className="absolute right-8 top-10 w-32 bg-[#1c1c1e] border border-zinc-800 rounded-xl shadow-xl py-1 z-50 animate-fadeIn">
                           <button
                             onClick={() => { setEditSignage(row); setOpenDropdown(null); }}

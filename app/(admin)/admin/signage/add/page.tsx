@@ -1,3 +1,6 @@
+"use client";
+
+import { ReactNode } from "react";
 import { useState } from "react";
 import {
     Image as ImageIcon,
@@ -15,10 +18,22 @@ import {
     Clock,
     FileText,
     CheckCircle2,
+    Calendar,
 } from "lucide-react";
+import InputField from "@/components/admin/ui/InputField";
+import SelectField from "@/components/admin/ui/SelectField";
+import TextareaField from "@/components/admin/ui/TextareaField";
+import Image from "next/image";
 
-// ── Reusable primitives ──────────────────────────────────────────────────
-function Card({ title, right, children, className = "" }) {
+
+interface CardProps {
+    title?: string;
+    right?: ReactNode;
+    children: ReactNode;
+    className?: string;
+}
+
+function Card({ title, right, children, className = "" }: CardProps) {
     return (
         <div className={`bg-zinc-900 border border-zinc-800 rounded-2xl p-5 ${className}`}>
             {title && (
@@ -32,7 +47,12 @@ function Card({ title, right, children, className = "" }) {
     );
 }
 
-function Field({ label, children }) {
+interface FieldProps {
+    label: string;
+    children: ReactNode;
+}
+
+function Field({ label, children }: FieldProps) {
     return (
         <div className="space-y-1.5">
             <label className="text-xs text-zinc-500">{label}</label>
@@ -41,32 +61,31 @@ function Field({ label, children }) {
     );
 }
 
-function TextInput(props) {
+function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
     return (
         <input
             {...props}
-            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-600 outline-none focus:border-orange-500/60 transition-colors"
+            className="w-full text-white  border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-600 outline-none focus:border-orange-500/60 transition-colors"
         />
     );
 }
 
-function TextArea(props) {
-    return (
-        <textarea
-            {...props}
-            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-zinc-600 outline-none focus:border-orange-500/60 transition-colors resize-none"
-        />
-    );
+
+interface RadioPillProps {
+    label: string;
+    icon?: ReactNode;
+    checked: boolean;
+    onClick: () => void;
 }
 
-function RadioPill({ label, icon, checked, onClick }) {
+function RadioPill({ label, icon, checked, onClick }: RadioPillProps) {
     return (
         <button
             type="button"
             onClick={onClick}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${checked
-                    ? "bg-orange-500/15 border-orange-500/50 text-orange-400"
-                    : "bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-zinc-200"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium  transition-colors ${checked
+                ? " border-orange-500/50 text-white"
+                : ""
                 }`}
         >
             <span
@@ -81,7 +100,14 @@ function RadioPill({ label, icon, checked, onClick }) {
     );
 }
 
-function Radio({ label, sub, checked, onClick }) {
+interface RadioProps {
+    label: string;
+    sub?: string;
+    checked: boolean;
+    onClick: () => void;
+}
+
+function Radio({ label, sub, checked, onClick }: RadioProps) {
     return (
         <button type="button" onClick={onClick} className="flex items-start gap-2.5 text-left">
             <span
@@ -98,7 +124,13 @@ function Radio({ label, sub, checked, onClick }) {
     );
 }
 
-function Checkbox({ label, checked, onClick }) {
+interface CheckboxProps {
+    label: string;
+    checked: boolean;
+    onClick: () => void;
+}
+
+function Checkbox({ label, checked, onClick }: CheckboxProps) {
     return (
         <label className="flex items-center gap-2.5 py-1.5 cursor-pointer select-none">
             <button
@@ -114,9 +146,16 @@ function Checkbox({ label, checked, onClick }) {
     );
 }
 
-function ReviewRow({ icon, label, value, valueClass = "text-zinc-200" }) {
+interface ReviewRowProps {
+    icon: ReactNode;
+    label: string;
+    value: ReactNode;
+    valueClass?: string;
+}
+
+function ReviewRow({ icon, label, value, valueClass = "text-zinc-200" }: ReviewRowProps) {
     return (
-        <div className="flex items-start justify-between gap-3 py-2 border-b border-zinc-800/70 last:border-0">
+        <div className="flex items-start justify-between gap-3 py-2  border-zinc-800/70 last:border-0">
             <span className="flex items-center gap-1.5 text-xs text-zinc-500 flex-shrink-0">
                 {icon}
                 {label}
@@ -126,7 +165,6 @@ function ReviewRow({ icon, label, value, valueClass = "text-zinc-200" }) {
     );
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────
 const BRANCHES = [
     "All Branch",
     "Downtown Branch",
@@ -144,12 +182,13 @@ export default function SignageContentForm() {
     const [contentName, setContentName] = useState("Summer Burger Promo 2026");
     const [title, setTitle] = useState("Summer Burger Promotion");
     const [description, setDescription] = useState("Buy 1 get 1 free burger combo, limited time offer!");
+    const [campaignTag, setCampaignTag] = useState("Summer Offer");
 
-    const toggleBranch = (b) =>
+    const toggleBranch = (b: string) =>
         setSelectedBranches((prev) => (prev.includes(b) ? prev.filter((x) => x !== b) : [...prev, b]));
 
     return (
-        <div className="min-h-screen bg-zinc-950 text-white p-5 md:p-8 space-y-6">
+        <div className="min-h-screen  text-white p-5 md:p-8 space-y-6">
             {/* Header */}
             <div>
                 <h1 className="text-xl font-bold">Add New Signage Content</h1>
@@ -161,9 +200,12 @@ export default function SignageContentForm() {
                 {/* Content Information */}
                 <Card title="Content Information" className="lg:col-span-2">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <Field label="Content Name">
-                            <TextInput value={contentName} onChange={(e) => setContentName(e.target.value)} />
-                        </Field>
+                        <InputField
+                            label="Content Name"
+                            placeholder="Enter content name"
+                            value={contentName}
+                            onChange={(val) => setContentName(val)}
+                        />
                         <Field label="Content Type">
                             <div className="flex items-center gap-2 flex-wrap pt-1">
                                 <RadioPill
@@ -204,7 +246,7 @@ export default function SignageContentForm() {
                             <div className="flex items-center gap-4 flex-1 w-full sm:w-auto border-t sm:border-t-0 sm:border-l border-zinc-800 pt-4 sm:pt-0 sm:pl-5">
                                 <div className="w-20 h-14 rounded-lg flex-shrink-0 overflow-hidden relative bg-gradient-to-br from-orange-600 via-red-600 to-yellow-500">
                                     <span className="absolute inset-0 flex items-center justify-center text-[8px] font-black tracking-tight text-white/90 text-center leading-tight px-1">
-                                        BUNHY BUGER
+                                        <Image src='/admin/Signage/bunhy-buger.png' alt="Signage Preview" width={600} height={600} className="h-full  w-full object-cover " />
                                     </span>
                                 </div>
                                 <div className="text-xs space-y-1 min-w-0">
@@ -233,42 +275,38 @@ export default function SignageContentForm() {
                     <div className="mt-5 pt-5 border-t border-zinc-800">
                         <p className="text-xs font-semibold text-zinc-400 mb-3">Content Details</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <Field label="Title">
-                                <TextInput value={title} onChange={(e) => setTitle(e.target.value)} />
-                            </Field>
-                            <Field label="Campaign Tag">
-                                <div className="relative">
-                                    <select className="w-full appearance-none bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-white outline-none focus:border-orange-500/60 transition-colors">
-                                        <option>Summer Offer</option>
-                                        <option>Winter Special</option>
-                                        <option>New Launch</option>
-                                    </select>
-                                    <ChevronDown size={14} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
-                                </div>
-                            </Field>
+                            <InputField
+                                label="Title"
+                                placeholder="Enter content title"
+                                value={title}
+                                onChange={(val) => setTitle(val)}
+                            />
+                            <SelectField
+                                label="Campaign Tag"
+                                placeholder="Select Campaign Tag"
+                                options={["Summer Offer", "Winter Special", "New Launch"]}
+                                value={campaignTag}
+                                onChange={setCampaignTag}
+                            />
                         </div>
                         <div className="mt-4">
-                            <Field label="Description">
-                                <TextArea rows={2} value={description} onChange={(e) => setDescription(e.target.value)} />
-                            </Field>
+                            <TextareaField
+                                label="Description"
+                                placeholder="Briefly describe the content details..."
+                                rows={2}
+                                value={description}
+                                onChange={(val) => setDescription(val)}
+                            />
                         </div>
                     </div>
                 </Card>
 
                 {/* Screen Preview */}
                 <Card title="Screen Preview">
-                    <div className="rounded-xl overflow-hidden relative h-40 bg-gradient-to-br from-zinc-800 via-orange-900/40 to-red-900/40 border border-zinc-800">
-                        <div className="absolute inset-0 flex flex-col justify-between p-3">
-                            <span className="text-[9px] font-semibold text-orange-300 tracking-wide">RESTAURANT · BUNHY BUGER</span>
-                            <div>
-                                <p className="text-xl font-black text-white leading-none">BUNHY<br />BUGER</p>
-                                <span className="inline-block mt-1 text-[9px] font-bold bg-orange-500 text-zinc-950 px-1.5 py-0.5 rounded">
-                                    50% OFF
-                                </span>
-                            </div>
-                        </div>
+                    <div className="rounded-xl overflow-hidden relative h-60 bg-gradient-to-br from-zinc-800 via-orange-900/40 to-red-900/40 border border-zinc-800">
+                        <Image src='/admin/Signage/bunhy-buger.png' alt="Signage Preview" width={600} height={600} className="h-full  w-full object-cover " />
                     </div>
-                    <div className="mt-4 space-y-0.5">
+                    <div className="mt-4 space-y-0.5 ">
                         <ReviewRow icon={<Maximize2 size={12} />} label="Resolution" value="1920 × 1080 16:9" />
                         <ReviewRow icon={<Ratio size={12} />} label="Aspect Ratio" value="16:9" />
                         <ReviewRow icon={<HardDrive size={12} />} label="File Size" value="2.4 MB" />
@@ -280,54 +318,122 @@ export default function SignageContentForm() {
             {/* Bottom row */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                 {/* Screen Assignment */}
-                <Card
-                    title="Screen Assignment"
-                    right={
-                        <button className="flex items-center gap-1 text-[11px] text-zinc-500 hover:text-zinc-300">
-                            Select Screen Groups <ChevronDown size={12} />
-                        </button>
-                    }
-                >
-                    <p className="text-xs text-zinc-500 mb-1">Select Branch</p>
-                    <div className="max-h-44 overflow-y-auto pr-1">
-                        {BRANCHES.map((b) => (
-                            <Checkbox key={b} label={b} checked={selectedBranches.includes(b)} onClick={() => toggleBranch(b)} />
-                        ))}
-                    </div>
-                </Card>
+               <Card title="Screen Assignment">
+  {/* Header Row */}
+  <div className="flex items-center justify-between mb-5">
+    <p className="text-sm font-medium text-white">Select Branch</p>
+
+    <button className="flex items-center gap-2 text-sm text-zinc-300 hover:text-white transition-colors">
+      <span>Select Screen Groups</span>
+      <ChevronDown size={15} className="text-zinc-500" />
+    </button>
+  </div>
+
+  {/* Branch List */}
+  <div className="max-h-72 overflow-y-auto pr-2 space-y-1 custom-scrollbar">
+    {BRANCHES.map((branch) => (
+    <RadioPill
+      key={branch}
+      label={branch}
+      checked={selectedBranches.includes(branch)}
+      onClick={() => toggleBranch(branch)}
+    />
+  ))}
+  </div>
+</Card>
 
                 {/* Schedule */}
-                <Card title="Schedule">
-                    <p className="text-xs text-zinc-500 mb-2">Display Type</p>
-                    <div className="flex items-center gap-6 mb-4">
-                        <Radio label="Publish Now" checked={displayType === "Publish Now"} onClick={() => setDisplayType("Publish Now")} />
-                        <Radio label="Schedule later" checked={displayType === "Schedule later"} onClick={() => setDisplayType("Schedule later")} />
-                    </div>
+               <Card title="Schedule">
+  <div className="grid lg:grid-cols-[30%_1px_60%] gap-6">
+    {/* Left Side */}
+    <div>
+      <p className="text-xs text-zinc-500 mb-3">Display Type</p>
 
-                    <div className="grid grid-cols-2 gap-3">
-                        <Field label="Start Date">
-                            <TextInput type="date" defaultValue="2026-05-07" />
-                        </Field>
-                        <Field label="Start Time">
-                            <TextInput type="time" defaultValue="10:00" />
-                        </Field>
-                        <Field label="End Date">
-                            <TextInput type="date" defaultValue="2026-05-31" />
-                        </Field>
-                        <Field label="End Time">
-                            <TextInput type="time" defaultValue="23:59" />
-                        </Field>
-                    </div>
+      <div className="space-y-4">
+        <Radio
+          label="Publish Now"
+          checked={displayType === "Publish Now"}
+          onClick={() => setDisplayType("Publish Now")}
+        />
 
-                    <div className="mt-4 pt-4 border-t border-zinc-800">
-                        <p className="text-xs text-zinc-500 mb-2">Recurrence</p>
-                        <div className="flex items-center gap-4 flex-wrap">
-                            {["Daily", "Weekdays", "Weekends", "Custom"].map((r) => (
-                                <Radio key={r} label={r} checked={recurrence === r} onClick={() => setRecurrence(r)} />
-                            ))}
-                        </div>
-                    </div>
-                </Card>
+        <Radio
+          label="Schedule later"
+          checked={displayType === "Schedule later"}
+          onClick={() => setDisplayType("Schedule later")}
+        />
+      </div>
+    </div>
+
+    {/* Vertical Divider */}
+    <div className="hidden lg:block  bg-zinc-800" />
+
+    {/* Right Side */}
+    <div className="grid sm:grid-cols-2 gap-4">
+      {/* Start Date */}
+      <Field label="Start Date">
+        <div className="relative">
+          <input
+            type="date"
+            defaultValue="2026-05-07"
+            className="w-full h-11 rounded-lg bg-[#1d1d1f] border border-zinc-700 px-4 pr-2 text-sm text-white outline-none focus:border-[#f9671a]"
+          />
+        </div>
+      </Field>
+
+      {/* Start Time */}
+      <Field label="Start Time">
+        <div className="relative">
+          <input
+            type="time"
+            defaultValue="10:00"
+            className="w-full h-11 rounded-lg bg-[#1d1d1f] border border-zinc-700 px-4 pr-2 text-sm text-white outline-none focus:border-[#f9671a]"
+          />
+        </div>
+      </Field>
+
+      {/* End Date */}
+      <Field label="End Date">
+        <div className="relative">
+          <input
+            type="date"
+            defaultValue="2026-05-31"
+            className="w-full h-11 rounded-lg bg-[#1d1d1f] border border-zinc-700 px-4 pr-2 text-sm text-white outline-none focus:border-[#f9671a]"
+          />
+        </div>
+      </Field>
+
+      {/* End Time */}
+      <Field label="End Time">
+        <div className="relative">
+          <input
+            type="time"
+            defaultValue="23:59"
+            className="w-full h-11 rounded-lg bg-[#1d1d1f] border border-zinc-700 px-4 pr-2 text-sm text-white outline-none focus:border-[#f9671a]"
+          />
+        </div>
+      </Field>
+    </div>
+  </div>
+
+  {/* Divider */}
+  <div className="my-6 border-t border-zinc-800" />
+
+  {/* Recurrence */}
+  <div>
+    <p className="text-xs text-zinc-500 mb-3">Recurrence</p>
+
+    <div className="flex flex-wrap gap-5">
+      {["Daily", "Weekdays", "Weekends", "Custom"].map((item) => (
+        <Radio
+          key={item}
+          label={item}
+          checked={recurrence === item}
+          onClick={() => setRecurrence(item)}
+        />
+      ))}
+    </div>
+  </div>
+</Card>
 
                 {/* Review & Publish */}
                 <Card title="Review &amp; Publish">
@@ -352,10 +458,10 @@ export default function SignageContentForm() {
 
             {/* Footer actions */}
             <div className="flex items-center justify-end gap-3 pt-2">
-                <button className="px-5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-medium hover:text-white transition-colors">
+                {/* <button className="px-5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm font-medium hover:text-white transition-colors">
                     Save Draft
-                </button>
-                <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-500 text-zinc-950 text-sm font-bold hover:bg-orange-400 transition-colors">
+                </button> */}
+                <button className="flex text-white items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-500  text-sm font-bold hover:bg-orange-400 transition-colors">
                     Publish Content →
                 </button>
             </div>
