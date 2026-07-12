@@ -2,6 +2,7 @@
 
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface TopCustomer {
   name: string;
@@ -30,9 +31,9 @@ const AiTopCustomers = () => {
           <h2 className="text-base font-bold text-white tracking-tight">Top Customers</h2>
           <span className="text-xs text-zinc-400 font-normal">(by Orders)</span>
         </div>
-        <button className="flex items-center gap-0.5 text-xs text-[#f9671a] font-medium hover:brightness-110 transition-all">
+        <Link href="/admin/crm" className="flex items-center gap-0.5 text-xs text-[#f9671a] font-medium hover:brightness-110 transition-all">
           View all <ChevronRight size={14} className="mt-0.5" />
-        </button>
+        </Link>
       </div>
 
       {/* Table Container */}
