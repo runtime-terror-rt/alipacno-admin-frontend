@@ -57,38 +57,42 @@ interface StatCardProps {
 
 function StatCard({ icon, iconBg, label, value }: StatCardProps) {
   return (
-    <div className="relative bg-[#1e1e20] border border-[#2e2e30] rounded-xl overflow-hidden flex items-center gap-4 px-4 py-4 min-h-[82px]">
+    <div className="relative bg-[#1e1e20] border border-[#2e2e30] rounded-xl overflow-hidden flex items-center gap-5 px-5 py-5 min-h-[100px] h-full">
 
-      {/* Background: Vector 7 (orange gradient) fills right 58% */}
+      {/* Background: Vector 7 (orange gradient) smoothly masked */}
       <div
-        className="absolute right-0 top-0 h-full w-[58%] pointer-events-none select-none"
+        className="absolute right-0 top-0 h-full w-[35%] pointer-events-none select-none"
         style={{
           backgroundImage: "url('/admin/dashboard/Vector 7.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "left center",
+          backgroundSize: "100% 100%",
+          backgroundPosition: "right center",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 50%)",
+          maskImage: "linear-gradient(to right, transparent 0%, black 50%)",
         }}
       />
 
       {/* Foreground highlight: Vector 63 (white radial) centered over the gradient */}
       <div
-        className="absolute left-[60%] top-0 h-full w-[50%] pointer-events-none select-none"
+        className="absolute right-0 top-0 h-full w-[25%] pointer-events-none select-none"
         style={{
           backgroundImage: "url('/admin/dashboard/Vector 63 (1).png')",
-          backgroundSize: "contain",
+          backgroundSize: "100% 100%",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
+          backgroundPosition: "right center",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 50%)",
+          maskImage: "linear-gradient(to right, transparent 0%, black 50%)",
         }}
       />
 
       {/* Icon */}
-      <div className={`relative z-10 w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${iconBg}`}>
+      <div className={`relative z-10 w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${iconBg}`}>
         {icon}
       </div>
 
       {/* Text */}
-      <div className="relative z-10 flex flex-col gap-0.5">
-        <span className="text-zinc-400 text-xs leading-tight">{label}</span>
-        <span className="text-white text-2xl font-bold leading-tight">{value}</span>
+      <div className="relative z-10 flex flex-col gap-1">
+        <span className="text-zinc-400 text-[13px] font-medium leading-tight">{label}</span>
+        <span className="text-white text-[28px] font-bold leading-tight tracking-tight">{value}</span>
       </div>
     </div>
   );
@@ -207,26 +211,46 @@ export default function InventoryPageView() {
         </button>
 
         {/* Header section */}
-        <div className="flex flex-col sm:flex-row gap-5 items-start mt-4">
+        <div className="flex flex-col sm:flex-row gap-8 items-start mt-4 bg-[#1e1e20] p-6 rounded-2xl border border-[#2e2e30]">
           {/* Image */}
-          <div className="relative w-full sm:w-[280px] h-[160px] rounded-xl overflow-hidden shrink-0 border border-[#2e2e30] bg-[#1e1e20]">
+          <div className="relative w-full sm:w-[320px] h-[220px] rounded-xl overflow-hidden shrink-0 border border-[#3a3a3c] bg-[#141415] shadow-lg">
             <Image 
               src={viewItem.detailImage || viewItem.image} 
               alt={viewItem.name} 
               fill 
-              className="object-cover"
+              className="object-cover hover:scale-105 transition-transform duration-500"
               unoptimized 
             />
           </div>
           {/* Info */}
-          <div className="flex flex-col gap-2 pt-2">
-            <h1 className="text-2xl font-bold text-white">{viewItem.name}</h1>
-            <p className="text-zinc-400 text-sm mt-2">
-              Stock breakdown across all branches. {viewItem.type} · Unit: {viewItem.unit}
+          <div className="flex flex-col gap-3 pt-2">
+            <div className="flex items-center gap-4">
+              <h1 className="text-3xl font-bold text-white tracking-tight">{viewItem.name}</h1>
+              <StatusBadge status={viewItem.status} />
+            </div>
+            
+            <p className="text-zinc-400 text-[15px] leading-relaxed max-w-xl mt-1">
+              Stock breakdown across all branches. Central inventory is synchronized and automatically triggers alerts when thresholds are reached.
             </p>
-            <p className="text-zinc-500 text-sm">
-              Low stock threshold {viewItem.threshold} {viewItem.unit}
-            </p>
+
+            <div className="flex flex-wrap items-center gap-8 mt-5 pt-5 border-t border-[#2e2e30]/80">
+               <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] text-zinc-500 uppercase tracking-wider font-bold">Item Category</span>
+                  <span className={`text-sm font-semibold ${viewItem.type === "Prepared" ? "text-orange-400" : "text-zinc-200"}`}>{viewItem.type}</span>
+               </div>
+               <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] text-zinc-500 uppercase tracking-wider font-bold">Measurement Unit</span>
+                  <span className="text-sm font-semibold text-zinc-200">{viewItem.unit}</span>
+               </div>
+               <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] text-orange-500/70 uppercase tracking-wider font-bold">Low Stock Threshold</span>
+                  <span className="text-sm font-bold text-orange-400">{viewItem.threshold} {viewItem.unit}</span>
+               </div>
+               <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] text-blue-500/70 uppercase tracking-wider font-bold">Total Undistributed</span>
+                  <span className="text-sm font-bold text-blue-400">{viewItem.undistributed} {viewItem.unit}</span>
+               </div>
+            </div>
           </div>
         </div>
 
@@ -277,28 +301,28 @@ export default function InventoryPageView() {
       </div>
 
       {/* ── Stat Cards ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 w-full">
         <StatCard
-          iconBg="bg-blue-600"
-          icon={<Package size={20} className="text-white" />}
-          label="Total Items"
-          value={totalItems}
-        />
-        <StatCard
-          iconBg="bg-orange-500"
-          icon={<AlertTriangle size={20} className="text-white" />}
-          label="Low Stock"
-          value={lowStock}
-        />
-        <StatCard
-          iconBg="bg-red-500"
-          icon={<AlertTriangle size={20} className="text-white" />}
-          label="Out of Stock"
-          value={outOfStock}
-        />
+            iconBg="bg-blue-600"
+            icon={<Package size={24} className="text-white" />}
+            label="Total Items"
+            value={totalItems}
+          />
+          <StatCard
+            iconBg="bg-orange-500"
+            icon={<AlertTriangle size={24} className="text-white" />}
+            label="Low Stock"
+            value={lowStock}
+          />
+          <StatCard
+            iconBg="bg-red-500"
+            icon={<AlertTriangle size={24} className="text-white" />}
+            label="Out of Stock"
+            value={outOfStock}
+          />
         <StatCard
           iconBg="bg-green-600"
-          icon={<Store size={20} className="text-white" />}
+          icon={<Store size={24} className="text-white" />}
           label="Total branch"
           value={totalBranch}
         />
