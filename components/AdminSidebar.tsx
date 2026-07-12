@@ -67,7 +67,6 @@ const ADMIN_MENU_ITEMS: MenuItem[] = [
     ],
   },
   { name: "Ai Insights", icon: BotMessageSquare, href: "/admin/ai-insights" },
-  { name: "Menu", icon: UtensilsCrossed, href: "/admin/menus" },
   { name: "Marketing", icon: Megaphone, href: "/admin/marketing" },
   { name: "Signage", icon: Tv, href: "/admin/signage" },
   { name: "Settings", icon: Settings, href: "/admin/settings" },
