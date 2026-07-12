@@ -2,9 +2,10 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { X, ChevronDown, List } from "lucide-react";
+import { X, ChevronDown, List, Plus } from "lucide-react";
+import { toast } from "sonner";
 
-function InputField({ label, placeholder, defaultValue }: { label?: string, placeholder?: string, defaultValue?: string }) {
+function InputField({ label, placeholder, defaultValue, value, onChange }: { label?: string, placeholder?: string, defaultValue?: string, value?: string, onChange?: (e: any) => void }) {
   return (
     <div className="flex flex-col gap-1.5 w-full">
       {label && <label className="text-xs font-semibold text-zinc-300">{label}</label>}
@@ -12,20 +13,24 @@ function InputField({ label, placeholder, defaultValue }: { label?: string, plac
         type="text"
         placeholder={placeholder}
         defaultValue={defaultValue}
+        value={value}
+        onChange={onChange}
         className="bg-[#2a2a2c] border border-[#3a3a3c] rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-orange-500 transition-colors w-full"
       />
     </div>
   );
 }
 
-function SelectField({ label, value, options }: { label?: string, value?: string, options?: string[] }) {
+function SelectField({ label, value, options, onChange, defaultValue }: { label?: string, value?: string, options?: string[], onChange?: (e: any) => void, defaultValue?: string }) {
   return (
     <div className="flex flex-col gap-1.5 w-full">
       {label && <label className="text-xs font-semibold text-zinc-300">{label}</label>}
       <div className="relative">
         <select
           className="appearance-none bg-[#2a2a2c] border border-[#3a3a3c] rounded-lg px-3 py-2 pr-8 text-sm text-white focus:outline-none focus:border-orange-500 transition-colors w-full"
-          defaultValue={value}
+          value={value}
+          defaultValue={defaultValue}
+          onChange={onChange}
         >
           {options?.map((opt) => (
             <option key={opt} value={opt}>{opt}</option>
@@ -112,11 +117,60 @@ function FileUploadBox({ label, uploadedImage: initialImage, uploadedName: initi
 }
 
 export default function ItemsConversionsView() {
-  const MOCK_TABLE_DATA = [
+  const [rawMaterials, setRawMaterials] = useState<string[]>(["Flour", "Potato", "Beef", "Chicken Breast", "Minced Beef"]);
+
+  // Raw Material Form State
+  const [rawName, setRawName] = useState("");
+  const [rawUnit, setRawUnit] = useState("KG");
+  
+  // Prepared Item Form State
+  const [prepName, setPrepName] = useState("");
+  const [prepMadeFrom, setPrepMadeFrom] = useState("Flour");
+  const [prepUnit, setPrepUnit] = useState("PCS");
+  const [prepPackSize, setPrepPackSize] = useState("");
+  const [prepYieldsQty, setPrepYieldsQty] = useState("");
+
+  const [tableData, setTableData] = useState([
     { id: 1, image: "/admin/dashboard/inventory-8.png", name: "Mozzarella Stick", madeFrom: "Potato", packSize: "7", packUnit: "KG", yieldQty: "21", yieldUnit: "PCS", ratio: "7 Kg -> 50 PCS" },
     { id: 2, image: "/admin/dashboard/inventory-6.png", name: "Chicken Breast (portion)", madeFrom: "Chicken Breast", packSize: "5", packUnit: "KG", yieldQty: "21", yieldUnit: "PCS", ratio: "7 Kg -> 50 PCS" },
     { id: 3, image: "/admin/dashboard/inventory-1.png", name: "Minced Beef", madeFrom: "Minced Beef", packSize: "7", packUnit: "KG", yieldQty: "21", yieldUnit: "PCS", ratio: "7 Kg -> 50 PCS" },
-  ];
+  ]);
+
+  const handleAddRawMaterial = () => {
+    if (!rawName.trim()) {
+      toast.error("Please enter a raw material name.");
+      return;
+    }
+    setRawMaterials((prev) => [...prev, rawName]);
+    toast.success(`"${rawName}" added successfully!`);
+    setRawName("");
+  };
+
+  const handleAddPreparedItem = () => {
+    if (!prepName.trim()) {
+      toast.error("Please enter a prepared item name.");
+      return;
+    }
+    
+    const newItem = {
+      id: Date.now(),
+      image: "/admin/dashboard/inventory-8.png",
+      name: prepName,
+      madeFrom: prepMadeFrom,
+      packSize: prepPackSize || "1",
+      packUnit: "KG",
+      yieldQty: prepYieldsQty || "1",
+      yieldUnit: prepUnit,
+      ratio: `${prepPackSize || "1"} KG -> ${prepYieldsQty || "1"} ${prepUnit}`
+    };
+
+    setTableData((prev) => [...prev, newItem]);
+    toast.success(`"${prepName}" added successfully!`);
+    
+    setPrepName("");
+    setPrepPackSize("");
+    setPrepYieldsQty("");
+  };
 
   return (
     <div className="flex-1 min-h-screen text-white p-5 space-y-6">
@@ -144,8 +198,8 @@ export default function ItemsConversionsView() {
      
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <InputField label="Name" />
-          <SelectField label="Unit" value="KG" options={["KG", "PCS", "LITER"]} />
+          <InputField label="Name" value={rawName} onChange={(e) => setRawName(e.target.value)} />
+          <SelectField label="Unit" value={rawUnit} options={["KG", "PCS", "LITER"]} onChange={(e) => setRawUnit(e.target.value)} />
           <InputField label="Low stock threshold" />
         </div>
 
@@ -157,8 +211,9 @@ export default function ItemsConversionsView() {
           />
         </div>
 
-        <button className="px-5 py-2 bg-orange-500 hover:bg-orange-600 transition-colors rounded-full text-white text-sm font-semibold cursor-pointer">
-          + Add raw material
+        <button onClick={handleAddRawMaterial} className="px-5 py-2 flex items-center justify-center gap-1.5 bg-orange-500 hover:bg-orange-600 transition-colors rounded-full text-white text-sm font-semibold cursor-pointer">
+          <Plus size={16} />
+          Add raw material
         </button>
       </div>
 
@@ -174,14 +229,14 @@ export default function ItemsConversionsView() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <InputField label="Name" />
-          <SelectField label="Made from" value="Flour" options={["Flour", "Potato", "Beef"]} />
-          <SelectField label="Unit" value="PCS" options={["PCS", "KG", "LITER"]} />
+          <InputField label="Name" value={prepName} onChange={(e) => setPrepName(e.target.value)} />
+          <SelectField label="Made from" value={prepMadeFrom} options={rawMaterials} onChange={(e) => setPrepMadeFrom(e.target.value)} />
+          <SelectField label="Unit" value={prepUnit} options={["PCS", "KG", "LITER"]} onChange={(e) => setPrepUnit(e.target.value)} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <InputField label="Pack size used" placeholder="e.g. 7" />
-          <InputField label="Yields qty" placeholder="e.g. 100" />
+          <InputField label="Pack size used" placeholder="e.g. 7" value={prepPackSize} onChange={(e) => setPrepPackSize(e.target.value)} />
+          <InputField label="Yields qty" placeholder="e.g. 100" value={prepYieldsQty} onChange={(e) => setPrepYieldsQty(e.target.value)} />
           <InputField label="Low stock threshold" placeholder="e.g. 3" />
         </div>
 
@@ -193,8 +248,9 @@ export default function ItemsConversionsView() {
           />
         </div>
 
-        <button className="px-5 py-2 bg-orange-500 hover:bg-orange-600 transition-colors rounded-full text-white text-sm font-semibold cursor-pointer">
-          + Add prepared item
+        <button onClick={handleAddPreparedItem} className="px-5 py-2 flex items-center justify-center gap-1.5 bg-orange-500 hover:bg-orange-600 transition-colors rounded-full text-white text-sm font-semibold cursor-pointer">
+          <Plus size={16} />
+          Add prepared item
         </button>
       </div>
 
@@ -212,7 +268,7 @@ export default function ItemsConversionsView() {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#2e2e30]/60">
-              {MOCK_TABLE_DATA.map((row) => (
+              {tableData.map((row) => (
                 <tr key={row.id} className="hover:bg-zinc-800/20 transition-colors">
                   <td className="px-5 py-3">
                     <div className="w-10 h-10 rounded-lg overflow-hidden bg-[#2a2a2c] relative">
@@ -221,18 +277,18 @@ export default function ItemsConversionsView() {
                   </td>
                   <td className="px-5 py-3 text-white font-medium whitespace-nowrap">{row.name}</td>
                   <td className="px-5 py-3 whitespace-nowrap">
-                    <SelectField value={row.madeFrom} options={["Potato", "Chicken Breast", "Minced Beef", "Flour"]} />
+                    <SelectField value={row.madeFrom} options={rawMaterials} />
                   </td>
                   <td className="px-5 py-3 whitespace-nowrap">
                     <div className="flex items-center gap-2">
-                      <div className="w-20"><InputField placeholder="e.g. 5" /></div>
-                      <div className="w-20"><SelectField value={row.packUnit} options={["KG", "PCS"]} /></div>
+                      <div className="w-20"><InputField defaultValue={row.packSize} placeholder="e.g. 5" /></div>
+                      <div className="w-20"><SelectField defaultValue={row.packUnit} options={["KG", "PCS"]} /></div>
                     </div>
                   </td>
                   <td className="px-5 py-3 whitespace-nowrap">
                     <div className="flex items-center gap-2">
-                      <div className="w-20"><InputField placeholder="e.g. 20" /></div>
-                      <div className="w-20"><SelectField value={row.yieldUnit} options={["PCS", "KG"]} /></div>
+                      <div className="w-20"><InputField defaultValue={row.yieldQty} placeholder="e.g. 20" /></div>
+                      <div className="w-20"><SelectField defaultValue={row.yieldUnit} options={["PCS", "KG"]} /></div>
                     </div>
                   </td>
                   <td className="px-5 py-3 text-zinc-400 text-xs whitespace-nowrap">{row.ratio}</td>
