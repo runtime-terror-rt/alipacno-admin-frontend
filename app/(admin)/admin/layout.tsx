@@ -49,8 +49,8 @@ export default function SuperAdminLayout({
             <div className="hidden sm:flex flex-col">
               <div className="flex items-center text-sm text-zinc-400 space-x-2 font-medium">
                 <span className="text-primary flex ">Pacinos HQ </span>
-                 <ChevronRight className="h-4 w-4 text-white" />
-                  <span className="text-white capitalize ">  {pathname.split("/").pop()}</span>
+                <ChevronRight className="h-4 w-4 text-white" />
+                <span className="text-white capitalize ">  {pathname.split("/").pop()}</span>
               </div>
             </div>
           </div>
@@ -58,24 +58,24 @@ export default function SuperAdminLayout({
           {/* Right items: Notifications, Profile */}
           <div className="flex items-center space-x-3">
             {/* Search Button */}
-             <button
-                onClick={() => console.log("Search clicked")}
-                className="p-2 text-zinc-500 hover:text-white rounded-xl hover:bg-zinc-800 cursor-pointer transition-colors"
-                aria-label="Search"
-              >
-                  <Search className="h-5 w-5" />
-              </button>
+            <button
+              onClick={() => console.log("Search clicked")}
+              className="p-2 text-zinc-500 hover:text-white rounded-xl hover:bg-zinc-800 cursor-pointer transition-colors"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </button>
 
-              {/* Love / Favorites Button */}
-              <button
-                  onClick={() => console.log("Love clicked")}
-                  className="p-2 text-zinc-500 hover:text-red-500 rounded-xl hover:bg-zinc-800 cursor-pointer transition-colors"
-                  aria-label="Favorites"
-                  >
-                      <Heart className="h-5 w-5" />
-              </button>
+            {/* Love / Favorites Button */}
+            <button
+              onClick={() => console.log("Love clicked")}
+              className="p-2 text-zinc-500 hover:text-red-500 rounded-xl hover:bg-zinc-800 cursor-pointer transition-colors"
+              aria-label="Favorites"
+            >
+              <Heart className="h-5 w-5" />
+            </button>
 
-               {/* System Notification bell */}
+            {/* System Notification bell */}
             {systemAlert && (
               <div className="relative">
                 <Link
@@ -92,13 +92,13 @@ export default function SuperAdminLayout({
               </div>
             )}
 
-              {/* Messages Button */}
+            {/* Messages Button */}
             <button
               onClick={() => router.push("/admin/chat")}
               className="p-2 text-zinc-500 hover:text-white rounded-xl hover:bg-zinc-800 relative cursor-pointer transition-colors"
               aria-label="Messages"
             >
-              <MessageCircleMore  className="h-5 w-5" />
+              <MessageCircleMore className="h-5 w-5" />
               <span className="absolute -top-1 -right-1 h-3.5 w-3.5 flex items-center justify-center rounded-full bg-orange-500 text-[8px] font-bold text-white border-2 border-[#121214]">
                 1
               </span>
@@ -109,7 +109,7 @@ export default function SuperAdminLayout({
               <button
                 onClick={() => setProfileOpen(!profileOpen)}
                 className="flex items-center space-x-3 p-1.5 rounded-xl hover:bg-zinc-800/60 transition-all focus:outline-none"
-              >    
+              >
 
                 <div className="hidden md:flex flex-col text-left">
                   <span className="text-xs font-bold text-white leading-tight">
@@ -120,7 +120,7 @@ export default function SuperAdminLayout({
                   </span>
                 </div>
 
-                 {/* User avatar mockup */}
+                {/* User avatar mockup */}
                 <div className="relative w-8 h-8 rounded-full border border-zinc-700 bg-zinc-800 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-xs font-bold text-white uppercase">
                     SJ

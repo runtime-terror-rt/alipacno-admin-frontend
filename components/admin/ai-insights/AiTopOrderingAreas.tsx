@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 interface OrderingArea {
   name: string;
@@ -31,9 +32,9 @@ const AiTopOrderingAreas = () => {
           <h2 className="text-base font-bold text-white tracking-tight">Top Ordering Areas</h2>
           <span className="text-xs text-zinc-400 font-normal">(by Region)</span>
         </div>
-        <button className="flex items-center gap-0.5 text-xs text-[#f9671a] font-medium hover:brightness-110 transition-all">
+        <Link href="/admin/orders" className="flex items-center gap-0.5 text-xs text-[#f9671a] font-medium hover:brightness-110 transition-all">
           View all <ChevronRight size={14} className="mt-0.5" />
-        </button>
+        </Link>
       </div>
 
       {/* Styled Boxed Table Layout */}
